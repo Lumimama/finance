@@ -1,6 +1,6 @@
 # finance
 
-Finance tooling I built to work through problems I deal with anyway — variance commentary, a 13-week cash forecast, and a board metrics pack.
+Finance tooling I built for work that's already part of the job — variance commentary, a 13-week cash forecast, and a board metrics pack.
 
 Three ideas run through all of them:
 
