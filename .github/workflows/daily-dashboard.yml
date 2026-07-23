@@ -1,0 +1,95 @@
+name: Daily dashboard refresh
+
+# Rebuilds the dashboards and publishes them to GitHub Pages.
+#
+# Runs on a weekday-morning schedule, on every push to main, and on demand.
+# The scheduled run is the one that matters: it means the page at
+# lumimama.github.io/finance is regenerated from source rather than being a
+# snapshot someone remembered to update.
+#
+# NOTE ON THE COMMITTED DATA: the sample generators are seeded, so a scheduled
+# run against unchanged inputs produces byte-identical output and commits
+# nothing. That is correct behaviour, not a broken workflow -- it is also a
+# useful canary, because a run that suddenly *does* produce a diff means the
+# pipeline changed. Point `fetch-data` at a live source and the daily commits
+# start appearing.
+
+on:
+  schedule:
+    # 12:00 UTC on weekdays = 08:00 ET / 07:00 CT. Cron here is always UTC.
+    - cron: "0 12 * * 1-5"
+  push:
+    branches: [main]
+  workflow_dispatch:        # manual "Run workflow" button
+
+permissions:
+  contents: write           # required to commit regenerated dashboards
+
+concurrency:
+  group: daily-dashboard
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r variance-narrator/requirements.txt
+
+      # ------------------------------------------------------------------
+      # Swap this step for a real source when you have one: a Stripe export,
+      # a Google Sheet, a warehouse query. Everything downstream is unchanged
+      # -- the pipeline only cares that the CSVs in each data/ folder are
+      # current. Put any credentials in repository Secrets, never in this file.
+      # ------------------------------------------------------------------
+      - name: Fetch data
+        run: |
+          echo "No live source configured -- regenerating seeded sample data."
+          cd cash-forecast-13w && python make_sample_data.py && cd ..
+          cd board-metrics     && python make_sample_data.py && cd ..
+          cd variance-narrator && python make_sample_data.py && cd ..
+
+      - name: Rebuild dashboards
+        run: |
+          cd cash-forecast-13w
+          python cash_forecast.py --min-cash-floor 6000000 \
+            --html examples/forecast.html --csv examples/forecast.csv
+          python cash_forecast.py --min-cash-floor 6000000 > examples/base-case.txt
+          python cash_forecast.py --collections-slip 14 --revenue-haircut 0.10 \
+            --min-cash-floor 6000000 > examples/stress-case.txt
+          cd ../board-metrics
+          python board_metrics.py --html examples/dashboard.html
+          python board_metrics.py > examples/metrics-output.txt
+          cd ../variance-narrator
+          python variance_narrator.py --dry-run > examples/dry-run-2026-03.txt
+
+      # A dashboard that silently renders wrong numbers is worse than one that
+      # fails loudly, so the build breaks if the ARR walk stops footing.
+      - name: Verify invariants
+        run: |
+          cd board-metrics
+          python board_metrics.py | grep -q "ties" \
+            || { echo "::error::ARR walk does not foot -- refusing to publish"; exit 1; }
+          echo "ARR walk ties."
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes -- inputs produced identical output."
+            exit 0
+          fi
+          git add -A
+          git commit -m "Daily dashboard refresh: $(date -u +%Y-%m-%d)"
+          git push
