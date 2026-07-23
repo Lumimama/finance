@@ -1,0 +1,81 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>13-Week Cash Forecast &middot; 2026-04-06</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --fill:#1f6feb18; --grid:#e6e9ee; --neg:#b3261e;
+           --pos:#0f7b3f; --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --fill:#58a6ff22; --grid:#232a33; --neg:#ff7b72; --pos:#3fb950;
+             --card:#141a22; --bd:#232a33; }
+  }
+  body { margin:0; padding:32px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:960px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  .sub { color:var(--mut); font-size:13px; margin-bottom:28px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+           gap:12px; margin-bottom:28px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:14px 16px; }
+  .kpi .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:19px; font-weight:600; margin-top:4px;
+             font-variant-numeric:tabular-nums; }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; margin-bottom:28px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .floor { stroke:var(--neg); stroke-width:1.5; stroke-dasharray:5 4; }
+  .area { fill:var(--fill); }
+  .cash { fill:none; stroke:var(--line); stroke-width:2.5;
+           stroke-linejoin:round; stroke-linecap:round; }
+  .trough { fill:var(--neg); }
+  .tick { fill:var(--mut); font-size:11px; }
+  .lbl-floor { fill:var(--neg); font-size:11px; }
+  .lbl-trough { fill:var(--neg); font-size:11px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { padding:8px 12px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .b { font-weight:600; } .neg { color:var(--neg); } .pos { color:var(--pos); }
+  footer { color:var(--mut); font-size:12px; margin-top:24px; }
+</style>
+<div class="wrap">
+  <h1>13-Week Cash Forecast</h1>
+  <div class="sub">Direct method &middot; as of 2026-04-06 &middot;
+    synthetic data</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Opening</div><div class="v">$14,850,000</div></div>
+    <div class="kpi"><div class="k">Week 13</div><div class="v">$11,288,257</div></div>
+    <div class="kpi"><div class="k">Low point</div><div class="v">$11,288,257</div></div>
+    <div class="kpi"><div class="k">Avg weekly burn</div><div class="v">$273,980</div></div>
+    <div class="kpi"><div class="k">Runway</div><div class="v">41.2 wks</div></div>
+  </div>
+
+  <div class="chart">
+    <svg viewBox="0 0 900 340" role="img" aria-label="Projected cash balance by week">
+      <line x1="80" y1="296.0" x2="870" y2="296.0" class="grid"/><text x="70" y="300.0" text-anchor="end" class="tick">$4.5M</text><line x1="80" y1="228.0" x2="870" y2="228.0" class="grid"/><text x="70" y="232.0" text-anchor="end" class="tick">$7.7M</text><line x1="80" y1="160.0" x2="870" y2="160.0" class="grid"/><text x="70" y="164.0" text-anchor="end" class="tick">$10.9M</text><line x1="80" y1="92.0" x2="870" y2="92.0" class="grid"/><text x="70" y="96.0" text-anchor="end" class="tick">$14.1M</text><line x1="80" y1="24.0" x2="870" y2="24.0" class="grid"/><text x="70" y="28.0" text-anchor="end" class="tick">$17.3M</text>
+      <polygon class="area" points="80,296.0 80.0,58.5 145.8,74.5 211.7,55.4 277.5,93.2 343.3,68.5 409.2,93.2 475.0,90.2 540.8,108.8 606.7,115.8 672.5,106.6 738.3,132.8 804.2,128.4 870.0,151.7 870.0,296.0"/>
+      <polyline class="cash" points="80.0,58.5 145.8,74.5 211.7,55.4 277.5,93.2 343.3,68.5 409.2,93.2 475.0,90.2 540.8,108.8 606.7,115.8 672.5,106.6 738.3,132.8 804.2,128.4 870.0,151.7"/>
+      <line x1="80" y1="264.6" x2="870" y2="264.6" class="floor"/><text x="870" y="257.6" text-anchor="end" class="lbl-floor">floor $6,000,000</text>
+      <circle cx="870.0" cy="151.7" r="5" class="trough"/><text x="862.0" y="173.7" text-anchor="end" class="lbl-trough">low $11,288,257</text>
+      <text x="80.0" y="324" text-anchor="middle" class="tick">W1</text><text x="145.8" y="324" text-anchor="middle" class="tick">W2</text><text x="211.7" y="324" text-anchor="middle" class="tick">W3</text><text x="277.5" y="324" text-anchor="middle" class="tick">W4</text><text x="343.3" y="324" text-anchor="middle" class="tick">W5</text><text x="409.2" y="324" text-anchor="middle" class="tick">W6</text><text x="475.0" y="324" text-anchor="middle" class="tick">W7</text><text x="540.8" y="324" text-anchor="middle" class="tick">W8</text><text x="606.7" y="324" text-anchor="middle" class="tick">W9</text><text x="672.5" y="324" text-anchor="middle" class="tick">W10</text><text x="738.3" y="324" text-anchor="middle" class="tick">W11</text><text x="804.2" y="324" text-anchor="middle" class="tick">W12</text><text x="870.0" y="324" text-anchor="middle" class="tick">W13</text>
+    </svg>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Wk</th><th>Ending</th><th class="n">Collections</th>
+      <th class="n">AP</th><th class="n">Payroll</th><th class="n">Other</th>
+      <th class="n">Net</th><th class="n">Closing</th></tr></thead>
+    <tbody><tr><td>1</td><td>2026-04-12</td><td class='n'>$1,052,175</td><td class='n'>-$246,147</td><td class='n'>$0</td><td class='n'>$0</td><td class='n pos'>$806,028</td><td class='n b'>$15,656,028</td></tr><tr><td>2</td><td>2026-04-19</td><td class='n'>$895,868</td><td class='n'>-$156,728</td><td class='n'>-$1,490,000</td><td class='n'>$0</td><td class='n neg'>-$750,860</td><td class='n b'>$14,905,168</td></tr><tr><td>3</td><td>2026-04-26</td><td class='n'>$1,187,746</td><td class='n'>-$289,841</td><td class='n'>$0</td><td class='n'>$0</td><td class='n pos'>$897,905</td><td class='n b'>$15,803,073</td></tr><tr><td>4</td><td>2026-05-03</td><td class='n'>$311,126</td><td class='n'>-$353,473</td><td class='n'>-$1,586,000</td><td class='n'>-$142,000</td><td class='n neg'>-$1,770,347</td><td class='n b'>$14,032,726</td></tr><tr><td>5</td><td>2026-05-10</td><td class='n'>$1,442,184</td><td class='n'>-$198,072</td><td class='n'>$0</td><td class='n'>-$88,000</td><td class='n pos'>$1,156,112</td><td class='n b'>$15,188,839</td></tr><tr><td>6</td><td>2026-05-17</td><td class='n'>$749,314</td><td class='n'>-$414,846</td><td class='n'>-$1,490,000</td><td class='n'>$0</td><td class='n neg'>-$1,155,532</td><td class='n b'>$14,033,307</td></tr><tr><td>7</td><td>2026-05-24</td><td class='n'>$200,931</td><td class='n'>-$61,993</td><td class='n'>$0</td><td class='n'>$0</td><td class='n pos'>$138,938</td><td class='n b'>$14,172,245</td></tr><tr><td>8</td><td>2026-05-31</td><td class='n'>$737,646</td><td class='n'>-$119,949</td><td class='n'>-$1,490,000</td><td class='n'>$0</td><td class='n neg'>-$872,304</td><td class='n b'>$13,299,942</td></tr><tr><td>9</td><td>2026-06-07</td><td class='n'>$58,883</td><td class='n'>-$61,826</td><td class='n'>-$96,000</td><td class='n'>-$230,000</td><td class='n neg'>-$328,943</td><td class='n b'>$12,970,998</td></tr><tr><td>10</td><td>2026-06-14</td><td class='n'>$522,813</td><td class='n'>-$91,396</td><td class='n'>$0</td><td class='n'>$0</td><td class='n pos'>$431,416</td><td class='n b'>$13,402,415</td></tr><tr><td>11</td><td>2026-06-21</td><td class='n'>$617,671</td><td class='n'>-$89,090</td><td class='n'>-$1,490,000</td><td class='n'>-$265,000</td><td class='n neg'>-$1,226,419</td><td class='n b'>$12,175,995</td></tr><tr><td>12</td><td>2026-06-28</td><td class='n'>$427,881</td><td class='n'>-$220,745</td><td class='n'>$0</td><td class='n'>$0</td><td class='n pos'>$207,136</td><td class='n b'>$12,383,132</td></tr><tr><td>13</td><td>2026-07-05</td><td class='n'>$721,125</td><td class='n'>$0</td><td class='n'>-$1,586,000</td><td class='n'>-$230,000</td><td class='n neg'>-$1,094,875</td><td class='n b'>$11,288,257</td></tr></tbody>
+  </table></div>
+
+  <footer>Generated by cash_forecast.py. All figures synthetic.</footer>
+</div>

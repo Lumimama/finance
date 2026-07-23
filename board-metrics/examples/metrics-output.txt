@@ -1,0 +1,44 @@
+==========================================================================
+BOARD METRICS  |  trailing 12 months through 2026-06
+==========================================================================
+
+GROWTH
+--------------------------------------------------------------------------
+  ARR                              $43.1M   from $28.6M
+  YoY growth                        50.9%   [strong]
+  Net new ARR                      $14.5M
+  Customers                           572
+  ARR per employee                  161K   [ok]
+
+RETENTION
+--------------------------------------------------------------------------
+  Net revenue retention            111.4%   [strong]
+  Gross revenue retention           91.3%   [strong]
+  Logo retention                    95.5%
+
+EFFICIENCY
+--------------------------------------------------------------------------
+  Burn multiple                      0.69   [strong]
+  CAC payback (trailing Q)        26.6 mo   [watch]
+  Magic number (trailing Q)          0.91   [strong]
+  Gross margin                      77.8%   [strong]
+  Rule of 40                           23   [ok]
+
+CAPITAL
+--------------------------------------------------------------------------
+  Cash                             $26.8M
+  Net burn (12mo)                   $10.0M
+  Average monthly burn              $0.8M
+  Runway                          37.5 mo   [strong]
+
+ARR WALK  (trailing 12 months)
+--------------------------------------------------------------------------
+  Beginning ARR                    $28.6M
+  + New                            $10.7M
+  + Expansion                       $7.0M
+  - Contraction                     $1.2M
+  - Churn                           $2.0M
+                             ------------
+  Ending ARR                       $43.1M
+                                     ties
+

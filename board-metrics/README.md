@@ -1,0 +1,101 @@
+# Board Metrics
+
+Turns a monthly operating file into the metrics page of a board deck — the twelve numbers every SaaS board asks for, computed the same way every month.
+
+**No dependencies.** Python 3.10+, standard library only.
+
+```bash
+python board_metrics.py
+python board_metrics.py --html dashboard.html
+```
+
+## The actual problem
+
+The formulas aren't hard. Agreeing on them once and computing them identically every month is. Net retention, burn multiple, CAC payback, and magic number each have several defensible definitions, and a metrics pack whose definitions live only in someone's head quietly changes meaning the first time someone else builds it.
+
+So each metric here is a function with its definition in the docstring:
+
+```python
+def net_revenue_retention(rows):
+    """NRR over the window, chain-linked from monthly rates.
+
+    Definition: for each month, (expansion - contraction - churn) / beginning
+    ARR, compounded across the window. New business is excluded -- NRR
+    measures what happens to the base you already had, and mixing new logos
+    in is the most common way this metric gets inflated.
+    """
+```
+
+That comment is the deliverable as much as the number is.
+
+## Output
+
+```
+BOARD METRICS  |  trailing 12 months through 2026-06
+==========================================================================
+
+GROWTH
+  ARR                              $43.1M   from $28.6M
+  YoY growth                        50.9%   [strong]
+  Net new ARR                      $14.5M
+  ARR per employee                   161K   [ok]
+
+RETENTION
+  Net revenue retention            111.4%   [strong]
+  Gross revenue retention           91.3%   [strong]
+  Logo retention                    95.5%
+
+EFFICIENCY
+  Burn multiple                      0.69   [strong]
+  CAC payback (trailing Q)        26.6 mo   [watch]
+  Magic number (trailing Q)          0.91   [strong]
+  Gross margin                      77.8%   [strong]
+  Rule of 40                           23   [ok]
+
+CAPITAL
+  Cash                             $26.8M
+  Runway                          37.5 mo   [strong]
+
+ARR WALK  (trailing 12 months)
+  Beginning ARR                    $28.6M
+  + New                            $10.7M
+  + Expansion                       $7.0M
+  - Contraction                     $1.2M
+  - Churn                           $2.0M
+                             ------------
+  Ending ARR                       $43.1M
+                                     ties
+```
+
+`--html dashboard.html` writes a self-contained page — KPI tiles benchmarked green/amber, an ARR trend, an ARR-walk waterfall, and the monthly detail table. No CDN, no build step, follows the reader's light/dark theme. See [`examples/dashboard.html`](examples/dashboard.html).
+
+## Three decisions worth explaining
+
+**The walk has to tie, and the report says whether it did.** Ending ARR must equal beginning plus new plus expansion less contraction less churn. It's checked in the generator and re-checked at print time, and the output says `ties` or names the gap. A metrics pack built on a walk that doesn't foot is worse than no metrics pack, and it's the first thing a diligence team tests.
+
+**Magic number has no ×4 here, on purpose.** The textbook form takes the change in *quarterly recognized revenue* and annualizes it. Net new ARR is already an annual figure, so annualizing it again inflates the result roughly fourfold. That's how a company ends up reporting a magic number near 3.0 while its CAC payback says the opposite. I hit exactly this while building it — the first version printed 3.62 next to a 26-month payback, which is the kind of internal contradiction that gets caught in a board meeting rather than a spreadsheet.
+
+**Burn excludes financing.** A Series C is not operating performance. Folding a raise into net burn makes burn multiple and runway both lie, and in the flattering direction.
+
+## Reading the two that disagree
+
+Burn multiple is 0.69 (strong) while CAC payback is 26.6 months (watch). That isn't an error — it's the actual shape of this business, and the two metrics are measuring different things:
+
+- **CAC payback** here charges *all* of S&M against *new logos only*, including the spend that produced expansion. Deliberately conservative.
+- **Burn multiple** counts net new ARR, which includes that expansion.
+
+With NRR at 111%, a large share of growth comes from the installed base and costs comparatively little to acquire. So capital efficiency looks strong while new-logo acquisition looks expensive. Both are true, and a board should see both rather than whichever one flatters.
+
+## Benchmarks
+
+The `[strong] / [ok] / [watch]` tags come from one small function with thresholds visible in the call sites — growth ≥40%, NRR ≥110%, GRR ≥90%, burn multiple ≤1.0, CAC payback ≤12 months, gross margin ≥75%, Rule of 40 ≥40. They're conventional growth-stage B2B software marks, and they're there to be argued with and edited, not treated as truth.
+
+## Data
+
+Fully synthetic, generated by [`make_sample_data.py`](make_sample_data.py), seeded and reproducible. 24 months of a B2B software company going from roughly $18M to $43M ARR, with net retention around 111%, improving burn efficiency, and a Series C landing mid-window. The generator asserts the ARR walk ties in every month before writing the file.
+
+Point it at your own data by matching the schema in `data/monthly_metrics.csv`.
+
+## Notes
+
+Built with Claude as a pair.

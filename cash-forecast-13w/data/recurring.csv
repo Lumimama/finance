@@ -1,0 +1,7 @@
+name,category,amount,cadence,day
+US payroll,payroll,1180000,semimonthly,
+Payroll taxes & benefits,payroll,310000,semimonthly,
+Contractor payments,payroll,96000,monthly,1
+Office lease,fixed,142000,monthly,1
+Debt service,financing,88000,monthly,5
+Estimated tax payment,tax,265000,quarterly,15

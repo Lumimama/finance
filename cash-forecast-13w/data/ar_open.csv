@@ -1,0 +1,126 @@
+invoice_id,customer,segment,amount,due_date
+INV-4214,Junction Media,mid_market,46383.78,2026-03-16
+INV-4222,Ninth Street,smb,3650.59,2026-03-16
+INV-4201,Redshift Partners,mid_market,24608.27,2026-03-17
+INV-4207,Junction Media,mid_market,39090.07,2026-03-17
+INV-4228,Tidewater Co,mid_market,30402.24,2026-03-17
+INV-4244,Northwind Logistics,enterprise,292665.05,2026-03-18
+INV-4254,Copperfield,smb,8970.9,2026-03-18
+INV-4299,Quill,smb,4950.42,2026-03-20
+INV-4205,Lumen Freight,mid_market,30566.68,2026-03-22
+INV-4301,Silverline Retail,enterprise,333509.25,2026-03-22
+INV-4320,Meridian Bank,enterprise,281036.22,2026-03-22
+INV-4239,Tidewater Co,mid_market,36532.59,2026-03-23
+INV-4260,Tidewater Co,mid_market,60599.78,2026-03-24
+INV-4269,Silverline Retail,enterprise,313226.19,2026-03-24
+INV-4242,Brightpath,mid_market,53257.82,2026-03-26
+INV-4297,Maple & Co,smb,2875.81,2026-03-27
+INV-4247,Brightpath,mid_market,64464.29,2026-03-28
+INV-4263,Meridian Bank,enterprise,187715.55,2026-03-29
+INV-4256,Pinewood Analytics,mid_market,30082.02,2026-03-31
+INV-4306,Foxglove,smb,5143.91,2026-03-31
+INV-4238,Fairhaven Group,enterprise,280629.24,2026-04-03
+INV-4303,Ridgeline,smb,10773.07,2026-04-03
+INV-4313,Cascade Health,enterprise,319609.32,2026-04-03
+INV-4315,Halcyon Energy,enterprise,209813.04,2026-04-04
+INV-4232,Wren Studio,smb,7244.83,2026-04-05
+INV-4233,Redshift Partners,mid_market,32089.89,2026-04-05
+INV-4219,Ridgeline,smb,7786.96,2026-04-09
+INV-4237,Quill,smb,11631.69,2026-04-09
+INV-4293,Redshift Partners,mid_market,40294.36,2026-04-09
+INV-4310,Quill,smb,3412.89,2026-04-09
+INV-4268,Brightpath,mid_market,44731.58,2026-04-11
+INV-4274,Alder & Finch,mid_market,63688.19,2026-04-11
+INV-4277,Meridian Bank,enterprise,186836.15,2026-04-12
+INV-4300,Pinewood Analytics,mid_market,37337.15,2026-04-13
+INV-4224,Brightpath,mid_market,48818.36,2026-04-14
+INV-4264,Silverline Retail,enterprise,263609.8,2026-04-14
+INV-4285,Brightpath,mid_market,42240.73,2026-04-14
+INV-4287,Alder & Finch,mid_market,43802.37,2026-04-14
+INV-4296,Redshift Partners,mid_market,31844.11,2026-04-14
+INV-4272,Kestrel Systems,mid_market,35154.77,2026-04-15
+INV-4292,Northwind Logistics,enterprise,220947.79,2026-04-15
+INV-4202,Blue Harbor,smb,10558.22,2026-04-16
+INV-4218,Wren Studio,smb,4184.98,2026-04-16
+INV-4321,Alder & Finch,mid_market,22202.65,2026-04-17
+INV-4246,Northwind Logistics,enterprise,324553.26,2026-04-18
+INV-4251,Halcyon Energy,enterprise,235458.93,2026-04-18
+INV-4279,Orchard Labs,mid_market,27562.01,2026-04-18
+INV-4281,Brightpath,mid_market,29911.21,2026-04-18
+INV-4284,Copperfield,smb,3588.12,2026-04-21
+INV-4316,Thistle,smb,10778.48,2026-04-21
+INV-4213,Halcyon Energy,enterprise,131751.77,2026-04-22
+INV-4271,Ninth Street,smb,11595.26,2026-04-22
+INV-4314,Lumen Freight,mid_market,40820.33,2026-04-23
+INV-4308,Kestrel Systems,mid_market,27920.1,2026-04-24
+INV-4324,Silverline Retail,enterprise,136346.59,2026-04-24
+INV-4208,Halcyon Energy,enterprise,192522.93,2026-04-25
+INV-4220,Tidewater Co,mid_market,43350.51,2026-04-25
+INV-4212,Kestrel Systems,mid_market,64900.58,2026-04-27
+INV-4267,Junction Media,mid_market,24779.39,2026-04-27
+INV-4276,Ninth Street,smb,2813.85,2026-04-27
+INV-4204,Kestrel Systems,mid_market,27833.6,2026-04-29
+INV-4302,Tidewater Co,mid_market,48291.54,2026-04-29
+INV-4323,Kestrel Systems,mid_market,52633.92,2026-04-29
+INV-4295,Lumen Freight,mid_market,49245.3,2026-04-30
+INV-4200,Vantage Ops,mid_market,29386.33,2026-05-01
+INV-4252,Vantage Ops,mid_market,57284.89,2026-05-01
+INV-4223,Junction Media,mid_market,20284.85,2026-05-02
+INV-4261,Kestrel Systems,mid_market,35191.97,2026-05-02
+INV-4216,Tidewater Co,mid_market,21728.62,2026-05-03
+INV-4265,Maple & Co,smb,9914.77,2026-05-03
+INV-4319,Blue Harbor,smb,11955.82,2026-05-03
+INV-4282,Lumen Freight,mid_market,34500.88,2026-05-04
+INV-4248,Pinewood Analytics,mid_market,20464.59,2026-05-06
+INV-4257,Silverline Retail,enterprise,235856.31,2026-05-06
+INV-4275,Vantage Ops,mid_market,47126.61,2026-05-06
+INV-4215,Blue Harbor,smb,13887.85,2026-05-08
+INV-4230,Halcyon Energy,enterprise,113949.54,2026-05-08
+INV-4294,Brightpath,mid_market,46474.46,2026-05-08
+INV-4312,Tidewater Co,mid_market,60444.18,2026-05-08
+INV-4231,Fairhaven Group,enterprise,182591.54,2026-05-09
+INV-4317,Vantage Ops,mid_market,67625.28,2026-05-09
+INV-4225,Kestrel Systems,mid_market,45472.28,2026-05-11
+INV-4289,Pinewood Analytics,mid_market,21318.59,2026-05-11
+INV-4262,Lumen Freight,mid_market,48381.73,2026-05-13
+INV-4241,Junction Media,mid_market,32921.45,2026-05-17
+INV-4258,Thistle,smb,12169.67,2026-05-19
+INV-4209,Halcyon Energy,enterprise,174989.46,2026-05-20
+INV-4234,Tidewater Co,mid_market,54497.9,2026-05-20
+INV-4286,Tidewater Co,mid_market,65499.53,2026-05-20
+INV-4288,Ninth Street,smb,9023.07,2026-05-21
+INV-4240,Silverline Retail,enterprise,206710.7,2026-05-22
+INV-4243,Vantage Ops,mid_market,63562.62,2026-05-22
+INV-4210,Halcyon Energy,enterprise,288956.09,2026-05-28
+INV-4278,Kestrel Systems,mid_market,44105.24,2026-05-28
+INV-4270,Junction Media,mid_market,31246.5,2026-05-31
+INV-4250,Foxglove,smb,7931.3,2026-06-01
+INV-4311,Redshift Partners,mid_market,46106.15,2026-06-01
+INV-4229,Wren Studio,smb,4627.04,2026-06-02
+INV-4298,Ninth Street,smb,3115.93,2026-06-02
+INV-4304,Cascade Health,enterprise,182154.61,2026-06-03
+INV-4291,Brightpath,mid_market,38427.27,2026-06-05
+INV-4273,Halcyon Energy,enterprise,166508.82,2026-06-06
+INV-4211,Alder & Finch,mid_market,66173.56,2026-06-07
+INV-4236,Brightpath,mid_market,27944.25,2026-06-07
+INV-4255,Copperfield,smb,13565.21,2026-06-07
+INV-4206,Vantage Ops,mid_market,41073.5,2026-06-08
+INV-4245,Blue Harbor,smb,11560.57,2026-06-08
+INV-4203,Bayard,smb,8168.33,2026-06-09
+INV-4266,Lumen Freight,mid_market,52470.46,2026-06-09
+INV-4290,Northwind Logistics,enterprise,236185.18,2026-06-09
+INV-4217,Junction Media,mid_market,51060.35,2026-06-10
+INV-4259,Tidewater Co,mid_market,63579.85,2026-06-10
+INV-4307,Kestrel Systems,mid_market,25773.81,2026-06-10
+INV-4221,Cascade Health,enterprise,301378.99,2026-06-12
+INV-4280,Ridgeline,smb,7004.09,2026-06-13
+INV-4309,Junction Media,mid_market,19441.88,2026-06-13
+INV-4227,Blue Harbor,smb,3040.93,2026-06-14
+INV-4283,Northwind Logistics,enterprise,167599.39,2026-06-14
+INV-4235,Silverline Retail,enterprise,232783.96,2026-06-15
+INV-4249,Orchard Labs,mid_market,25631.88,2026-06-15
+INV-4305,Cascade Health,enterprise,247612.18,2026-06-16
+INV-4226,Kestrel Systems,mid_market,29041.38,2026-06-17
+INV-4322,Fairhaven Group,enterprise,210277.4,2026-06-18
+INV-4253,Orchard Labs,mid_market,26943.31,2026-06-20
+INV-4318,Maple & Co,smb,11618.52,2026-06-22

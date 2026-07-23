@@ -1,0 +1,186 @@
+==============================================================================
+VARIANCE ANALYSIS  |  2026-03
+==============================================================================
+                                Budget        Actual      Variance         %
+------------------------------------------------------------------------------
+Revenue                     $3,290,000    $3,470,500      $180,500     +5.5%
+Cost of revenue               $768,300      $945,080      $176,780    +23.0%
+Operating expense           $3,615,000    $3,611,153       -$3,847     -0.1%
+------------------------------------------------------------------------------
+Gross profit                $2,521,700    $2,525,420        $3,720
+  gross margin                  76.6%         72.8%
+Operating income           -$1,093,300   -$1,085,733        $7,567
+
+Material variances  (6 of 18 lines cleared both $25,000 and 10%)
+------------------------------------------------------------------------------
+  [UNF] Cost of revenue  Hosting & infrastructure           $176,877    +43.1%
+  [FAV] Marketing        Paid acquisition                  -$138,932    -42.1%
+  [FAV] Engineering      Engineering payroll               -$128,670    -10.7%
+  [UNF] G&A              Professional fees                  $113,247   +103.0%
+  [UNF] Engineering      Contractors                        $105,444    +87.9%
+  [UNF] Sales            Commissions                         $47,024    +21.9%
+
+==============================================================================
+PROMPT  (--dry-run: no API call made)
+==============================================================================
+Draft the variance commentary for 2026-03.
+
+Here is the complete analysis. Every figure you cite must come from
+this object.
+
+```json
+{
+  "period": "2026-03",
+  "thresholds": {
+    "usd": 25000,
+    "pct": 0.1
+  },
+  "summary": {
+    "revenue": {
+      "budget": 3290000.0,
+      "actual": 3470500.0,
+      "variance": 180500.0,
+      "variance_pct": 0.05486322188449848
+    },
+    "cost_of_revenue": {
+      "budget": 768300.0,
+      "actual": 945080.0,
+      "variance": 176780.0,
+      "variance_pct": 0.23009241181830015
+    },
+    "gross_profit": {
+      "budget": 2521700.0,
+      "actual": 2525420.0,
+      "variance": 3720.0
+    },
+    "gross_margin_budget": 0.7664741641337386,
+    "gross_margin_actual": 0.7276818902175479,
+    "operating_expense": {
+      "budget": 3615000.0,
+      "actual": 3611153.0,
+      "variance": -3847.0,
+      "variance_pct": -0.00106417704011065
+    },
+    "operating_income": {
+      "budget": -1093300.0,
+      "actual": -1085733.0,
+      "variance": 7567.0
+    }
+  },
+  "departments": [
+    {
+      "department": "Revenue",
+      "budget": 3290000.0,
+      "actual": 3470500.0,
+      "variance": 180500.0,
+      "variance_pct": 0.05486322188449848,
+      "favorable": true
+    },
+    {
+      "department": "Cost of revenue",
+      "budget": 768300.0,
+      "actual": 945080.0,
+      "variance": 176780.0,
+      "variance_pct": 0.23009241181830015,
+      "favorable": false
+    },
+    {
+      "department": "Marketing",
+      "budget": 689200.0,
+      "actual": 553372.0,
+      "variance": -135828.0,
+      "variance_pct": -0.19708067324434125,
+      "favorable": true
+    },
+    {
+      "department": "G&A",
+      "budget": 585800.0,
+      "actual": 692108.0,
+      "variance": 106308.0,
+      "variance_pct": 0.1814749061113008,
+      "favorable": false
+    },
+    {
+      "department": "Sales",
+      "budget": 921400.0,
+      "actual": 968980.0,
+      "variance": 47580.0,
+      "variance_pct": 0.051638810505752114,
+      "favorable": false
+    },
+    {
+      "department": "Engineering",
+      "budget": 1418600.0,
+      "actual": 1396693.0,
+      "variance": -21907.0,
+      "variance_pct": -0.015442689976032709,
+      "favorable": true
+    }
+  ],
+  "material_variances": [
+    {
+      "department": "Cost of revenue",
+      "account": "Hosting & infrastructure",
+      "account_type": "cogs",
+      "budget": 410000.0,
+      "actual": 586877.0,
+      "variance": 176877.0,
+      "variance_pct": 0.4314073170731707,
+      "favorable": false
+    },
+    {
+      "department": "Marketing",
+      "account": "Paid acquisition",
+      "account_type": "opex",
+      "budget": 330000.0,
+      "actual": 191068.0,
+      "variance": -138932.0,
+      "variance_pct": -0.4210060606060606,
+      "favorable": true
+    },
+    {
+      "department": "Engineering",
+      "account": "Engineering payroll",
+      "account_type": "opex",
+      "budget": 1203600.0,
+      "actual": 1074930.0,
+      "variance": -128670.0,
+      "variance_pct": -0.10690428713858424,
+      "favorable": true
+    },
+    {
+      "department": "G&A",
+      "account": "Professional fees",
+      "account_type": "opex",
+      "budget": 110000.0,
+      "actual": 223247.0,
+      "variance": 113247.0,
+      "variance_pct": 1.0295181818181818,
+      "favorable": false
+    },
+    {
+      "department": "Engineering",
+      "account": "Contractors",
+      "account_type": "opex",
+      "budget": 120000.0,
+      "actual": 225444.0,
+      "variance": 105444.0,
+      "variance_pct": 0.8787,
+      "favorable": false
+    },
+    {
+      "department": "Sales",
+      "account": "Commissions",
+      "account_type": "opex",
+      "budget": 215000.0,
+      "actual": 262024.0,
+      "variance": 47024.0,
+      "variance_pct": 0.21871627906976746,
+      "favorable": false
+    }
+  ],
+  "lines_reviewed": 18,
+  "lines_material": 6
+}
+```
+

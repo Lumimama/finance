@@ -1,0 +1,83 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Board Metrics &middot; 2026-06</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --fill:#1f6feb18; --grid:#e6e9ee; --neg:#b3261e;
+           --pos:#0f7b3f; --card:#fbfcfd; --bd:#e6e9ee; --warnbd:#e0a03a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --fill:#58a6ff22; --grid:#232a33; --neg:#ff7b72; --pos:#3fb950;
+             --card:#141a22; --bd:#232a33; --warnbd:#d29922; }
+  }
+  body { margin:0; padding:32px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:940px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:32px 0 12px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+           gap:12px; margin-top:24px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:14px 16px; }
+  .kpi.good { border-left:3px solid var(--pos); }
+  .kpi.warn { border-left:3px solid var(--warnbd); }
+  .kpi .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:21px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n { font-size:11px; color:var(--mut); margin-top:2px; }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .area { fill:var(--fill); }
+  .arr { fill:none; stroke:var(--line); stroke-width:2.5;
+          stroke-linejoin:round; stroke-linecap:round; }
+  .bar-total { fill:var(--line); } .bar-pos { fill:var(--pos); }
+  .bar-neg { fill:var(--neg); }
+  .tick { fill:var(--mut); font-size:11px; }
+  .barval { fill:var(--fg); font-size:11px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { padding:8px 12px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .neg { color:var(--neg); } .pos { color:var(--pos); }
+  footer { color:var(--mut); font-size:12px; margin-top:28px; }
+</style>
+<div class="wrap">
+  <h1>Board Metrics</h1>
+  <div class="sub">Trailing 12 months through 2026-06 &middot; synthetic data</div>
+
+  <div class="kpis"><div class="kpi good"><div class="k">ARR</div><div class="v">$43.1M</div><div class="n">50.9% YoY</div></div><div class="kpi "><div class="k">Net new ARR</div><div class="v">$14.5M</div><div class="n">trailing 12 mo</div></div><div class="kpi good"><div class="k">Net revenue retention</div><div class="v">111.4%</div><div class="n">expansion net of churn</div></div><div class="kpi good"><div class="k">Gross revenue retention</div><div class="v">91.3%</div><div class="n">no expansion credit</div></div><div class="kpi good"><div class="k">Burn multiple</div><div class="v">0.69</div><div class="n">burn per $1 net new ARR</div></div><div class="kpi warn"><div class="k">CAC payback</div><div class="v">26.6 mo</div><div class="n">trailing quarter</div></div><div class="kpi good"><div class="k">Magic number</div><div class="v">0.91</div><div class="n">trailing quarter</div></div><div class="kpi good"><div class="k">Gross margin</div><div class="v">77.8%</div><div class="n"></div></div><div class="kpi "><div class="k">Rule of 40</div><div class="v">23</div><div class="n">50.9% growth &middot; -28.2% FCF margin</div></div><div class="kpi "><div class="k">Cash</div><div class="v">$26.8M</div><div class="n">$0.8M/mo burn</div></div><div class="kpi good"><div class="k">Runway</div><div class="v">37 mo</div><div class="n">at trailing 3-mo burn</div></div><div class="kpi "><div class="k">ARR per employee</div><div class="v">$161K</div><div class="n">267 people</div></div></div>
+
+  <h2>ARR</h2>
+  <div class="chart">
+    <svg viewBox="0 0 880 250" role="img" aria-label="ARR by month">
+      <line x1="70" y1="210.0" x2="856" y2="210.0" class="grid"/><text x="60" y="214.0" text-anchor="end" class="tick">$27M</text><line x1="70" y1="115.0" x2="856" y2="115.0" class="grid"/><text x="60" y="119.0" text-anchor="end" class="tick">$36M</text><line x1="70" y1="20.0" x2="856" y2="20.0" class="grid"/><text x="60" y="24.0" text-anchor="end" class="tick">$45M</text><polygon class="area" points="70,210.0 70.0,184.4 141.5,172.7 212.9,160.9 284.4,147.8 355.8,135.5 427.3,122.4 498.7,108.9 570.2,97.1 641.6,82.3 713.1,68.2 784.5,53.0 856.0,38.6 856.0,210.0"/>
+      <polyline class="arr" points="70.0,184.4 141.5,172.7 212.9,160.9 284.4,147.8 355.8,135.5 427.3,122.4 498.7,108.9 570.2,97.1 641.6,82.3 713.1,68.2 784.5,53.0 856.0,38.6"/><text x="70.0" y="236" text-anchor="middle" class="tick">25-07</text><text x="212.9" y="236" text-anchor="middle" class="tick">25-09</text><text x="355.8" y="236" text-anchor="middle" class="tick">25-11</text><text x="498.7" y="236" text-anchor="middle" class="tick">26-01</text><text x="641.6" y="236" text-anchor="middle" class="tick">26-03</text><text x="784.5" y="236" text-anchor="middle" class="tick">26-05</text>
+    </svg>
+  </div>
+
+  <h2>ARR walk &mdash; trailing 12 months</h2>
+  <div class="chart">
+    <svg viewBox="0 0 880 260" role="img" aria-label="ARR walk waterfall">
+      <line x1="70" y1="216.0" x2="856" y2="216.0" class="grid"/><text x="60" y="220.0" text-anchor="end" class="tick">$0M</text><line x1="70" y1="118.0" x2="856" y2="118.0" class="grid"/><text x="60" y="122.0" text-anchor="end" class="tick">$24M</text><line x1="70" y1="20.0" x2="856" y2="20.0" class="grid"/><text x="60" y="24.0" text-anchor="end" class="tick">$48M</text><rect x="97.5" y="100.0" width="76.0" height="116.0" class="bar-total" rx="2"/><text x="135.5" y="93.0" text-anchor="middle" class="barval">$28.6M</text><text x="135.5" y="244" text-anchor="middle" class="tick">Beginning</text><rect x="228.5" y="56.5" width="76.0" height="43.6" class="bar-pos" rx="2"/><text x="266.5" y="49.5" text-anchor="middle" class="barval">+$10.7M</text><text x="266.5" y="244" text-anchor="middle" class="tick">New</text><rect x="359.5" y="28.2" width="76.0" height="28.3" class="bar-pos" rx="2"/><text x="397.5" y="21.2" text-anchor="middle" class="barval">+$7.0M</text><text x="397.5" y="244" text-anchor="middle" class="tick">Expansion</text><rect x="490.5" y="28.2" width="76.0" height="4.9" class="bar-neg" rx="2"/><text x="528.5" y="21.2" text-anchor="middle" class="barval">−$1.2M</text><text x="528.5" y="244" text-anchor="middle" class="tick">Contraction</text><rect x="621.5" y="33.0" width="76.0" height="8.0" class="bar-neg" rx="2"/><text x="659.5" y="26.0" text-anchor="middle" class="barval">−$2.0M</text><text x="659.5" y="244" text-anchor="middle" class="tick">Churn</text><rect x="752.5" y="41.0" width="76.0" height="175.0" class="bar-total" rx="2"/><text x="790.5" y="34.0" text-anchor="middle" class="barval">$43.1M</text><text x="790.5" y="244" text-anchor="middle" class="tick">Ending</text>
+    </svg>
+  </div>
+
+  <h2>Monthly detail</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Month</th><th class="n">Ending ARR</th><th class="n">New</th>
+      <th class="n">Expansion</th><th class="n">Contraction</th><th class="n">Churn</th>
+      <th class="n">Customers</th><th class="n">Net burn</th></tr></thead>
+    <tbody><tr><td>2025-07</td><td class='n'>$29.6M</td><td class='n pos'>+$0.8M</td><td class='n pos'>+$0.4M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.1M</td><td class='n'>456</td><td class='n neg'>$-0.9M</td></tr><tr><td>2025-08</td><td class='n'>$30.7M</td><td class='n pos'>+$0.8M</td><td class='n pos'>+$0.5M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.1M</td><td class='n'>464</td><td class='n neg'>$-0.9M</td></tr><tr><td>2025-09</td><td class='n'>$31.8M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.5M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>477</td><td class='n neg'>$-1.1M</td></tr><tr><td>2025-10</td><td class='n'>$33.0M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.6M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>487</td><td class='n neg'>$-0.9M</td></tr><tr><td>2025-11</td><td class='n'>$34.1M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.5M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.1M</td><td class='n'>496</td><td class='n neg'>$-0.9M</td></tr><tr><td>2025-12</td><td class='n'>$35.4M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.5M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>506</td><td class='n neg'>$-0.9M</td></tr><tr><td>2026-01</td><td class='n'>$36.6M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.6M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.1M</td><td class='n'>515</td><td class='n neg'>$-0.8M</td></tr><tr><td>2026-02</td><td class='n'>$37.7M</td><td class='n pos'>+$0.8M</td><td class='n pos'>+$0.6M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>527</td><td class='n neg'>$-0.8M</td></tr><tr><td>2026-03</td><td class='n'>$39.1M</td><td class='n pos'>+$1.0M</td><td class='n pos'>+$0.7M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>540</td><td class='n neg'>$-0.7M</td></tr><tr><td>2026-04</td><td class='n'>$40.4M</td><td class='n pos'>+$0.9M</td><td class='n pos'>+$0.7M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>552</td><td class='n neg'>$-0.8M</td></tr><tr><td>2026-05</td><td class='n'>$41.8M</td><td class='n pos'>+$1.0M</td><td class='n pos'>+$0.7M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>562</td><td class='n neg'>$-0.7M</td></tr><tr><td>2026-06</td><td class='n'>$43.1M</td><td class='n pos'>+$1.0M</td><td class='n pos'>+$0.7M</td><td class='n neg'>-$0.1M</td><td class='n neg'>-$0.2M</td><td class='n'>572</td><td class='n neg'>$-0.7M</td></tr></tbody>
+  </table></div>
+
+  <footer>Generated by board_metrics.py. All figures synthetic.</footer>
+</div>

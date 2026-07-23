@@ -1,0 +1,81 @@
+# finance
+
+Finance tooling I built to work through problems I deal with anyway — variance commentary, a 13-week cash forecast, and a board metrics pack.
+
+Three ideas run through all of them:
+
+**The spreadsheet is the model, and the model should be readable.** Most finance logic isn't complicated, it's just undocumented. Assumptions live in one visible block at the top of the file, not buried six columns into a hidden tab.
+
+**Definitions are the deliverable.** Net retention has four defensible definitions, and a company using two of them across two decks has a credibility problem rather than a spreadsheet problem. Writing the definition next to the arithmetic fixes it permanently.
+
+**AI belongs on the writing, not the arithmetic.** What's material, and the math that gets you there, should be deterministic and auditable. The thousand words explaining it to a board is pattern work — that's where a model earns its place.
+
+All data is synthetic. Python 3.10+.
+
+---
+
+## [variance-narrator](variance-narrator) · budget-vs-actuals → board commentary
+
+Python computes every figure — variance, direction, materiality, rollups — and Claude drafts the narrative from that computed evidence pack. The model never does arithmetic and never sees a number it wasn't handed, which is the only reliable way to stop a variance report from hallucinating one.
+
+```bash
+cd variance-narrator && pip install -r requirements.txt
+python variance_narrator.py --dry-run
+```
+
+`--dry-run` prints the full analysis and the exact prompt, and makes no API call. That's the intended way to read it — the analysis is the part worth auditing, and you shouldn't need a key to audit it.
+
+Two decisions worth calling out: materiality is a **dual test** (a line surfaces only if it clears both a dollar and a percentage threshold — either alone is useless), and favorability is derived from account type, because over budget is good news on revenue and bad news on spend.
+
+## [cash-forecast-13w](cash-forecast-13w) · direct-method 13-week forecast
+
+Built from the AR aging, the AP aging, and the recurring commitments that appear in neither. Reports the low point and the week it lands in, tests it against a covenant floor, and stress-tests runway.
+
+```bash
+cd cash-forecast-13w
+python cash_forecast.py --min-cash-floor 6000000
+python cash_forecast.py --collections-slip 14 --revenue-haircut 0.10
+```
+
+| | Base | Collections +14 days, −10% |
+|---|---|---|
+| Ending cash | $11,288,257 | $9,361,615 |
+| Runway | 41.2 wks | 22.2 wks |
+
+Two weeks of collections slippage and a ten percent haircut cuts runway roughly in half. That's a far better argument for tightening collections than an assertion is.
+
+No dependencies.
+
+## [board-metrics](board-metrics) · the twelve numbers a SaaS board asks for
+
+NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each computed by a function whose docstring states which definition it uses. The ARR walk has to tie, and the report says whether it did.
+
+```bash
+cd board-metrics
+python board_metrics.py
+python board_metrics.py --html dashboard.html
+```
+
+Magic number here has no ×4, on purpose: the textbook form annualizes a change in quarterly *recognized revenue*, and net new ARR is already annual. Annualizing twice is how a company ends up reporting a magic number near 3.0 next to a 26-month CAC payback.
+
+No dependencies.
+
+---
+
+## Dashboards
+
+`cash-forecast-13w` and `board-metrics` both write a self-contained HTML page — no CDN, no build step, theme-aware, opens straight from disk.
+
+GitHub renders `.html` as source rather than as a page, so to view one, download it and open it locally:
+
+```bash
+python board_metrics.py --html dashboard.html && open dashboard.html
+```
+
+## A note on the data
+
+Every figure in this repository is fabricated. Each project ships a seeded `make_sample_data.py` that regenerates its dataset exactly, so the numbers are reproducible without being anyone's.
+
+The shapes are realistic — enterprise-weighted AR that pays late, semi-monthly payroll as the dominant outflow, net retention around 111% — because logic tested against unrealistic data isn't tested.
+
+<sub>Built with Claude as a pair, which is the workflow rather than a disclaimer.</sub>

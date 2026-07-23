@@ -1,0 +1,55 @@
+period,department,account,account_type,budget,actual
+2026-01,Revenue,Subscription revenue,revenue,3050000,2991323
+2026-01,Revenue,Services revenue,revenue,240000,243666
+2026-01,Cost of revenue,Hosting & infrastructure,cogs,410000,400714
+2026-01,Cost of revenue,Support payroll,cogs,265000,267442
+2026-01,Cost of revenue,Third-party software,cogs,88000,86124
+2026-01,Sales,Sales payroll,opex,620000,614856
+2026-01,Sales,Commissions,opex,215000,223486
+2026-01,Sales,Travel & entertainment,opex,74000,73523
+2026-01,Marketing,Paid acquisition,opex,330000,317131
+2026-01,Marketing,Events & field marketing,opex,145000,229213
+2026-01,Marketing,Marketing payroll,opex,210000,206472
+2026-01,Engineering,Engineering payroll,opex,1180000,1033023
+2026-01,Engineering,Contractors,opex,120000,115996
+2026-01,Engineering,Tooling & dev infrastructure,opex,95000,91422
+2026-01,G&A,G&A payroll,opex,340000,349236
+2026-01,G&A,Professional fees,opex,110000,111804
+2026-01,G&A,Facilities,opex,82000,83165
+2026-01,G&A,Insurance,opex,47000,48762
+2026-02,Revenue,Subscription revenue,revenue,3050000,3018755
+2026-02,Revenue,Services revenue,revenue,240000,248108
+2026-02,Cost of revenue,Hosting & infrastructure,cogs,410000,546520
+2026-02,Cost of revenue,Support payroll,cogs,267650,273490
+2026-02,Cost of revenue,Third-party software,cogs,88000,88175
+2026-02,Sales,Sales payroll,opex,626200,604703
+2026-02,Sales,Commissions,opex,215000,223119
+2026-02,Sales,Travel & entertainment,opex,74000,71537
+2026-02,Marketing,Paid acquisition,opex,330000,211014
+2026-02,Marketing,Events & field marketing,opex,145000,145454
+2026-02,Marketing,Marketing payroll,opex,212100,205558
+2026-02,Engineering,Engineering payroll,opex,1191800,1020745
+2026-02,Engineering,Contractors,opex,120000,120263
+2026-02,Engineering,Tooling & dev infrastructure,opex,95000,93774
+2026-02,G&A,G&A payroll,opex,343400,353691
+2026-02,G&A,Professional fees,opex,110000,109995
+2026-02,G&A,Facilities,opex,82000,83604
+2026-02,G&A,Insurance,opex,47000,48262
+2026-03,Revenue,Subscription revenue,revenue,3050000,3240062
+2026-03,Revenue,Services revenue,revenue,240000,230438
+2026-03,Cost of revenue,Hosting & infrastructure,cogs,410000,586877
+2026-03,Cost of revenue,Support payroll,cogs,270300,268174
+2026-03,Cost of revenue,Third-party software,cogs,88000,90029
+2026-03,Sales,Sales payroll,opex,632400,632589
+2026-03,Sales,Commissions,opex,215000,262024
+2026-03,Sales,Travel & entertainment,opex,74000,74367
+2026-03,Marketing,Paid acquisition,opex,330000,191068
+2026-03,Marketing,Events & field marketing,opex,145000,145491
+2026-03,Marketing,Marketing payroll,opex,214200,216813
+2026-03,Engineering,Engineering payroll,opex,1203600,1074930
+2026-03,Engineering,Contractors,opex,120000,225444
+2026-03,Engineering,Tooling & dev infrastructure,opex,95000,96319
+2026-03,G&A,G&A payroll,opex,346800,341398
+2026-03,G&A,Professional fees,opex,110000,223247
+2026-03,G&A,Facilities,opex,82000,82239
+2026-03,G&A,Insurance,opex,47000,45224
