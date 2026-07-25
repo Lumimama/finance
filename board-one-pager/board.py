@@ -60,13 +60,19 @@ def make_series():
         customers = beg_cust + new_cust - churn_cust
 
         revenue = (beg_arr + arr) / 2 / 12
-        # AI cost inside COGS -- the line this scorecard refuses to blend away
-        tokens_b = revenue / 1000 * random.uniform(19, 23)     # B tokens/mo
-        ai_cost = tokens_b * 1e9 / 1000 * 0.0135 * (0.985 ** mi)
+        # COGS built bottom-up; AI inference is its own line and stays IN COGS.
+        # AI cost as % of revenue declines across the window -- the margin story.
+        prog = mi / (len(MONTHS) - 1)
+        ai_pct = 0.110 - 0.025 * prog                  # 11.0% -> 8.5% of revenue
+        ai_cost = revenue * ai_pct * random.uniform(0.98, 1.02)
+        # cost per 1k tokens declines too; tokens are derived so the unit
+        # metrics stay internally consistent with the AI-cost line.
+        cost_per_1k = 0.016 - 0.005 * prog             # $0.016 -> $0.011 / 1k tok
+        tokens = ai_cost / cost_per_1k * 1000
         infra_other = revenue * 0.075
         support = revenue * 0.055
-        cogs = ai_cost + infra_other + support
-        inference_calls = tokens_b * 1e9 / 3_400
+        cogs = ai_cost + infra_other + support         # GM ~ 76-78%
+        inference_calls = tokens / 3_400
 
         sm = revenue * random.uniform(0.44, 0.50)
         rd = revenue * random.uniform(0.30, 0.34)
@@ -88,7 +94,7 @@ def make_series():
             "beg_cust": beg_cust, "new_cust": new_cust,
             "churn_cust": churn_cust, "customers": customers,
             "revenue": revenue, "cogs": cogs, "ai_cost": ai_cost,
-            "tokens": tokens_b * 1e9, "inference_calls": inference_calls,
+            "tokens": tokens, "inference_calls": inference_calls,
             "sm": sm, "rd": rd, "ga": ga, "ebitda": ebitda,
             "capex": capex, "fcf": fcf, "cash": cash,
             "bookings": bookings, "billings": billings, "pipeline": pipeline,
