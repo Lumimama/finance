@@ -36,7 +36,7 @@ random.seed(20260731)
 MONTHS = [f"{y}-{m:02d}" for y in (2025, 2026) for m in range(1, 13)][:19]
 RUNWAY_FLOOR_MONTHS = 12      # board policy: never let runway fall below this
 RAISE_DURATION_MONTHS = 6     # realistic time to close a round
-OPENING_CASH = 31_500_000
+OPENING_CASH = 50_000_000
 
 CATEGORIES = ["payroll", "cloud_compute", "sales_marketing", "g_and_a",
               "professional_fees"]
@@ -58,22 +58,27 @@ def make_series():
                      "professional_fees": 1.0}[k]
             spend[k] *= drift * random.uniform(0.96, 1.05)
         row = {"month": month, "collections": round(collections, 2)}
-        # one-time events that make single-month net burn lie:
-        oneoff_in = 0.0
-        if month == "2026-02":
-            oneoff_in = 2_400_000        # annual prepay collected early
-        if month == "2026-05":
-            row_extra = 380_000          # audit + legal one-time
-            spend_extra = {"professional_fees": spend["professional_fees"] + row_extra}
+        # Recurring spend by category (what runs every month).
         for k in CATEGORIES:
-            row[k] = round(spend[k] + (380_000 if (k == "professional_fees"
-                            and month == "2026-05") else 0), 2)
+            row[k] = round(spend[k], 2)
+        recurring_out = sum(row[k] for k in CATEGORIES)
+
+        # One-time items, tracked SEPARATELY. These are real cash movements
+        # (they hit the bank) but they are NOT operating burn, so runway must
+        # not be measured against them. A $2.4M prepay averaged into a 3-month
+        # trailing burn doesn't smooth -- it distorts, then snaps back.
+        oneoff_in = 2_400_000 if month == "2026-02" else 0.0   # annual prepay
+        oneoff_out = 380_000 if month == "2026-05" else 0.0    # audit + legal
         row["oneoff_collections"] = round(oneoff_in, 2)
-        gross_out = sum(row[k] for k in CATEGORIES)
-        net = row["collections"] + row["oneoff_collections"] - gross_out
+        row["oneoff_spend"] = round(oneoff_out, 2)
+
+        gross_out = recurring_out + oneoff_out
+        net = row["collections"] + oneoff_in - gross_out       # actual cash
         cash += net
         row["gross_burn"] = round(gross_out, 2)
-        row["net_burn"] = round(-net, 2)          # positive = burning
+        row["net_burn"] = round(-net, 2)                       # actual, incl. one-time
+        # Operating net burn EXCLUDES one-time items -- the runway basis.
+        row["operating_net_burn"] = round(recurring_out - row["collections"], 2)
         row["ending_cash"] = round(cash, 2)
         rows.append(row)
     return rows
@@ -83,9 +88,12 @@ def make_series():
 def analyze(rows):
     for i, r in enumerate(rows):
         window = rows[max(0, i - 2):i + 1]
+        # Trailing 3-mo of BOTH burns. Runway is measured on OPERATING burn,
+        # so one-time items don't whipsaw it; total net burn is still shown.
         r["t3_net_burn"] = sum(x["net_burn"] for x in window) / len(window)
-        r["runway_months"] = (r["ending_cash"] / r["t3_net_burn"]
-                              if r["t3_net_burn"] > 0 else float("inf"))
+        r["t3_operating_burn"] = sum(x["operating_net_burn"] for x in window) / len(window)
+        r["runway_months"] = (r["ending_cash"] / r["t3_operating_burn"]
+                              if r["t3_operating_burn"] > 0 else float("inf"))
     latest = rows[-1]
     # fundraise trigger: the month runway is projected to hit
     # floor + raise duration, assuming trailing burn holds.
@@ -104,7 +112,8 @@ def bridge(rows, i=None):
     i = len(rows) - 1 if i is None else i
     cur, prev = rows[i], rows[i - 1]
     steps = [("Collections", -(cur["collections"] - prev["collections"])),
-             ("One-time collections", -(cur["oneoff_collections"] - prev["oneoff_collections"]))]
+             ("One-time collections", -(cur["oneoff_collections"] - prev["oneoff_collections"])),
+             ("One-time spend", cur["oneoff_spend"] - prev["oneoff_spend"])]
     for k in CATEGORIES:
         steps.append((k.replace("_", " ").title(), cur[k] - prev[k]))
     total = sum(v for _, v in steps)
@@ -179,14 +188,21 @@ def validate(rows) -> None:
     ok &= worst3 < 0.01
     print(f"  [{'ok ' if worst3 < 0.01 else 'MISS'}] burn bridge ties to the "
           f"change in net burn, every month (max diff ${worst3:.4f})")
-    # 4. the one-off distortion is visible: Feb-26 monthly runway vs t3
-    feb = next(r for r in rows if r["month"] == "2026-02")
-    mono = feb["ending_cash"] / feb["net_burn"] if feb["net_burn"] > 0 else float("inf")
-    ok &= (mono == float("inf") or mono > feb["runway_months"] * 1.5)
-    print(f"  [{'ok ' if ok else 'MISS'}] one-time collection makes single-month "
-          f"runway lie ({'infinite' if mono == float('inf') else f'{mono:.0f}mo'} "
-          f"vs {feb['runway_months']:.1f}mo trailing) -- the reason t3 is the "
-          f"quotable number")
+    # 4. the whole point: measuring runway on OPERATING burn keeps it stable
+    # through the one-time prepay, where a naive net-burn runway would spike.
+    # Show both, and assert the operating-basis runway does NOT jump.
+    fi = next(i for i, r in enumerate(rows) if r["month"] == "2026-02")
+    feb = rows[fi]
+    naive_runway = feb["ending_cash"] / feb["t3_net_burn"] if feb["t3_net_burn"] > 0 else float("inf")
+    neighbors = [rows[fi-1]["runway_months"], rows[fi+1]["runway_months"]]
+    stable = abs(feb["runway_months"] - sum(neighbors)/2) < 2.5   # within 2.5 months
+    naive_spikes = naive_runway == float("inf") or naive_runway > feb["runway_months"] * 1.5
+    ok &= stable and naive_spikes
+    print(f"  [{'ok ' if stable and naive_spikes else 'MISS'}] operating-basis runway "
+          f"stays stable through the prepay ({feb['runway_months']:.1f}mo, neighbors "
+          f"{neighbors[0]:.1f}/{neighbors[1]:.1f}) while a naive net-burn runway would "
+          f"read {'infinite' if naive_runway == float('inf') else f'{naive_runway:.0f}mo'} "
+          f"-- why runway is measured ex one-time items")
     print("-" * 86)
     print(f"  {'PASS' if ok else 'FAIL'}")
 
@@ -313,7 +329,7 @@ def write_html(rows, path: Path) -> None:
     <div class="kpi"><div class="k">Gross burn</div><div class="v">${latest['gross_burn']/1e6:,.2f}M</div>
       <div class="n2">the number that doesn't lie</div></div>
     <div class="kpi"><div class="k">Runway</div><div class="v">{latest['runway_months']:,.1f} mo</div>
-      <div class="n2">at trailing 3-mo burn</div></div>
+      <div class="n2">trailing 3-mo operating burn</div></div>
     <div class="kpi {'warn' if shrinking else 'good'}"><div class="k">Runway trend (3mo)</div>
       <div class="v">{a['runway_delta_3mo']:+.1f} mo</div>
       <div class="n2">{'shrinking' if shrinking else 'lengthening'}</div></div>
@@ -328,9 +344,12 @@ def write_html(rows, path: Path) -> None:
     {ticks}
     <text x="{PL}" y="14" class="leg"><tspan fill="var(--mut)">■ gross</tspan>
     <tspan fill="var(--neg)"> ■ net</tspan><tspan> — t3 net</tspan></text></svg></div>
-  <div class="note">2026-02: a one-time annual prepay makes single-month net
-    burn go briefly negative — and single-month runway infinite. The trailing
-    line barely moves. That contrast is why the t3 number is the quotable one.</div>
+  <div class="note">2026-02: a one-time $2.4M annual prepay makes single-month
+    net burn go briefly negative. It is a real cash movement, so it sits in
+    these bars — but it is <em>not</em> operating burn, which is why runway
+    (below) is measured on recurring burn only. A trailing-3-month average is
+    too coarse to absorb a one-time item this large; it would suppress burn for
+    three months and then snap back, printing a runway cliff that isn't real.</div>
 
   <h2>Runway trajectory, with the fundraise trigger</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid_r}{trigger_line}

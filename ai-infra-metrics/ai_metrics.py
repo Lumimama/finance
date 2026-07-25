@@ -52,7 +52,7 @@ MODELS = {
 # customer pricing: consumption billed per 1K total tokens
 PRICE_PER_1K_TOKENS = 0.045
 COMMITTED_SHARE = 0.63        # share of usage drawing down prepaid commits
-GPU_CLUSTER_HOURS_PER_DAY = 24 * 64          # 64 reserved GPUs
+GPU_CLUSTER_HOURS_PER_DAY = 24 * 76          # 76 reserved GPUs
 GPU_COST_PER_HOUR = 2.10                     # blended reserved rate
 SERVING_SHARE_ON_GPU = 0.42   # share of inference served on own cluster
                               # (rest via per-token API above)
@@ -92,14 +92,16 @@ def make_days():
             total_tokens += tin + tout
             total_cost += cost
 
-        # GPU cluster: serves a share of inference; utilization tracks calls.
-        # F2: reserved hours bill 24/7; weekend demand halves.
-        # 4,400 GPU-served calls per GPU-hour: sized so weekday utilization
-        # starts ~70% and runs hot (>80%) late in the window as calls grow.
-        needed = calls * SERVING_SHARE_ON_GPU / 4_400
-        used = needed * 24 * random.uniform(0.94, 1.05)
-        day["gpu_hours_used"] = round(min(used, GPU_CLUSTER_HOURS_PER_DAY), 1)
+        # GPU utilization tracks demand: it rises ~62% -> ~92% across the
+        # window as call volume grows, and runs materially cooler on weekends.
+        # Modeled as a utilization TARGET, not a clipped call count, so the
+        # cluster is hot but never pinned at exactly 100% -- a flat 100% line is
+        # a chart artifact, and real reserved clusters saturate below the cap.
+        util_target = 0.62 + 0.30 * (i / (len(DAYS) - 1))
+        util = util_target * (0.72 if weekend else 1.0) * random.uniform(0.95, 1.05)
+        util = min(util, 0.99)
         day["gpu_hours_available"] = GPU_CLUSTER_HOURS_PER_DAY
+        day["gpu_hours_used"] = round(GPU_CLUSTER_HOURS_PER_DAY * util, 1)
         day["gpu_cost"] = round(GPU_CLUSTER_HOURS_PER_DAY * GPU_COST_PER_HOUR, 2)
 
         # F3: latency degrades when utilization runs hot
