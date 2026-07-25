@@ -10,175 +10,177 @@
             --bd:#232a33; --link:#58a6ff; --accent:#3fb950; }
   }
   * { box-sizing: border-box; }
-  body { margin:0; padding:48px 24px; background:var(--bg); color:var(--fg);
-         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-  .wrap { max-width:760px; margin:0 auto; }
+  body { margin:0; padding:44px 24px; background:var(--bg); color:var(--fg);
+         font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1080px; margin:0 auto; }
   h1 { font-size:28px; margin:0 0 8px; letter-spacing:-.02em; }
-  .lede { color:var(--mut); font-size:16px; margin:0 0 36px; }
-  a { color:var(--link); }
+  .lede { color:var(--mut); font-size:15.5px; margin:0 0 8px; max-width:70ch; }
+  .toc { color:var(--mut); font-size:13px; margin:0 0 30px; }
+  .toc a { color:var(--link); text-decoration:none; }
+  .toc a:hover { text-decoration:underline; }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em;
+       color:var(--mut); margin:34px 0 14px; font-weight:700;
+       border-bottom:1px solid var(--bd); padding-bottom:8px; }
+  h2:first-of-type { margin-top:10px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:820px) { .grid { grid-template-columns:1fr; } }
   .card { display:block; background:var(--card); border:1px solid var(--bd);
-          border-radius:12px; padding:22px 24px; margin-bottom:16px;
-          text-decoration:none; color:inherit; transition:border-color .15s; }
+          border-radius:12px; padding:18px 20px; text-decoration:none;
+          color:inherit; transition:border-color .15s; }
   .card:hover { border-color:var(--link); }
-  .card h2 { font-size:19px; margin:0 0 6px; color:var(--link); }
-  .card p { margin:0 0 10px; color:var(--fg); font-size:15px; }
-  .meta { font-size:12px; color:var(--mut); text-transform:uppercase;
+  .card h3 { font-size:16.5px; margin:0 0 6px; color:var(--link); }
+  .card p { margin:0 0 10px; color:var(--fg); font-size:13.5px; line-height:1.5; }
+  .meta { font-size:11px; color:var(--mut); text-transform:uppercase;
           letter-spacing:.06em; }
   .live { color:var(--accent); font-weight:600; }
-  .note { border-top:1px solid var(--bd); margin-top:36px; padding-top:20px;
-          color:var(--mut); font-size:14px; }
+  .note { border-top:1px solid var(--bd); margin-top:38px; padding-top:20px;
+          color:var(--mut); font-size:13.5px; }
+  .note a { color:var(--link); }
 </style>
 <div class="wrap">
   <h1>finance</h1>
   <p class="lede">Finance tooling built for work that's already part of the job.
-    Python, synthetic data, readable logic. Live dashboards below.</p>
+    Python, synthetic data, readable logic — every project ships a validation
+    step that must pass before its dashboard publishes.</p>
+  <p class="toc">Jump to:
+    <a href="#payments">Payments</a> ·
+    <a href="#revenue">Revenue analytics</a> ·
+    <a href="#planning">Planning &amp; cash</a> ·
+    <a href="#reporting">Reporting, metrics &amp; controls</a></p>
 
-  <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
-    <h2>Payments Reconciliation Engine →</h2>
-    <p>50,000 transactions matched against a bank settlement file. Every break
-      classified — timing, amount, missing, duplicate, FX, fee — aged by dollar
-      exposure and routed to an owner. Classification validated against seeded
-      ground truth: every one of 1,148 breaks found and correctly labeled.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
+  <h2 id="payments">Payments</h2>
+  <div class="grid">
+    <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
+      <h3>Payments Reconciliation Engine →</h3>
+      <p>50,000 transactions matched against a bank settlement file. Every
+        break classified — timing, amount, missing, duplicate, FX, fee — aged
+        by exposure and routed to an owner. All 1,148 seeded breaks found and
+        correctly labeled.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
+      <h3>Payments Unit Economics →</h3>
+      <p>Contribution per transaction across 120,000 transactions by rail,
+        region, and merchant segment. Contribution waterfall, cross-border
+        premium, and mix-shift sensitivity.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
 
-  <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
-    <h2>Payments Unit Economics →</h2>
-    <p>Contribution per transaction across 120,000 transactions — by rail,
-      region, and merchant segment. Contribution waterfall, cross-border
-      premium, and mix-shift sensitivity: what happens to blended economics
-      when cross-border doubles or debit shifts to credit.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
+  <h2 id="revenue">Revenue analytics</h2>
+  <div class="grid">
+    <a class="card" href="usage-revenue-engine/examples/usage_dashboard.html">
+      <h3>Usage-Based Revenue Engine →</h3>
+      <p>AI pricing: license + metered usage against committed minimums. An ARR
+        walk where usage expansion is its own line, a commit-utilization action
+        list, and the rate-compression-vs-inference-cost curve.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="revenue-cohorts/examples/cohorts_dashboard.html">
+      <h3>Revenue Cohort Analysis →</h3>
+      <p>Cohort heatmap, layer cake, and empirical CAC-payback curves by
+        channel. Seeded with a promo cohort that dies at first renewal —
+        invisible in blended NRR, unmissable in the heatmap.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
+      <h3>Revenue Recognition →</h3>
+      <p>Bookings → billings → revenue from a 900-contract ledger. Deferred and
+        RPO roll-forwards tie to the cent every month; deferred unwind schedule
+        and the RPO disclosure split.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="revenue-forecast/examples/forecast_dashboard.html">
+      <h3>Forward Revenue Model →</h3>
+      <p>Next four quarters from the three books that exist today: sales
+        capacity, stage-weighted pipeline with coverage flags, and a
+        per-contract risk-weighted renewal book.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="pricing-waterfall/examples/pricing_dashboard.html">
+      <h3>Pricing Waterfall →</h3>
+      <p>List → pocket price across 1,100 deals. Quarter-end deals realize 5.9
+        points less — ~$810K given to the calendar — and discount depth creeps
+        with deal size. The waterfall ties on every deal.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="https://github.com/Lumimama/finance/tree/main/variance-narrator">
+      <h3>Variance Narrator →</h3>
+      <p>Budget-vs-actuals in, board-ready variance commentary out. Python
+        computes every figure; Claude drafts the narrative. The model never
+        does arithmetic and never sees a number it wasn't handed.</p>
+      <span class="meta">Command-line tool · source on GitHub</span>
+    </a>
+  </div>
 
-  <a class="card" href="controls-monitoring/examples/controls_dashboard.html">
-    <h2>Continuous Controls Monitor →</h2>
-    <p>Seven audit detectors over a year of AP and T&E — duplicate payments,
-      split invoices, Benford's law, round-dollar clustering, policy and
-      velocity anomalies. Risk-scored review queue with 100% recall against
-      seeded ground truth, and the false-positive rate reported instead of
-      hidden.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
+  <h2 id="planning">Planning &amp; cash</h2>
+  <div class="grid">
+    <a class="card" href="three-statement-model/examples/three_statement.html">
+      <h3>Integrated Three-Statement Model →</h3>
+      <p>Income statement, balance sheet, and indirect cash flow, line by line
+        across twelve quarters with scenario tabs. A = L + E to the cent in
+        every column, or the model refuses to publish.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="scenario-planner/examples/scenario_dashboard.html">
+      <h3>Monte Carlo Scenario Planner →</h3>
+      <p>10,000 simulations of 12 quarters. P10/P50/P90 fans for ARR and cash,
+        floor-breach probability, and a tornado ranking which assumption
+        actually drives the outcome.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="cash-forecast-13w/examples/forecast.html">
+      <h3>13-Week Cash Forecast →</h3>
+      <p>Direct-method forecast from the AR aging, the AP aging, and the
+        recurring commitments in neither. Low point, covenant floor test, and
+        collections stress scenarios.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="burn-runway/examples/burn_dashboard.html">
+      <h3>Cash Burn &amp; Runway →</h3>
+      <p>Gross vs net burn with the trailing 3-month line, runway trajectory,
+        and the fundraise trigger drawn as a date on the chart. A seeded
+        one-time prepay shows why single-month runway lies.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
 
-  <a class="card" href="board-one-pager/examples/board_dashboard.html">
-    <h2>Board One-Pager →</h2>
-    <p>Thirty metrics in five sections — growth, customer health, efficiency,
-      financial performance, and AI-specific — every one with its definition on
-      the page, including GM after AI costs and cost per inference. LTV:CAC is
-      flagged as formulaic right on the scorecard.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="burn-runway/examples/burn_dashboard.html">
-    <h2>Cash Burn &amp; Runway →</h2>
-    <p>Gross vs net burn with the trailing 3-month line, runway trajectory
-      (the slope, not the level), and the fundraise trigger drawn as a date on
-      the chart. A one-time prepay is seeded to show why single-month runway
-      lies and t3 is the quotable number.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="ai-infra-metrics/examples/ai_dashboard.html">
-    <h2>AI Infrastructure Metrics →</h2>
-    <p>Cost per token and per inference, GPU utilization, the cost-latency
-      frontier, and revenue per token. A model-routing deploy cuts cost per
-      call 41% at flat pricing — finance participating in an engineering
-      decision, quantified.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="usage-revenue-engine/examples/usage_dashboard.html">
-    <h2>Usage-Based Revenue Engine →</h2>
-    <p>The finance layer of AI pricing: platform license + metered usage
-      against committed minimums + implementation. An ARR walk with usage
-      expansion as its own line, a commit-utilization action list (downgrade
-      risks and the upsell list), and the rate-compression-vs-inference-cost
-      curve every AI-native P&amp;L lives or dies on.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="revenue-cohorts/examples/cohorts_dashboard.html">
-    <h2>Revenue Cohort Analysis →</h2>
-    <p>The cohort heatmap, the layer cake, and empirical CAC-payback curves by
-      channel — 1,450 customers over 54 months. Seeded with a promo cohort that
-      dies at first renewal: invisible in blended NRR, unmissable in the
-      heatmap. That contrast is the argument for cohort analysis.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
-    <h2>Revenue Recognition →</h2>
-    <p>Bookings → billings → revenue from a 900-contract ledger, with deferred
-      revenue and RPO roll-forwards that tie to the cent every month, the
-      deferred unwind schedule, and the RPO disclosure split. The three series
-      everyone conflates, kept honest.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="revenue-forecast/examples/forecast_dashboard.html">
-    <h2>Forward Revenue Model →</h2>
-    <p>Next four quarters from the three books that exist today: sales capacity
-      (reps × ramp × quota), stage-weighted pipeline with coverage flags, and a
-      per-contract risk-weighted renewal book that names the largest at-risk
-      accounts.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="pricing-waterfall/examples/pricing_dashboard.html">
-    <h2>Pricing Waterfall →</h2>
-    <p>List → pocket price across 1,100 deals. Quarter-end deals realize 5.9
-      points less — ~$810K of price given to the calendar — and discount depth
-      creeps with deal size beyond any cost-to-serve argument. The waterfall
-      ties on every deal.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="cash-forecast-13w/examples/forecast.html">
-    <h2>13-Week Cash Forecast →</h2>
-    <p>Direct-method forecast from the AR aging, the AP aging, and the recurring
-      commitments in neither. Reports the low point and the week it lands, tests it
-      against a covenant floor, and stress-tests runway against collections slipping.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="board-metrics/examples/dashboard.html">
-    <h2>Board Metrics →</h2>
-    <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each computed
-      by a function whose docstring states which definition it uses. The ARR walk has
-      to tie, and the report says whether it did.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="three-statement-model/examples/three_statement.html">
-    <h2>Integrated Three-Statement Model →</h2>
-    <p>Driver-based P&amp;L → balance sheet → cash flow, quarterly over three
-      years, three scenarios. Fully articulated — deferred revenue, SBC, working
-      capital — and the balance sheet ties to the cent in every quarter or the
-      model refuses to publish.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="scenario-planner/examples/scenario_dashboard.html">
-    <h2>Monte Carlo Scenario Planner →</h2>
-    <p>10,000 simulations of 12 quarters with drivers drawn from distributions.
-      P10/P50/P90 fans for ARR and cash, probability of breaching the board
-      cash floor, and a tornado ranking which assumption actually drives the
-      outcome — argue about the top two, the rest is noise management.</p>
-    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
-  </a>
-
-  <a class="card" href="https://github.com/Lumimama/finance/tree/main/variance-narrator">
-    <h2>Variance Narrator →</h2>
-    <p>Budget-vs-actuals in, board-ready variance commentary out. Python computes every
-      figure; Claude drafts the narrative from that computed evidence pack. The model
-      never does arithmetic and never sees a number it wasn't handed.</p>
-    <span class="meta">Command-line tool · source on GitHub</span>
-  </a>
+  <h2 id="reporting">Reporting, metrics &amp; controls</h2>
+  <div class="grid">
+    <a class="card" href="board-one-pager/examples/board_dashboard.html">
+      <h3>Board One-Pager →</h3>
+      <p>Thirty metrics in five sections — growth, customer health, efficiency,
+        financial, AI-specific — every one with its definition on the page,
+        including GM after AI costs and cost per inference.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="board-metrics/examples/dashboard.html">
+      <h3>Board Metrics →</h3>
+      <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each
+        computed by a function whose docstring states which definition it uses.
+        The ARR walk has to tie, and the report says whether it did.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="ai-infra-metrics/examples/ai_dashboard.html">
+      <h3>AI Infrastructure Metrics →</h3>
+      <p>Cost per token and per inference, GPU utilization, the cost-latency
+        frontier, revenue per token. A model-routing deploy cuts cost per call
+        41% at flat pricing — finance in an engineering decision.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="controls-monitoring/examples/controls_dashboard.html">
+      <h3>Continuous Controls Monitor →</h3>
+      <p>Seven audit detectors over a year of AP and T&amp;E — duplicates,
+        split invoices, Benford's law, policy and velocity anomalies. 100%
+        recall against seeded ground truth, false-positive rate reported.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
 
   <div class="note">
-    Every figure on these pages is synthetic — each project ships a seeded generator
-    that reproduces its dataset exactly. Source and full write-ups at
-    <a href="https://github.com/Lumimama/finance">github.com/Lumimama/finance</a>.
+    Every figure on these pages is synthetic — each project ships a seeded
+    generator that reproduces its dataset exactly, and a <code>--validate</code>
+    step scoring the analysis against known ground truth. Source and full
+    write-ups at <a href="https://github.com/Lumimama/finance">github.com/Lumimama/finance</a>.
   </div>
 </div>
