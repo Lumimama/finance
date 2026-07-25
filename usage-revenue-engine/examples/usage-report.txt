@@ -1,0 +1,46 @@
+========================================================================================================
+USAGE-BASED REVENUE ENGINE  |  42 contracts  |  license + metered usage + implementation
+========================================================================================================
+ARR WALK  (run-rate; usage moves without a signature)
+--------------------------------------------------------------------------------------------------------
+  month       beginning       new  usage exp  usage ctr     churn      ending
+  2025-11    $4,420,504  $435,420    $27,586        $-0       $-0  $4,883,510
+  2025-12    $4,883,510  $588,324    $51,317      $-946       $-0  $5,522,205
+  2026-01    $5,522,205  $100,128   $161,206        $-0       $-0  $5,783,539
+  2026-02    $5,783,539   $53,664    $44,873    $-7,374 $-381,450  $5,493,251
+  2026-03    $5,493,251  $734,748    $90,832   $-12,374 $-111,648  $6,194,809
+  2026-04    $6,194,809  $463,704   $145,897    $-2,449       $-0  $6,801,961
+  2026-05    $6,801,961        $0   $168,086   $-16,118 $-162,500  $6,791,429
+  2026-06    $6,791,429        $0   $179,629    $-4,146       $-0  $6,966,911
+
+COMMIT UTILIZATION -- the action list
+--------------------------------------------------------------------------------------------------------
+  under-committed (<65% for 3 months) -- downgrade risk at renewal:
+    K040  enterprise    53% utilized   $86,433/yr of commit unused
+    K039  enterprise    55% utilized   $85,697/yr of commit unused
+    K042  enterprise    48% utilized   $71,991/yr of commit unused
+    K003  enterprise    43% utilized   $66,741/yr of commit unused
+    K041  growth        48% utilized   $38,531/yr of commit unused
+    K016  starter       46% utilized   $14,089/yr of commit unused
+  over-committed (>130% for 3 months) -- upsell list, paying overage rates:
+    K012  enterprise   173% utilized   $139,654/yr overage run-rate
+    K007  enterprise   173% utilized   $110,080/yr overage run-rate
+    K004  enterprise   160% utilized   $87,832/yr overage run-rate
+    K009  growth       174% utilized   $65,483/yr overage run-rate
+    K020  enterprise   145% utilized   $65,113/yr overage run-rate
+    K022  growth       150% utilized   $53,345/yr overage run-rate
+
+RATE & USAGE MARGIN
+--------------------------------------------------------------------------------------------------------
+  month           tasks blended $/task inference $/task  usage GM
+  2026-01     1,783,720         0.1351           0.0361     73.3%
+  2026-02     1,765,287         0.1302           0.0350     73.1%
+  2026-03     1,987,984         0.1319           0.0339     74.3%
+  2026-04     2,204,962         0.1324           0.0329     75.1%
+  2026-05     2,294,192         0.1294           0.0319     75.3%
+  2026-06     2,448,774         0.1272           0.0310     75.6%
+
+  blended rate 0.1461 -> 0.1272 $/task (-13%): growth with rate compression as mix shifts to larger tiers.
+  usage GM 70% -> 76%: inference cost declines faster than realized rate.
+
+Wrote examples/usage_dashboard.html
