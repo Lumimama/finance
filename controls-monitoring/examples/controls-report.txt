@@ -1,0 +1,37 @@
+====================================================================================================
+CONTINUOUS CONTROLS MONITOR  |  FY2026  |  AP + T&E
+====================================================================================================
+  AP invoices scanned        5,953   ($8,426,439)
+  T&E lines scanned         21,546   ($4,923,903)
+  findings                     143
+  flagged exposure       $3,118,205
+
+FINDINGS BY DETECTOR
+----------------------------------------------------------------------------------------------------
+  detector            severity    findings      exposure
+  benford_violation   high               2    $2,577,802
+  split_invoices      critical          14      $259,105
+  round_dollar        high               1      $122,500
+  duplicate_payment   critical          15       $77,028
+  weekend_entry       low               31       $43,825
+  policy_violation    medium            77       $37,946
+  expense_velocity    high               3            $0
+
+TOP FINDINGS
+----------------------------------------------------------------------------------------------------
+  [high    ] round_dollar        Pinnacle Consulting: 100% of 12 invoices are round-$500 multiples
+  [medium  ] policy_violation    E013: meal $319.09 vs $75 per-diem
+  [medium  ] policy_violation    E370: meal $314.36 vs $75 per-diem
+  [medium  ] policy_violation    E070: meal $299.86 vs $75 per-diem
+  [medium  ] policy_violation    E282: meal $295.74 vs $75 per-diem
+  [medium  ] policy_violation    E015: meal $295.48 vs $75 per-diem
+  [medium  ] policy_violation    E214: meal $294.36 vs $75 per-diem
+  [high    ] expense_velocity    E077: 5 month(s) at 39 expenses vs median 4/mo, starting 2026-02
+  [critical] split_invoices      Summit Interiors/M03: 4 invoices totaling $32,006, each under the $10,000 approval threshold, within 10 days
+  [medium  ] policy_violation    E116: meal $262.14 vs $75 per-diem
+  [medium  ] policy_violation    E330: meal $255.50 vs $75 per-diem
+  [medium  ] policy_violation    E131: meal $246.97 vs $75 per-diem
+  [critical] duplicate_payment   Wilson Sonsini: $13,175.45 billed twice, 2d apart
+  [critical] split_invoices      Summit Interiors/M05: 3 invoices totaling $26,436, each under the $10,000 approval threshold, within 10 days
+
+Wrote examples/controls_dashboard.html

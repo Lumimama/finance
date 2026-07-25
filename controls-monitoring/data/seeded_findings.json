@@ -1,0 +1,211 @@
+{
+  "C1_duplicates": {
+    "count": 14,
+    "exposure": 67127.69,
+    "pairs": [
+      {
+        "original": "AP000981",
+        "duplicate": "AP005739",
+        "vendor": "Wilson Sonsini",
+        "amount": 13175.45
+      },
+      {
+        "original": "AP000392",
+        "duplicate": "AP005740",
+        "vendor": "Amazon Web Services",
+        "amount": 5156.43
+      },
+      {
+        "original": "AP000217",
+        "duplicate": "AP005741",
+        "vendor": "Amazon Web Services",
+        "amount": 2499.42
+      },
+      {
+        "original": "AP004384",
+        "duplicate": "AP005742",
+        "vendor": "Rampart Solutions",
+        "amount": 2407.45
+      },
+      {
+        "original": "AP000027",
+        "duplicate": "AP005743",
+        "vendor": "Amazon Web Services",
+        "amount": 2178.96
+      },
+      {
+        "original": "AP000658",
+        "duplicate": "AP005744",
+        "vendor": "WeWork",
+        "amount": 6393.21
+      },
+      {
+        "original": "AP000442",
+        "duplicate": "AP005745",
+        "vendor": "Snowflake",
+        "amount": 4996.48
+      },
+      {
+        "original": "AP001883",
+        "duplicate": "AP005746",
+        "vendor": "Dockside Solutions",
+        "amount": 2407.35
+      },
+      {
+        "original": "AP004527",
+        "duplicate": "AP005747",
+        "vendor": "Sable Supply",
+        "amount": 2148.23
+      },
+      {
+        "original": "AP000857",
+        "duplicate": "AP005748",
+        "vendor": "Robert Half",
+        "amount": 5382.7
+      },
+      {
+        "original": "AP000673",
+        "duplicate": "AP005749",
+        "vendor": "WeWork",
+        "amount": 8285.83
+      },
+      {
+        "original": "AP000203",
+        "duplicate": "AP005750",
+        "vendor": "Amazon Web Services",
+        "amount": 4692.54
+      },
+      {
+        "original": "AP000164",
+        "duplicate": "AP005751",
+        "vendor": "Amazon Web Services",
+        "amount": 2537.24
+      },
+      {
+        "original": "AP000441",
+        "duplicate": "AP005752",
+        "vendor": "Snowflake",
+        "amount": 4866.4
+      }
+    ]
+  },
+  "C2_round_dollar": {
+    "vendor": "Pinnacle Consulting",
+    "count": 12,
+    "exposure": 122500
+  },
+  "C3_splits": {
+    "vendor": "Summit Interiors",
+    "clusters": 6,
+    "exposure": 142343.34,
+    "detail": [
+      {
+        "invoice_ids": [
+          "AP005765",
+          "AP005766",
+          "AP005767"
+        ],
+        "parts": [
+          9677.43,
+          6886.14,
+          9478.06
+        ],
+        "total": 26041.63
+      },
+      {
+        "invoice_ids": [
+          "AP005768",
+          "AP005769"
+        ],
+        "parts": [
+          7474.01,
+          9536.22
+        ],
+        "total": 17010.23
+      },
+      {
+        "invoice_ids": [
+          "AP005770",
+          "AP005771",
+          "AP005772"
+        ],
+        "parts": [
+          7599.56,
+          7518.65,
+          9900
+        ],
+        "total": 25018.21
+      },
+      {
+        "invoice_ids": [
+          "AP005773",
+          "AP005774",
+          "AP005775"
+        ],
+        "parts": [
+          7595.24,
+          8957.9,
+          -721.52
+        ],
+        "total": 15831.62
+      },
+      {
+        "invoice_ids": [
+          "AP005776",
+          "AP005777",
+          "AP005778"
+        ],
+        "parts": [
+          8140.63,
+          8395.23,
+          9900
+        ],
+        "total": 26435.86
+      },
+      {
+        "invoice_ids": [
+          "AP005779",
+          "AP005780",
+          "AP005781",
+          "AP005782"
+        ],
+        "parts": [
+          6984.2,
+          8435.26,
+          6686.33,
+          9900
+        ],
+        "total": 32005.79
+      }
+    ]
+  },
+  "C4_benford": {
+    "vendor": "Northgate Logistics",
+    "count": 140
+  },
+  "C5_weekend": {
+    "count": 31
+  },
+  "C6_policy": {
+    "meals_over_perdiem": 47,
+    "unapproved_business_air": 12,
+    "meal_ids": [
+      "TE021362",
+      "TE021363",
+      "TE021364",
+      "TE021365",
+      "TE021366"
+    ],
+    "air_ids": [
+      "TE021409",
+      "TE021410",
+      "TE021411",
+      "TE021412",
+      "TE021413"
+    ]
+  },
+  "C7_velocity": {
+    "employee_id": "E077",
+    "spike_from_month": "2026-02"
+  }
+}

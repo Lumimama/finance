@@ -1,0 +1,123 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Controls Monitor · FY2026</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:30px 0 12px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:20px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n2 { font-size:11px; color:var(--mut); margin-top:1px; }
+  .panel { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:18px 20px; }
+  .brk { margin-bottom:14px; } .brk:last-child { margin-bottom:2px; }
+  .brk-head { display:flex; justify-content:space-between; font-size:14px;
+               font-weight:600; text-transform:capitalize; }
+  .sev { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; }
+  .bar-track { background:var(--grid); border-radius:4px; height:8px; margin:5px 0 4px; }
+  .bar { background:var(--line); height:8px; border-radius:4px; }
+  .brk-meta { font-size:12px; color:var(--mut); }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { padding:7px 11px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .mut { color:var(--mut); font-size:12px; white-space:normal; }
+  .pill { font-size:10px; text-transform:uppercase; letter-spacing:.05em;
+           font-weight:700; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Continuous Controls Monitor</h1>
+  <div class="sub">FY2026 · AP + T&E · seven detectors · synthetic data</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">AP invoices</div><div class="v">5,953</div>
+      <div class="n2">$8,426,439</div></div>
+    <div class="kpi"><div class="k">T&E lines</div><div class="v">21,546</div>
+      <div class="n2">$4,923,903</div></div>
+    <div class="kpi"><div class="k">Findings</div><div class="v">143</div></div>
+    <div class="kpi"><div class="k">Flagged exposure</div><div class="v">$3,118,205</div></div>
+    <div class="kpi"><div class="k">Recall vs seeded</div><div class="v">100%</div>
+      <div class="n2">run --validate to verify</div></div>
+  </div>
+
+  <h2>Findings by detector — exposure-ranked</h2>
+  <div class="panel">
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">benford violation</span>
+        <span class="sev" style="color:#d97706">high</span></div>
+      <div class="bar-track"><div class="bar" style="width:100.0%"></div></div>
+      <div class="brk-meta">2 findings · $2,577,802 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">split invoices</span>
+        <span class="sev" style="color:var(--neg)">critical</span></div>
+      <div class="bar-track"><div class="bar" style="width:10.1%"></div></div>
+      <div class="brk-meta">14 findings · $259,105 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">round dollar</span>
+        <span class="sev" style="color:#d97706">high</span></div>
+      <div class="bar-track"><div class="bar" style="width:4.8%"></div></div>
+      <div class="brk-meta">1 findings · $122,500 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">duplicate payment</span>
+        <span class="sev" style="color:var(--neg)">critical</span></div>
+      <div class="bar-track"><div class="bar" style="width:3.0%"></div></div>
+      <div class="brk-meta">15 findings · $77,028 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">weekend entry</span>
+        <span class="sev" style="color:var(--mut)">low</span></div>
+      <div class="bar-track"><div class="bar" style="width:1.7%"></div></div>
+      <div class="brk-meta">31 findings · $43,825 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">policy violation</span>
+        <span class="sev" style="color:var(--line)">medium</span></div>
+      <div class="bar-track"><div class="bar" style="width:1.5%"></div></div>
+      <div class="brk-meta">77 findings · $37,946 exposure</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head"><span class="brk-name">expense velocity</span>
+        <span class="sev" style="color:#d97706">high</span></div>
+      <div class="bar-track"><div class="bar" style="width:0.0%"></div></div>
+      <div class="brk-meta">3 findings · $0 exposure</div>
+    </div>
+  </div>
+
+  <h2>Review queue — top 25 by risk score</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Sev</th><th>Detector</th><th class="n">Score</th>
+      <th class="n">Exposure</th><th>Finding</th></tr></thead>
+    <tbody><tr><td><span class='pill' style='color:#d97706'>high</span></td><td>round dollar</td><td class='n'>100</td><td class='n'>$122,500</td><td class='mut'>Pinnacle Consulting: 100% of 12 invoices are round-$500 multiples</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$244</td><td class='mut'>E013: meal $319.09 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$239</td><td class='mut'>E370: meal $314.36 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$225</td><td class='mut'>E070: meal $299.86 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$221</td><td class='mut'>E282: meal $295.74 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$220</td><td class='mut'>E015: meal $295.48 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>100</td><td class='n'>$219</td><td class='mut'>E214: meal $294.36 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:#d97706'>high</span></td><td>expense velocity</td><td class='n'>100</td><td class='n'>$0</td><td class='mut'>E077: 5 month(s) at 39 expenses vs median 4/mo, starting 2026-02</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>split invoices</td><td class='n'>98</td><td class='n'>$32,006</td><td class='mut'>Summit Interiors/M03: 4 invoices totaling $32,006, each under the $10,000 approval threshold, within 10 days</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>92</td><td class='n'>$187</td><td class='mut'>E116: meal $262.14 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>90</td><td class='n'>$180</td><td class='mut'>E330: meal $255.50 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>87</td><td class='n'>$172</td><td class='mut'>E131: meal $246.97 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>duplicate payment</td><td class='n'>86</td><td class='n'>$13,175</td><td class='mut'>Wilson Sonsini: $13,175.45 billed twice, 2d apart</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>split invoices</td><td class='n'>86</td><td class='n'>$26,436</td><td class='mut'>Summit Interiors/M05: 3 invoices totaling $26,436, each under the $10,000 approval threshold, within 10 days</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>split invoices</td><td class='n'>86</td><td class='n'>$26,042</td><td class='mut'>Summit Interiors/M07: 3 invoices totaling $26,042, each under the $10,000 approval threshold, within 10 days</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>split invoices</td><td class='n'>86</td><td class='n'>$25,018</td><td class='mut'>Summit Interiors/M12: 3 invoices totaling $25,018, each under the $10,000 approval threshold, within 10 days</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>86</td><td class='n'>$167</td><td class='mut'>E089: meal $242.45 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>84</td><td class='n'>$162</td><td class='mut'>E026: meal $237.42 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>83</td><td class='n'>$159</td><td class='mut'>E303: meal $234.35 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>83</td><td class='n'>$159</td><td class='mut'>E114: meal $234.19 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>83</td><td class='n'>$159</td><td class='mut'>E084: meal $233.99 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>83</td><td class='n'>$159</td><td class='mut'>E092: meal $233.66 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>80</td><td class='n'>$151</td><td class='mut'>E257: meal $225.90 vs $75 per-diem</td></tr><tr><td><span class='pill' style='color:var(--neg)'>critical</span></td><td>duplicate payment</td><td class='n'>80</td><td class='n'>$9,900</td><td class='mut'>Summit Interiors: $9,900.00 billed twice, 7d apart</td></tr><tr><td><span class='pill' style='color:var(--line)'>medium</span></td><td>policy violation</td><td class='n'>77</td><td class='n'>$140</td><td class='mut'>E057: meal $214.77 vs $75 per-diem</td></tr></tbody>
+  </table></div>
+
+  <footer>Generated by monitor.py · all data synthetic · flags are for review,
+    not verdicts — a monitor tuned for zero false positives is tuned to miss
+    things</footer>
+</div>
