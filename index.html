@@ -31,8 +31,25 @@
 <div class="wrap">
   <h1>finance</h1>
   <p class="lede">Finance tooling built for work that's already part of the job.
-    Python, synthetic data, readable logic. Two of the three render a dashboard —
-    they're live below.</p>
+    Python, synthetic data, readable logic. Live dashboards below.</p>
+
+  <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
+    <h2>Payments Reconciliation Engine →</h2>
+    <p>50,000 transactions matched against a bank settlement file. Every break
+      classified — timing, amount, missing, duplicate, FX, fee — aged by dollar
+      exposure and routed to an owner. Classification validated against seeded
+      ground truth: every one of 1,148 breaks found and correctly labeled.</p>
+    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
+  </a>
+
+  <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
+    <h2>Payments Unit Economics →</h2>
+    <p>Contribution per transaction across 120,000 transactions — by rail,
+      region, and merchant segment. Contribution waterfall, cross-border
+      premium, and mix-shift sensitivity: what happens to blended economics
+      when cross-border doubles or debit shifts to credit.</p>
+    <span class="meta"><span class="live">● Live dashboard</span> · Python, no dependencies</span>
+  </a>
 
   <a class="card" href="cash-forecast-13w/examples/forecast.html">
     <h2>13-Week Cash Forecast →</h2>

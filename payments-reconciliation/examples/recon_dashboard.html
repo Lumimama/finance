@@ -1,0 +1,154 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settlement Reconciliation · 2026-06-16</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:30px 0 12px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:20px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n2 { font-size:11px; color:var(--mut); margin-top:1px; }
+  .panel { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:18px 20px; }
+  .brk { margin-bottom:14px; }
+  .brk:last-child { margin-bottom:2px; }
+  .brk-head { display:flex; justify-content:space-between; font-size:14px;
+               font-weight:600; text-transform:capitalize; }
+  .sev { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; }
+  .bar-track { background:var(--grid); border-radius:4px; height:8px; margin:5px 0 4px; }
+  .bar { background:var(--line); height:8px; border-radius:4px; }
+  .brk-meta { font-size:12px; color:var(--mut); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:700px) { .cols { grid-template-columns:1fr; } }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { padding:7px 12px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+  .mut { color:var(--mut); font-size:12px; white-space:normal; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Settlement Reconciliation</h1>
+  <div class="sub">As of 2026-06-16 · contractual T+1 · synthetic data</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Transactions</div><div class="v">50,000</div></div>
+    <div class="kpi"><div class="k">Match rate</div><div class="v">97.90%</div>
+      <div class="n2">48,951 clean</div></div>
+    <div class="kpi"><div class="k">Exceptions</div><div class="v">1,148</div></div>
+    <div class="kpi"><div class="k">Gross exposure</div><div class="v">$159,299</div></div>
+    <div class="kpi"><div class="k">Net position</div><div class="v">$5,268</div>
+      <div class="n2">bank owes us</div></div>
+  </div>
+
+  <h2>Breaks by type — exposure-ranked</h2>
+  <div class="panel">
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">timing lag</span>
+        <span class="sev" style="color:var(--mut)">low</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:100.0%"></div></div>
+      <div class="brk-meta">492 items · $105,656 exposure · owner: monitor only</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">missing at bank</span>
+        <span class="sev" style="color:#d97706">high</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:26.1%"></div></div>
+      <div class="brk-meta">117 items · $27,597 exposure · owner: settlement ops</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">missing in ledger</span>
+        <span class="sev" style="color:var(--neg)">critical</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:12.8%"></div></div>
+      <div class="brk-meta">58 items · $13,547 exposure · owner: finance + engineering</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">duplicate settlement</span>
+        <span class="sev" style="color:#d97706">high</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:8.4%"></div></div>
+      <div class="brk-meta">41 items · $8,844 exposure · owner: bank relations</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">amount mismatch</span>
+        <span class="sev" style="color:var(--line)">medium</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:3.0%"></div></div>
+      <div class="brk-meta">163 items · $3,178 exposure · owner: merchant ops</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">fx variance</span>
+        <span class="sev" style="color:var(--line)">medium</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:0.3%"></div></div>
+      <div class="brk-meta">74 items · $339 exposure · owner: treasury</div>
+    </div>
+    <div class="brk">
+      <div class="brk-head">
+        <span class="brk-name">fee discrepancy</span>
+        <span class="sev" style="color:#d97706">high</span>
+      </div>
+      <div class="bar-track"><div class="bar" style="width:0.1%"></div></div>
+      <div class="brk-meta">203 items · $138 exposure · owner: network relations</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h2>Aging — open exceptions</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Age</th><th class="n">Items</th><th class="n">Exposure</th></tr></thead>
+        <tbody><tr><td>0-1d</td><td class='n'>54</td><td class='n'>$3,923.50</td></tr><tr><td>2-3d</td><td class='n'>82</td><td class='n'>$7,897.49</td></tr><tr><td>4-7d</td><td class='n'>177</td><td class='n'>$16,103.40</td></tr><tr><td>8d+</td><td class='n'>343</td><td class='n'>$25,718.94</td></tr></tbody>
+      </table></div>
+    </div>
+    <div>
+      <h2>Exposure by rail</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Rail</th><th class="n">Items</th><th class="n">Exposure</th></tr></thead>
+        <tbody><tr><td>ecom credit</td><td class='n'>236</td><td class='n'>$49,426.60</td></tr><tr><td>card present credit</td><td class='n'>236</td><td class='n'>$34,203.43</td></tr><tr><td>cross border</td><td class='n'>138</td><td class='n'>$27,582.74</td></tr><tr><td>card present debit</td><td class='n'>372</td><td class='n'>$25,703.10</td></tr><tr><td>unknown</td><td class='n'>58</td><td class='n'>$13,547.35</td></tr><tr><td>ecom debit</td><td class='n'>108</td><td class='n'>$8,835.66</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <h2>Top open items</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Txn</th><th>Type</th><th class="n">Exposure</th>
+      <th class="n">Age</th><th>Detail</th></tr></thead>
+    <tbody><tr><td class='mono'>TXN048673</td><td>missing at bank</td><td class='n'>$865.59</td><td class='n'>5d</td><td class='mut'>no settlement received; 865.59 net due</td></tr><tr><td class='mono'>TXN001282</td><td>missing at bank</td><td class='n'>$849.53</td><td class='n'>14d</td><td class='mut'>no settlement received; 849.53 net due</td></tr><tr><td class='mono'>TXN048570</td><td>timing lag</td><td class='n'>$846.99</td><td class='n'>2d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN022962</td><td>timing lag</td><td class='n'>$781.01</td><td class='n'>5d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN044147</td><td>timing lag</td><td class='n'>$780.78</td><td class='n'>2d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN005227</td><td>missing at bank</td><td class='n'>$778.92</td><td class='n'>14d</td><td class='mut'>no settlement received; 778.92 net due</td></tr><tr><td class='mono'>TXN029162</td><td>timing lag</td><td class='n'>$761.27</td><td class='n'>3d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN020025</td><td>timing lag</td><td class='n'>$755.85</td><td class='n'>11d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN024978</td><td>timing lag</td><td class='n'>$735.35</td><td class='n'>11d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN024717</td><td>timing lag</td><td class='n'>$734.17</td><td class='n'>7d</td><td class='mut'>settled T+3 vs contractual T+1</td></tr><tr><td class='mono'>TXN018285</td><td>timing lag</td><td class='n'>$732.60</td><td class='n'>2d</td><td class='mut'>settled T+2 vs contractual T+1</td></tr><tr><td class='mono'>TXN040293</td><td>timing lag</td><td class='n'>$728.03</td><td class='n'>12d</td><td class='mut'>settled T+2 vs contractual T+1</td></tr><tr><td class='mono'>TXN005875</td><td>timing lag</td><td class='n'>$703.19</td><td class='n'>5d</td><td class='mut'>settled T+2 vs contractual T+1</td></tr><tr><td class='mono'>TXN009918</td><td>missing at bank</td><td class='n'>$693.57</td><td class='n'>2d</td><td class='mut'>no settlement received; 693.57 net due</td></tr><tr><td class='mono'>TXN900029</td><td>missing in ledger</td><td class='n'>$660.60</td><td class='n'>2d</td><td class='mut'>bank settled 660.60 for unknown reference</td></tr></tbody>
+  </table></div>
+
+  <footer>Generated by reconcile.py · all data synthetic · classification
+    validated against seeded ground truth (run with --validate)</footer>
+</div>

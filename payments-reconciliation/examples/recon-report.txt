@@ -1,0 +1,51 @@
+================================================================================================
+SETTLEMENT RECONCILIATION  |  as of 2026-06-16  |  T+1 contractual
+================================================================================================
+  ledger transactions            50,000
+  settlement rows                49,982
+  matched clean                  48,951   (97.90%)
+  exceptions                      1,148
+  gross exposure              $159,298.88
+  net position                 -$5,268.35   (bank owes us)
+
+BREAKS BY TYPE
+------------------------------------------------------------------------------------------------
+  type                    sev         count       exposure     largest   owner
+  timing_lag              low           492    $105,655.55     $846.99   monitor only
+  missing_at_bank         high          117     $27,596.99     $865.59   settlement ops
+  missing_in_ledger       critical       58     $13,547.35     $660.60   finance + engineering
+  duplicate_settlement    high           41      $8,844.02     $563.51   bank relations
+  amount_mismatch         medium        163      $3,178.45      $40.00   merchant ops
+  fx_variance             medium         74        $338.67      $15.10   treasury
+  fee_discrepancy         high          203        $137.85       $4.32   network relations
+
+AGING (excl. timing watchlist)
+------------------------------------------------------------------------------------------------
+  0-1d         54      $3,923.50
+  2-3d         82      $7,897.49
+  4-7d        177     $16,103.40
+  8d+         343     $25,718.94
+
+EXPOSURE BY RAIL
+------------------------------------------------------------------------------------------------
+  ecom_credit                 236     $49,426.60
+  card_present_credit         236     $34,203.43
+  cross_border                138     $27,582.74
+  card_present_debit          372     $25,703.10
+  unknown                      58     $13,547.35
+  ecom_debit                  108      $8,835.66
+
+TOP OPEN ITEMS
+------------------------------------------------------------------------------------------------
+  TXN048673   missing_at_bank           -$865.59   5d   no settlement received; 865.59 net due
+  TXN001282   missing_at_bank           -$849.53   14d   no settlement received; 849.53 net due
+  TXN048570   timing_lag                 $846.99   2d   settled T+3 vs contractual T+1
+  TXN022962   timing_lag                 $781.01   5d   settled T+3 vs contractual T+1
+  TXN044147   timing_lag                 $780.78   2d   settled T+3 vs contractual T+1
+  TXN005227   missing_at_bank           -$778.92   14d   no settlement received; 778.92 net due
+  TXN029162   timing_lag                 $761.27   3d   settled T+3 vs contractual T+1
+  TXN020025   timing_lag                 $755.85   11d   settled T+3 vs contractual T+1
+  TXN024978   timing_lag                 $735.35   11d   settled T+3 vs contractual T+1
+  TXN024717   timing_lag                 $734.17   7d   settled T+3 vs contractual T+1
+
+Wrote examples/recon_dashboard.html
