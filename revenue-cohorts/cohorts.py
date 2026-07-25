@@ -354,10 +354,12 @@ def write_html(customers, panel, path: Path) -> None:
 
   <h2>Cohort heatmap — % of initial ARR retained, by months since acquisition</h2>
   <div class="tbl"><table><thead>{heat_head}</thead><tbody>{heat_rows}</tbody></table></div>
-  <div class="note">◂ 2024Q3–Q4: the promo-acquisition cohorts. Retention at
-    M12 runs ~25+ points below every neighboring cohort — a pathology that is
-    nearly invisible in blended NRR, because the older, larger cohorts dominate
-    the base. This contrast is the argument for cohort-level analysis.</div>
+  <div class="note">◂ 2024Q3–Q4: the promo-acquisition cohorts — and the two
+    largest cohorts on the page at $6.4M and $5.9M of starting ARR. They churn
+    off a cliff at first renewal: ~11 points below neighboring cohorts at M12,
+    ~15 at M18, and falling. Small cohorts (2022Q4) wobble by noise; these are
+    dollar-weighted and systematic. Blended NRR barely registered any of it —
+    which is the argument for cohort-level analysis.</div>
 
   <h2>Layer cake — ARR by cohort year</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid}{polys}{ticks}
