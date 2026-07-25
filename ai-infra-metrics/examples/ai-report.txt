@@ -1,0 +1,25 @@
+====================================================================================================
+AI INFRASTRUCTURE METRICS  |  trailing 30 days  |  27.0M calls, 69.5B tokens
+====================================================================================================
+  cost per 1K tokens          $0.0039
+  revenue per 1K tokens       $0.0450
+  cost per inference (call)   $0.0101
+  gross margin after AI cost  91.3%
+  GPU utilization (weekday)   100%
+  GPU utilization (weekend)   83%
+  DAU / MAU                   16,674 / 54,978  (27% stickiness)
+  committed vs consumption    63% committed drawdown / 37% pay-as-you-go
+
+MODEL MIX & COST  (per call, pre vs post router deploy on day 45)
+----------------------------------------------------------------------------------------------------
+  cost per call    $0.0177 -> $0.0105   (-41%)
+  GM after AI      86.6% -> 91.0%
+  same revenue per token; routing simple requests to the small model.
+
+FINDINGS
+----------------------------------------------------------------------------------------------------
+  F1 router deploy cut blended cost/call 41% at flat pricing
+  F2 weekend GPU utilization 83% vs weekday 100%; idle reserved weekend capacity ~$55,580/yr -- batch/training backfill candidate
+  F3 p95 latency 1,870ms on days above 80% utilization vs 978ms below -- the cost-latency tradeoff, quantified
+
+Wrote examples/ai_dashboard.html

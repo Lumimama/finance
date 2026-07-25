@@ -11,6 +11,9 @@ Finance tooling I built for work that's already part of the job — payments rec
 | [controls-monitoring](controls-monitoring) | Seven audit detectors over a year of AP + T&E; 100% recall vs seeded issues, precision reported honestly |
 | [three-statement-model](three-statement-model) | Driver-based P&L → BS → CF, three scenarios; ties to the cent or exits nonzero |
 | [scenario-planner](scenario-planner) | 10K-run Monte Carlo; P10/P50/P90 fans, floor-breach probability, tornado of what drives the outcome |
+| [board-one-pager](board-one-pager) | 30 board metrics in five sections, every definition on the page, incl. AI-specific |
+| [burn-runway](burn-runway) | Gross/net burn, runway trajectory, fundraise trigger, burn bridge that ties |
+| [ai-infra-metrics](ai-infra-metrics) | Cost per token/inference, GPU utilization, cost-latency frontier, revenue per token |
 | [usage-revenue-engine](usage-revenue-engine) | AI pricing: license + metered usage vs commits; utilization action list; rate compression vs inference cost |
 | [revenue-cohorts](revenue-cohorts) | Cohort heatmap, layer cake, empirical CAC-payback curves by channel; dollar-weighted pathology detection |
 | [revenue-recognition](revenue-recognition) | Bookings → billings → revenue; deferred and RPO roll-forwards tie to the cent every month |
