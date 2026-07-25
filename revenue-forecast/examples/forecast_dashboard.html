@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forward Revenue Model · capacity, pipeline, renewals</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:760px) { .cols { grid-template-columns:1fr; } }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .tick { fill:var(--mut); font-size:11px; }
+  .leg { font-size:12px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th,td { padding:6px 10px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .b { font-weight:600; } .mut { color:var(--mut); }
+  .neg { color:var(--neg); } .pos { color:var(--pos); }
+  .mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+  .note { font-size:12.5px; color:var(--mut); margin:8px 2px 0; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Forward Revenue Model</h1>
+  <div class="sub">Next four quarters from the three books that exist today —
+    38 reps · 505 open opportunities · 441
+    renewal contracts · synthetic data</div>
+
+  <h2>Bookings: capacity vs pipeline, with coverage</h2>
+  <div class="chart"><svg viewBox="0 0 880 300"><line x1="80" y1="258.0" x2="856" y2="258.0" class="grid"/><text x="70" y="262.0" text-anchor="end" class="tick">$0M</text><line x1="80" y1="141.0" x2="856" y2="141.0" class="grid"/><text x="70" y="145.0" text-anchor="end" class="tick">$9M</text><line x1="80" y1="24.0" x2="856" y2="24.0" class="grid"/><text x="70" y="28.0" text-anchor="end" class="tick">$19M</text><rect x="104.2" y="169.3" width="44.1" height="88.7" fill="var(--line)" rx="2" opacity="0.9"/><rect x="148.3" y="54.5" width="44.1" height="203.5" fill="#8250df" rx="2" opacity="0.9"/><rect x="192.4" y="196.0" width="44.1" height="62.0" fill="#d97706" rx="2" opacity="0.9"/><text x="177.0" y="276" text-anchor="middle" class="tick">2026Q3</text><text x="177.0" y="291" text-anchor="middle" font-size="11" fill="var(--neg)" font-weight="700">2.3x cov</text><rect x="298.2" y="158.2" width="44.1" height="99.8" fill="var(--line)" rx="2" opacity="0.9"/><rect x="342.3" y="85.5" width="44.1" height="172.5" fill="#8250df" rx="2" opacity="0.9"/><rect x="386.4" y="206.5" width="44.1" height="51.5" fill="#d97706" rx="2" opacity="0.9"/><text x="371.0" y="276" text-anchor="middle" class="tick">2026Q4</text><text x="371.0" y="291" text-anchor="middle" font-size="11" fill="var(--neg)" font-weight="700">1.7x cov</text><rect x="492.2" y="149.7" width="44.1" height="108.3" fill="var(--line)" rx="2" opacity="0.9"/><rect x="536.3" y="202.4" width="44.1" height="55.6" fill="#8250df" rx="2" opacity="0.9"/><rect x="580.4" y="248.9" width="44.1" height="9.1" fill="#d97706" rx="2" opacity="0.9"/><text x="565.0" y="276" text-anchor="middle" class="tick">2027Q1</text><text x="565.0" y="291" text-anchor="middle" font-size="11" fill="var(--neg)" font-weight="700">0.5x cov</text><rect x="686.2" y="144.1" width="44.1" height="113.9" fill="var(--line)" rx="2" opacity="0.9"/><rect x="730.3" y="164.1" width="44.1" height="93.9" fill="#8250df" rx="2" opacity="0.9"/><rect x="774.4" y="243.6" width="44.1" height="14.4" fill="#d97706" rx="2" opacity="0.9"/><text x="759.0" y="276" text-anchor="middle" class="tick">2027Q2</text><text x="759.0" y="291" text-anchor="middle" font-size="11" fill="var(--neg)" font-weight="700">0.8x cov</text>
+    <text x="80" y="14" class="leg"><tspan fill="var(--line)">■ capacity  </tspan><tspan fill="#8250df">■ raw pipeline  </tspan><tspan fill="#d97706">■ weighted pipeline  </tspan></text></svg></div>
+  <div class="note">Coverage = raw pipeline ÷ capacity, against a
+    3.0× planning floor. 2027Q1 is the flag that matters:
+    thin coverage two quarters out is a pipeline-generation problem visible
+    <em>before</em> it becomes a bookings miss — the entire point of running
+    this weekly.</div>
+
+  <h2>ARR build — next four quarters</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Quarter</th><th class="n">Beginning $M</th><th class="n">New</th>
+      <th class="n">Expansion</th><th class="n">Churn</th><th class="n">Ending $M</th>
+      <th>New sourced from</th><th class="n">Gross ret (Q)</th></tr></thead>
+    <tbody><tr><td>2026Q3</td><td class='n'>$46.0</td><td class='n pos'>+$4.9</td><td class='n pos'>+$0.6</td><td class='n neg'>−$0.7</td><td class='n b'>$50.8</td><td class='mut'>pipeline</td><td class='n'>89.9%</td></tr><tr><td>2026Q4</td><td class='n'>$50.8</td><td class='n pos'>+$4.1</td><td class='n pos'>+$0.6</td><td class='n neg'>−$0.9</td><td class='n b'>$54.6</td><td class='mut'>pipeline</td><td class='n'>84.6%</td></tr><tr><td>2027Q1</td><td class='n'>$54.6</td><td class='n pos'>+$7.1</td><td class='n pos'>+$0.7</td><td class='n neg'>−$0.8</td><td class='n b'>$61.6</td><td class='mut'>capacity</td><td class='n'>88.5%</td></tr><tr><td>2027Q2</td><td class='n'>$61.6</td><td class='n pos'>+$7.4</td><td class='n pos'>+$0.8</td><td class='n neg'>−$1.0</td><td class='n b'>$68.7</td><td class='mut'>capacity</td><td class='n'>84.1%</td></tr></tbody></table></div>
+  <div class="note">Near-in quarters source new business from stage-weighted
+    pipeline (evidence); far-out quarters from capacity × 82% historical
+    attainment (the pipe that will exist hasn't been generated yet). Mixing
+    the two on purpose, and saying so, beats pretending either is a forecast
+    on its own.</div>
+
+  <div class="cols">
+    <div>
+      <h2>Renewal book by quarter</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Quarter</th><th class="n">Book</th>
+          <th class="n">Risk-wtd kept</th><th class="n">Gross ret</th></tr></thead>
+        <tbody><tr><td>2026Q3</td><td class='n'>$6.9M</td><td class='n'>$6.2M</td><td class='n'>89.9%</td></tr><tr><td>2026Q4</td><td class='n'>$6.2M</td><td class='n'>$5.2M</td><td class='n'>84.6%</td></tr><tr><td>2027Q1</td><td class='n'>$6.7M</td><td class='n'>$6.0M</td><td class='n'>88.5%</td></tr><tr><td>2027Q2</td><td class='n'>$6.5M</td><td class='n'>$5.5M</td><td class='n'>84.1%</td></tr></tbody></table></div>
+    </div>
+    <div>
+      <h2>Largest at-risk renewals</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Contract</th><th>Segment</th><th>Quarter</th>
+          <th>Health</th><th class="n">ARR</th></tr></thead>
+        <tbody><tr><td class='mono'>N0417</td><td>enterprise</td><td>2027Q2</td><td style='color:#d97706;font-weight:600'>yellow</td><td class='n'>$299,855</td></tr><tr><td class='mono'>N0376</td><td>enterprise</td><td>2027Q2</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$298,755</td></tr><tr><td class='mono'>N0242</td><td>enterprise</td><td>2027Q1</td><td style='color:#d97706;font-weight:600'>yellow</td><td class='n'>$298,233</td></tr><tr><td class='mono'>N0317</td><td>enterprise</td><td>2027Q1</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$296,254</td></tr><tr><td class='mono'>N0430</td><td>enterprise</td><td>2027Q2</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$287,546</td></tr><tr><td class='mono'>N0191</td><td>enterprise</td><td>2026Q4</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$275,347</td></tr><tr><td class='mono'>N0164</td><td>enterprise</td><td>2026Q4</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$248,094</td></tr><tr><td class='mono'>N0077</td><td>enterprise</td><td>2026Q3</td><td style='color:#d97706;font-weight:600'>yellow</td><td class='n'>$218,167</td></tr><tr><td class='mono'>N0033</td><td>enterprise</td><td>2026Q3</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$208,430</td></tr><tr><td class='mono'>N0393</td><td>enterprise</td><td>2027Q2</td><td style='color:var(--neg);font-weight:600'>red</td><td class='n'>$195,095</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <footer>Generated by forecast.py · ARR build reconciles and chains
+    (run --validate) · all data synthetic</footer>
+</div>

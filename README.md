@@ -11,6 +11,10 @@ Finance tooling I built for work that's already part of the job — payments rec
 | [controls-monitoring](controls-monitoring) | Seven audit detectors over a year of AP + T&E; 100% recall vs seeded issues, precision reported honestly |
 | [three-statement-model](three-statement-model) | Driver-based P&L → BS → CF, three scenarios; ties to the cent or exits nonzero |
 | [scenario-planner](scenario-planner) | 10K-run Monte Carlo; P10/P50/P90 fans, floor-breach probability, tornado of what drives the outcome |
+| [revenue-cohorts](revenue-cohorts) | Cohort heatmap, layer cake, empirical CAC-payback curves by channel; dollar-weighted pathology detection |
+| [revenue-recognition](revenue-recognition) | Bookings → billings → revenue; deferred and RPO roll-forwards tie to the cent every month |
+| [revenue-forecast](revenue-forecast) | Capacity × ramp, pipeline coverage flags, per-contract risk-weighted renewal book |
+| [pricing-waterfall](pricing-waterfall) | List → pocket price; quarter-end capitulation and size creep, quantified |
 | [variance-narrator](variance-narrator) | Budget-vs-actuals → board commentary; Python computes, Claude drafts |
 | [cash-forecast-13w](cash-forecast-13w) | Direct-method 13-week forecast with covenant testing and collections stress |
 | [board-metrics](board-metrics) | NRR, GRR, burn multiple, CAC payback, Rule of 40 — definitions in the code |

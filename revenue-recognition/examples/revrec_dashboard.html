@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue Recognition · bookings → billings → revenue</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:19px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n2 { font-size:11px; color:var(--mut); margin-top:1px; }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .tick { fill:var(--mut); font-size:11px; }
+  .leg { font-size:12px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th,td { padding:6px 10px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .bar { background:var(--line); height:9px; border-radius:4px; min-width:2px; }
+  td:last-child { width:45%; }
+  .note { font-size:12.5px; color:var(--mut); margin:8px 2px 0; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Revenue Recognition</h1>
+  <div class="sub">Bookings → billings → revenue · 857 contracts ·
+    ratable recognition · synthetic data</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">TTM revenue</div>
+      <div class="v">$38.5M</div></div>
+    <div class="kpi"><div class="k">TTM billings</div>
+      <div class="v">$43.3M</div></div>
+    <div class="kpi"><div class="k">Deferred revenue</div>
+      <div class="v">$15.8M</div>
+      <div class="n2">billed, not yet earned</div></div>
+    <div class="kpi"><div class="k">RPO</div>
+      <div class="v">$50.0M</div>
+      <div class="n2">67% current</div></div>
+    <div class="kpi"><div class="k">Unbilled backlog</div>
+      <div class="v">$34.2M</div>
+      <div class="n2">RPO − deferred</div></div>
+  </div>
+
+  <h2>Bookings vs billings vs revenue — monthly</h2>
+  <div class="chart"><svg viewBox="0 0 880 300"><line x1="80" y1="260.0" x2="856" y2="260.0" class="grid"/><text x="70" y="264.0" text-anchor="end" class="tick">$0.0M</text><line x1="80" y1="141.0" x2="856" y2="141.0" class="grid"/><text x="70" y="145.0" text-anchor="end" class="tick">$3.8M</text><line x1="80" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="70" y="26.0" text-anchor="end" class="tick">$7.7M</text><polyline points="80.0,91.0 106.8,171.2 133.5,163.2 160.3,197.1 187.0,198.7 213.8,198.8 240.6,195.0 267.3,126.0 294.1,204.1 320.8,137.4 347.6,170.5 374.3,157.7 401.1,206.8 427.9,61.6 454.6,96.8 481.4,183.1 508.1,127.7 534.9,178.0 561.7,147.3 588.4,138.8 615.2,101.0 641.9,149.5 668.7,62.7 695.4,103.7 722.2,135.4 749.0,88.9 775.7,165.9 802.5,43.6 829.2,125.6 856.0,260.0" fill="none" stroke="#8250df" stroke-width="2.5" stroke-linejoin="round"/><polyline points="80.0,197.9 106.8,219.1 133.5,224.5 160.3,231.2 187.0,241.9 213.8,238.0 240.6,219.0 267.3,202.3 294.1,221.1 320.8,210.5 347.6,212.6 374.3,214.1 401.1,177.4 427.9,136.5 454.6,167.6 481.4,202.5 508.1,173.9 534.9,181.0 561.7,187.3 588.4,151.5 615.2,165.3 641.9,161.2 668.7,142.7 695.4,148.1 722.2,124.2 749.0,83.6 775.7,139.6 802.5,104.8 829.2,151.5 856.0,216.1" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><polyline points="80.0,253.8 106.8,250.0 133.5,246.2 160.3,243.8 187.0,241.4 213.8,238.8 240.6,235.3 267.3,229.7 294.1,226.3 320.8,221.4 347.6,217.3 374.3,213.2 401.1,212.8 427.9,206.5 454.6,200.4 481.4,197.3 508.1,191.5 534.9,187.9 561.7,184.7 588.4,181.5 615.2,176.6 641.9,172.3 668.7,165.1 695.4,159.2 722.2,155.0 749.0,150.7 775.7,150.0 802.5,143.2 829.2,141.4 856.0,145.2" fill="none" stroke="var(--line)" stroke-width="2.5" stroke-linejoin="round"/><text x="80.0" y="284" text-anchor="middle" class="tick">2024-01</text><text x="187.0" y="284" text-anchor="middle" class="tick">2024-05</text><text x="294.1" y="284" text-anchor="middle" class="tick">2024-09</text><text x="401.1" y="284" text-anchor="middle" class="tick">2025-01</text><text x="508.1" y="284" text-anchor="middle" class="tick">2025-05</text><text x="615.2" y="284" text-anchor="middle" class="tick">2025-09</text><text x="722.2" y="284" text-anchor="middle" class="tick">2026-01</text><text x="829.2" y="284" text-anchor="middle" class="tick">2026-05</text>
+    <text x="80" y="14" class="leg"><tspan fill="#8250df">● bookings  </tspan><tspan fill="#d97706">● billings  </tspan><tspan fill="var(--line)">● revenue  </tspan></text></svg></div>
+  <div class="note">The three series everyone conflates. Bookings is lumpy
+    (sales), billings follows invoice schedules (cash), revenue is smooth
+    (ratable). A quarter where bookings spikes and revenue doesn't move is
+    working exactly as designed.</div>
+
+  <h2>Deferred revenue and RPO — balances</h2>
+  <div class="chart"><svg viewBox="0 0 880 300"><line x1="80" y1="260.0" x2="856" y2="260.0" class="grid"/><text x="70" y="264.0" text-anchor="end" class="tick">$0M</text><line x1="80" y1="141.0" x2="856" y2="141.0" class="grid"/><text x="70" y="145.0" text-anchor="end" class="tick">$30M</text><line x1="80" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="70" y="26.0" text-anchor="end" class="tick">$59M</text><polyline points="80.0,238.9 106.8,228.6 133.5,217.8 160.3,211.8 187.0,206.2 213.8,201.0 240.6,195.8 267.3,182.4 294.1,179.5 320.8,168.6 347.6,162.5 374.3,155.3 401.1,154.5 427.9,135.7 454.6,122.2 481.4,120.4 508.1,112.1 534.9,110.8 561.7,106.0 588.4,100.4 615.2,90.6 641.9,87.6 668.7,74.4 695.4,67.1 722.2,64.6 749.0,56.6 775.7,58.6 802.5,45.7 829.2,43.6 856.0,58.6" fill="none" stroke="var(--pos)" stroke-width="2.5"/><polyline points="80.0,252.7 106.8,248.7 133.5,245.9 160.3,244.3 187.0,244.4 213.8,244.3 240.6,242.1 267.3,238.6 294.1,237.9 320.8,236.5 347.6,235.9 374.3,236.0 401.1,231.4 427.9,222.3 454.6,218.1 481.4,218.7 508.1,216.4 534.9,215.6 561.7,215.9 588.4,212.0 615.2,210.5 641.9,209.1 668.7,206.2 695.4,204.7 722.2,200.7 749.0,192.0 775.7,190.7 802.5,185.7 829.2,187.0 856.0,196.2" fill="none" stroke="var(--neg)" stroke-width="2.5"/><text x="80.0" y="284" text-anchor="middle" class="tick">2024-01</text><text x="187.0" y="284" text-anchor="middle" class="tick">2024-05</text><text x="294.1" y="284" text-anchor="middle" class="tick">2024-09</text><text x="401.1" y="284" text-anchor="middle" class="tick">2025-01</text><text x="508.1" y="284" text-anchor="middle" class="tick">2025-05</text><text x="615.2" y="284" text-anchor="middle" class="tick">2025-09</text><text x="722.2" y="284" text-anchor="middle" class="tick">2026-01</text><text x="829.2" y="284" text-anchor="middle" class="tick">2026-05</text>
+    <text x="80" y="14" class="leg"><tspan fill="var(--pos)">● RPO (booked,
+    unearned)  </tspan><tspan fill="var(--neg)">● Deferred (billed, unearned)
+    </tspan></text></svg></div>
+
+  <h2>Deferred unwind — when the 15.8M liability becomes revenue</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Quarter</th><th class="n">Converts</th><th></th></tr></thead>
+    <tbody><tr><td>Q+1</td><td class='n'>$7.74M</td><td><div class='bar' style='width:100%'></div></td></tr><tr><td>Q+2</td><td class='n'>$5.19M</td><td><div class='bar' style='width:67%'></div></td></tr><tr><td>Q+3</td><td class='n'>$2.62M</td><td><div class='bar' style='width:34%'></div></td></tr><tr><td>Q+4</td><td class='n'>$0.28M</td><td><div class='bar' style='width:4%'></div></td></tr></tbody></table></div>
+
+  <h2>Monthly detail — trailing 12</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Month</th><th class="n">Bookings $M</th><th class="n">Billings $M</th>
+      <th class="n">Revenue $M</th><th class="n">Deferred $M</th><th class="n">RPO $M</th></tr></thead>
+    <tbody><tr><td>2025-07</td><td class='n'>$3.64</td><td class='n'>$2.34</td><td class='n'>$2.43</td><td class='n'>$10.95</td><td class='n'>$38.24</td></tr><tr><td>2025-08</td><td class='n'>$3.91</td><td class='n'>$3.50</td><td class='n'>$2.53</td><td class='n'>$11.92</td><td class='n'>$39.62</td></tr><tr><td>2025-09</td><td class='n'>$5.13</td><td class='n'>$3.05</td><td class='n'>$2.69</td><td class='n'>$12.28</td><td class='n'>$42.06</td></tr><tr><td>2025-10</td><td class='n'>$3.56</td><td class='n'>$3.18</td><td class='n'>$2.83</td><td class='n'>$12.64</td><td class='n'>$42.79</td></tr><tr><td>2025-11</td><td class='n'>$6.36</td><td class='n'>$3.78</td><td class='n'>$3.06</td><td class='n'>$13.36</td><td class='n'>$46.09</td></tr><tr><td>2025-12</td><td class='n'>$5.04</td><td class='n'>$3.61</td><td class='n'>$3.25</td><td class='n'>$13.72</td><td class='n'>$47.88</td></tr><tr><td>2026-01</td><td class='n'>$4.02</td><td class='n'>$4.38</td><td class='n'>$3.39</td><td class='n'>$14.71</td><td class='n'>$48.52</td></tr><tr><td>2026-02</td><td class='n'>$5.52</td><td class='n'>$5.69</td><td class='n'>$3.52</td><td class='n'>$16.88</td><td class='n'>$50.51</td></tr><tr><td>2026-03</td><td class='n'>$3.04</td><td class='n'>$3.88</td><td class='n'>$3.55</td><td class='n'>$17.21</td><td class='n'>$50.00</td></tr><tr><td>2026-04</td><td class='n'>$6.98</td><td class='n'>$5.00</td><td class='n'>$3.77</td><td class='n'>$18.45</td><td class='n'>$53.21</td></tr><tr><td>2026-05</td><td class='n'>$4.33</td><td class='n'>$3.50</td><td class='n'>$3.83</td><td class='n'>$18.12</td><td class='n'>$53.72</td></tr><tr><td>2026-06</td><td class='n'>$0.00</td><td class='n'>$1.41</td><td class='n'>$3.70</td><td class='n'>$15.83</td><td class='n'>$50.02</td></tr></tbody></table></div>
+
+  <footer>Generated by revrec.py · roll-forwards tie to the cent every month
+    (run --validate) · all data synthetic</footer>
+</div>
