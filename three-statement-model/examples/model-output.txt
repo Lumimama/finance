@@ -1,0 +1,37 @@
+======================================================================================================================
+THREE-STATEMENT MODEL  |  scenario: base  |  $M, quarterly, FY2027-FY2029
+======================================================================================================================
+                            FY2027      FY2028      FY2029
+----------------------------------------------------------------------------------------------------------------------
+P&L (annual)
+  Revenue                     49.3        64.2        79.0
+  Gross profit                37.9        49.4        60.8
+  EBIT                        -7.6        -8.7        -9.4
+  Net income                  -7.6        -8.7        -9.4
+
+CASH FLOW (annual)
+  Billings                    51.6        69.8        85.4
+  CFO                          4.1         5.6         8.1
+  Capex                        1.7         2.2         2.8
+  Free cash flow               2.4         3.3         5.3
+
+BALANCE SHEET (year-end)
+  Cash                        57.4        60.7        66.0
+  Receivables                  9.4        12.1        14.4
+  Deferred revenue            28.4        34.0        40.3
+  Total assets                73.2        79.2        86.8
+  Total liabilities           33.4        40.3        47.8
+    of which equity           39.7        38.9        38.9
+----------------------------------------------------------------------------------------------------------------------
+  TIE-OUT: assets = liabilities + equity in all 12 quarters (max abs diff $0.0000)
+
+SCENARIO COMPARISON  ($M)
+------------------------------------------------------------------------------------------
+                                      base        upside      downside
+  FY29 ending ARR                     86.2         111.4          61.9
+  FY29 revenue                        79.0          97.7          59.6
+  FY29 net income                     -9.4          -7.2         -11.0
+  FY29 free cash flow                  5.3          13.4          -1.7
+  FY29 ending cash                    66.0          81.5          46.8
+
+Wrote examples/three_statement.html

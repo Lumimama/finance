@@ -1,0 +1,25 @@
+============================================================================================
+MONTE CARLO SCENARIO PLANNER  |  10,000 simulations  |  12 quarters
+============================================================================================
+                                 P10         P50         P90
+  Ending ARR                  $88.6M     $116.4M     $154.9M
+  Ending cash                 $38.3M      $73.7M     $118.3M
+
+  P(min cash < $20.0M board floor)      1.9%
+  P(cash goes negative)                 0.1%
+
+TORNADO -- what actually drives ending cash
+--------------------------------------------------------------------------------------------
+  driver                       rank corr   
+  New-business growth rate         +0.79   +########################################
+  Net revenue retention            +0.39   +###################
+  S&M spend level                  -0.25   -############
+  Growth persistence               +0.23   +###########
+  R&D + G&A level                  -0.12   -######
+  Gross margin                     +0.11   +#####
+  Collections timing (DSO)         -0.07   -###
+
+  Read: |corr| ranks how much each assumption moves the outcome.
+  Argue about the top two. The rest is noise management.
+
+Wrote examples/scenario_dashboard.html

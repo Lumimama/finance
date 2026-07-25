@@ -1,0 +1,102 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scenario Planner · Monte Carlo</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; --band:#1f6feb22; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; --band:#58a6ff2b; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:30px 0 12px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:20px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n2 { font-size:11px; color:var(--mut); margin-top:1px; }
+  .warn .v { color:var(--neg); }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .band { fill:var(--band); }
+  .p50 { fill:none; stroke:var(--line); stroke-width:2.5; stroke-linejoin:round; }
+  .tick { fill:var(--mut); font-size:11px; }
+  .panel { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:18px 20px; }
+  .trow { display:grid; grid-template-columns:220px 1fr 52px; gap:12px;
+           align-items:center; margin-bottom:10px; }
+  .tlabel { font-size:13px; }
+  .ttrack { background:var(--grid); border-radius:4px; height:10px; }
+  .tbar { height:10px; border-radius:4px; }
+  .tpos { background:var(--pos); } .tneg { background:var(--neg); }
+  .tval { font-size:12px; text-align:right; font-variant-numeric:tabular-nums;
+           color:var(--mut); }
+  .note { font-size:12.5px; color:var(--mut); margin-top:10px; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Monte Carlo Scenario Planner</h1>
+  <div class="sub">10,000 simulations · 12 quarters · drivers drawn from
+    distributions · synthetic company</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Ending ARR P50</div><div class="v">$116.4M</div>
+      <div class="n2">P10 $88.6M · P90 $154.9M</div></div>
+    <div class="kpi"><div class="k">Ending cash P50</div><div class="v">$73.7M</div>
+      <div class="n2">P10 $38.3M · P90 $118.3M</div></div>
+    <div class="kpi warn"><div class="k">P(breach $20.0M floor)</div>
+      <div class="v">1.9%</div></div>
+    <div class="kpi warn"><div class="k">P(cash negative)</div>
+      <div class="v">0.1%</div></div>
+  </div>
+
+  <h2>Cash — P10 / P50 / P90 fan</h2>
+  <div class="chart"><svg viewBox="0 0 880 300"><line x1="80" y1="260.0" x2="856" y2="260.0" class="grid"/><text x="70" y="264.0" text-anchor="end" class="tick">$35M</text><line x1="80" y1="140.0" x2="856" y2="140.0" class="grid"/><text x="70" y="144.0" text-anchor="end" class="tick">$80M</text><line x1="80" y1="20.0" x2="856" y2="20.0" class="grid"/><text x="70" y="24.0" text-anchor="end" class="tick">$124M</text><path d="M80.0,203.1 L150.5,193.6 L221.1,184.1 L291.6,174.0 L362.2,163.2 L432.7,151.0 L503.3,137.4 L573.8,122.2 L644.4,104.8 L714.9,85.1 L785.5,62.1 L856.0,36.0 L80.0,251.7 L150.5,239.1 L221.1,228.8 L291.6,220.1 L362.2,213.1 L432.7,207.6 L503.3,203.8 L573.8,201.4 L644.4,200.5 L714.9,201.3 L785.5,203.7 L856.0,207.9 Z" class="band"/><polyline points="80.0,205.3 150.5,198.7 221.1,193.0 291.6,187.9 362.2,183.3 432.7,179.1 503.3,174.9 573.8,170.8 644.4,167.2 714.9,163.4 785.5,160.0 856.0,156.2" class="p50"/><text x="80.0" y="284" text-anchor="middle" class="tick">Q1</text><text x="221.1" y="284" text-anchor="middle" class="tick">Q3</text><text x="362.2" y="284" text-anchor="middle" class="tick">Q5</text><text x="503.3" y="284" text-anchor="middle" class="tick">Q7</text><text x="644.4" y="284" text-anchor="middle" class="tick">Q9</text><text x="785.5" y="284" text-anchor="middle" class="tick">Q11</text></svg></div>
+
+  <h2>ARR — P10 / P50 / P90 fan</h2>
+  <div class="chart"><svg viewBox="0 0 880 300"><line x1="80" y1="260.0" x2="856" y2="260.0" class="grid"/><text x="70" y="264.0" text-anchor="end" class="tick">$42M</text><line x1="80" y1="140.0" x2="856" y2="140.0" class="grid"/><text x="70" y="144.0" text-anchor="end" class="tick">$102M</text><line x1="80" y1="20.0" x2="856" y2="20.0" class="grid"/><text x="70" y="24.0" text-anchor="end" class="tick">$163M</text><path d="M80.0,247.0 L150.5,234.0 L221.1,220.0 L291.6,204.7 L362.2,188.3 L432.7,170.6 L503.3,151.6 L573.8,130.9 L644.4,109.3 L714.9,86.2 L785.5,61.4 L856.0,35.4 L80.0,166.9 L150.5,175.3 L221.1,183.4 L291.6,191.7 L362.2,199.9 L432.7,208.1 L503.3,216.0 L573.8,223.7 L644.4,231.2 L714.9,238.6 L785.5,245.8 L856.0,252.8 Z" class="band"/><polyline points="80.0,250.1 150.5,240.2 221.1,229.8 291.6,218.8 362.2,207.2 432.7,195.1 503.3,182.6 573.8,169.4 644.4,155.7 714.9,141.5 785.5,126.9 856.0,111.8" class="p50"/><text x="80.0" y="284" text-anchor="middle" class="tick">Q1</text><text x="221.1" y="284" text-anchor="middle" class="tick">Q3</text><text x="362.2" y="284" text-anchor="middle" class="tick">Q5</text><text x="503.3" y="284" text-anchor="middle" class="tick">Q7</text><text x="644.4" y="284" text-anchor="middle" class="tick">Q9</text><text x="785.5" y="284" text-anchor="middle" class="tick">Q11</text></svg></div>
+
+  <h2>Tornado — what actually drives ending cash</h2>
+  <div class="panel">
+    <div class="trow"><div class="tlabel">New-business growth rate</div>
+      <div class="ttrack"><div class="tbar tpos" style="width:100%"></div></div>
+      <div class="tval">+0.79</div></div>
+    <div class="trow"><div class="tlabel">Net revenue retention</div>
+      <div class="ttrack"><div class="tbar tpos" style="width:49%"></div></div>
+      <div class="tval">+0.39</div></div>
+    <div class="trow"><div class="tlabel">S&M spend level</div>
+      <div class="ttrack"><div class="tbar tneg" style="width:32%"></div></div>
+      <div class="tval">-0.25</div></div>
+    <div class="trow"><div class="tlabel">Growth persistence</div>
+      <div class="ttrack"><div class="tbar tpos" style="width:29%"></div></div>
+      <div class="tval">+0.23</div></div>
+    <div class="trow"><div class="tlabel">R&D + G&A level</div>
+      <div class="ttrack"><div class="tbar tneg" style="width:16%"></div></div>
+      <div class="tval">-0.12</div></div>
+    <div class="trow"><div class="tlabel">Gross margin</div>
+      <div class="ttrack"><div class="tbar tpos" style="width:14%"></div></div>
+      <div class="tval">+0.11</div></div>
+    <div class="trow"><div class="tlabel">Collections timing (DSO)</div>
+      <div class="ttrack"><div class="tbar tneg" style="width:8%"></div></div>
+      <div class="tval">-0.07</div></div>
+    <div class="note">Rank correlation of each input draw with ending cash
+      across all 10,000 simulations. Argue about the top two assumptions;
+      the rest is noise management.</div>
+  </div>
+
+  <footer>Generated by simulate.py · seeded and reproducible · stdlib only</footer>
+</div>
