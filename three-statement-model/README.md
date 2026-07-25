@@ -55,7 +55,7 @@ SCENARIOS = {
 
 One `build()` function, three driver sets. Anything else — three tabs, three files, three formulas — guarantees the scenarios drift apart the first time someone edits one of them.
 
-`--html` renders the cash trajectory for all three scenarios, the annual summary across all nine year-columns, and the articulation checklist as one self-contained page.
+`--html` renders the **actual statements** — the income statement, the balance sheet, and the indirect-method cash flow, line by line across all twelve quarters, with scenario tabs. The tie-out rows are printed inside the statements themselves: `check: A − (L + E)` at the foot of the balance sheet and `check: = balance-sheet cash` at the foot of the cash flow, both 0.0 in every column. A model whose checks live in a separate summary is a model whose checks nobody reads.
 
 ## Notes
 

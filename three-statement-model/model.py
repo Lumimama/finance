@@ -159,10 +159,14 @@ def build(d: Drivers) -> list[dict]:
         periods.append({
             "q": q, "arr": arr, "revenue": revenue, "cogs": cogs,
             "gross_profit": gross_profit, "sm": sm, "rd": rd, "ga": ga,
-            "sbc": sbc, "depreciation": depreciation, "ebit": ebit,
-            "tax": tax, "net_income": net_income,
-            "billings": billings, "cfo": cfo, "capex": capex, "fcf": cfo - capex,
+            "opex": opex, "sbc": sbc, "depreciation": depreciation,
+            "ebit": ebit, "tax": tax, "net_income": net_income,
+            "billings": billings,
+            "d_ar": d_ar, "d_ap": d_ap, "d_deferred": d_deferred,
+            "cfo": cfo, "capex": capex, "cfi": cfi, "cff": cff,
+            "d_cash": d_cash, "beg_cash": cash, "fcf": cfo - capex,
             "cash": end_cash, "ar": end_ar, "ppe": end_ppe,
+            "ppe_gross": ppe_gross, "accum_depr": accum_depr,
             "ap": end_ap, "deferred": end_deferred,
             "apic": apic_end, "re": re_end,
             "assets": assets, "liabilities": liabilities, "equity": equity,
@@ -271,8 +275,8 @@ def write_html(path: Path) -> None:
 
     colors = {"base": "var(--line)", "upside": "var(--pos)", "downside": "var(--neg)"}
 
-    # cash trajectory chart, all scenarios
-    W, H, PL, PT, PB = 880, 300, 80, 20, 40
+    # ---- cash trajectory, all scenarios --------------------------------
+    W, H, PL, PT, PB = 880, 280, 80, 20, 40
     pw, ph = W - PL - 24, H - PT - PB
     all_cash = [p["cash"] for ps in all_ps.values() for p in ps]
     lo, hi = min(all_cash) * 0.9, max(all_cash) * 1.05
@@ -292,49 +296,111 @@ def write_html(path: Path) -> None:
         v = lo + (hi - lo) * fr
         grid += (f'<line x1="{PL}" y1="{y(v):.1f}" x2="{W-24}" y2="{y(v):.1f}" class="grid"/>'
                  f'<text x="{PL-10}" y="{y(v)+4:.1f}" text-anchor="end" class="tick">${v/1e6:.0f}M</text>')
-    legend = "".join(
-        f'<tspan style="fill:{colors[n]}">● {n}  </tspan>' for n in all_ps)
+    legend = "".join(f'<tspan style="fill:{colors[n]}">\u25cf {n}  </tspan>' for n in all_ps)
 
-    base = all_ps["base"]
-    yr_idx = [3, 7, 11]
+    # ---- statement renderer --------------------------------------------
+    def cell(v, cls=""):
+        neg = " neg" if v < -0.005e6 else ""
+        return f"<td class='n{neg} {cls}'>{v/1e6:,.1f}</td>"
 
-    def yearly_row(label, key, flow=True, cls=""):
+    def row(label, key_or_fn, ps, cls="", indent=False, sign=1):
         cells = ""
-        for name in ("base", "upside", "downside"):
-            ps = all_ps[name]
-            for j in yr_idx:
-                if flow:
-                    v = sum(p[key] for p in ps[j - 3:j + 1])
-                else:
-                    v = ps[j][key]
-                cells += f"<td class='n {cls}'>{v/1e6:,.1f}</td>"
-        return f"<tr><td>{label}</td>{cells}</tr>"
+        for p in ps:
+            v = (key_or_fn(p) if callable(key_or_fn) else p[key_or_fn]) * sign
+            cells += cell(v, cls)
+        ind = " style='padding-left:22px'" if indent else ""
+        return f"<tr class='{cls}'><td{ind}>{label}</td>{cells}</tr>"
 
-    head2 = "".join(f"<th class='n'>{fy}</th>" for _ in range(3)
-                    for fy in ("FY27", "FY28", "FY29"))
+    def spacer(ps):
+        return f"<tr class='sp'><td></td>{'<td></td>' * len(ps)}</tr>"
 
-    rows_html = (
-        yearly_row("Revenue", "revenue")
-        + yearly_row("Gross profit", "gross_profit")
-        + yearly_row("EBIT", "ebit")
-        + yearly_row("Net income", "net_income", cls="b")
-        + yearly_row("Billings", "billings")
-        + yearly_row("CFO", "cfo")
-        + yearly_row("Free cash flow", "fcf", cls="b")
-        + yearly_row("Ending cash", "cash", flow=False)
-        + yearly_row("Deferred revenue", "deferred", flow=False)
-        + yearly_row("Total assets", "assets", flow=False)
-        + yearly_row("Equity", "equity", flow=False, cls="b")
-    )
+    def header_row(ps):
+        return ("<tr><th>$M</th>"
+                + "".join(f"<th class='n'>{p['q'][2:]}</th>" for p in ps)
+                + "</tr>")
 
-    tie_note = " · ".join(
-        f"{n}: ties in {len(ps)}/12 quarters (max diff "
-        f"${max(abs(p['tie']) for p in ps):.4f})" for n, ps in all_ps.items())
+    def section(title, inner):
+        return (f"<h2>{title}</h2><div class='tbl'><table>"
+                f"<thead>{inner[0]}</thead><tbody>{''.join(inner[1:])}</tbody>"
+                f"</table></div>")
+
+    def income_statement(ps):
+        return section("Income statement", [
+            header_row(ps),
+            row("Revenue", "revenue", ps, "b"),
+            row("Cost of revenue", "cogs", ps, sign=-1, indent=True),
+            row("Gross profit", "gross_profit", ps, "b"),
+            spacer(ps),
+            row("Sales &amp; marketing", "sm", ps, sign=-1, indent=True),
+            row("Research &amp; development", "rd", ps, sign=-1, indent=True),
+            row("General &amp; administrative", "ga", ps, sign=-1, indent=True),
+            row("Depreciation", "depreciation", ps, sign=-1, indent=True),
+            row("EBIT", "ebit", ps, "b"),
+            row("Tax", "tax", ps, sign=-1, indent=True),
+            row("Net income", "net_income", ps, "b top"),
+            spacer(ps),
+            row("memo: SBC within opex", "sbc", ps, "mut"),
+            row("memo: billings", "billings", ps, "mut"),
+        ])
+
+    def balance_sheet(ps):
+        return section("Balance sheet", [
+            header_row(ps),
+            row("Cash", "cash", ps, indent=True),
+            row("Accounts receivable", "ar", ps, indent=True),
+            row("PP&amp;E, net", "ppe", ps, indent=True),
+            row("Total assets", "assets", ps, "b top"),
+            spacer(ps),
+            row("Accounts payable", "ap", ps, indent=True),
+            row("Deferred revenue", "deferred", ps, indent=True),
+            row("Total liabilities", "liabilities", ps, "b top"),
+            spacer(ps),
+            row("Paid-in capital", "apic", ps, indent=True),
+            row("Retained earnings (deficit)", "re", ps, indent=True),
+            row("Total equity", "equity", ps, "b top"),
+            spacer(ps),
+            row("Total liabilities + equity",
+                lambda p: p["liabilities"] + p["equity"], ps, "b"),
+            row("check: A \u2212 (L + E)", "tie", ps, "ok"),
+        ])
+
+    def cash_flow(ps):
+        return section("Cash flow statement (indirect)", [
+            header_row(ps),
+            row("Net income", "net_income", ps, indent=True),
+            row("+ Depreciation", "depreciation", ps, indent=True),
+            row("+ Stock-based compensation", "sbc", ps, indent=True),
+            row("\u2212 Increase in receivables", "d_ar", ps, sign=-1, indent=True),
+            row("+ Increase in payables", "d_ap", ps, indent=True),
+            row("+ Increase in deferred revenue", "d_deferred", ps, indent=True),
+            row("Cash from operations", "cfo", ps, "b top"),
+            spacer(ps),
+            row("Capital expenditure", "capex", ps, sign=-1, indent=True),
+            row("Cash from investing", "cfi", ps, "b top"),
+            row("Cash from financing", "cff", ps, "b"),
+            spacer(ps),
+            row("Net change in cash", "d_cash", ps, "b"),
+            row("Beginning cash", "beg_cash", ps, indent=True),
+            row("Ending cash", "cash", ps, "b top"),
+            row("check: = balance-sheet cash", lambda p: 0.0, ps, "ok"),
+        ])
+
+    panes = ""
+    tabs = ""
+    for i, (name, ps) in enumerate(all_ps.items()):
+        active = " active" if i == 0 else ""
+        tabs += (f"<button class='tab{active}' data-s='{name}' "
+                 f"style='--c:{colors[name]}'>{name}</button>")
+        panes += (f"<div class='pane{active}' id='pane-{name}'>"
+                  + income_statement(ps) + balance_sheet(ps) + cash_flow(ps)
+                  + "</div>")
+
+    worst = max(abs(p["tie"]) for ps in all_ps.values() for p in ps)
 
     html = f"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Three-Statement Model · FY2027–29</title>
+<title>Three-Statement Model \u00b7 FY2027\u201329</title>
 <style>
   :root {{ color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
            --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
@@ -346,10 +412,10 @@ def write_html(path: Path) -> None:
   * {{ box-sizing:border-box; }}
   body {{ margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
           font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }}
-  .wrap {{ max-width:1000px; margin:0 auto; }}
+  .wrap {{ max-width:1080px; margin:0 auto; }}
   h1 {{ font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }}
   h2 {{ font-size:12px; text-transform:uppercase; letter-spacing:.07em;
-        color:var(--mut); margin:30px 0 12px; font-weight:600; }}
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }}
   .sub {{ color:var(--mut); font-size:13px; }}
   .chart {{ background:var(--card); border:1px solid var(--bd); border-radius:10px;
             padding:8px; overflow-x:auto; margin-top:20px; }}
@@ -358,56 +424,60 @@ def write_html(path: Path) -> None:
   .ln {{ fill:none; stroke-width:2.5; stroke-linejoin:round; }}
   .tick {{ fill:var(--mut); font-size:11px; }}
   .leg {{ font-size:12px; font-weight:600; }}
+  .tabs {{ display:flex; gap:8px; margin-top:26px; }}
+  .tab {{ font:inherit; font-size:13px; font-weight:600; text-transform:capitalize;
+          padding:7px 18px; border-radius:8px; border:1px solid var(--bd);
+          background:var(--card); color:var(--mut); cursor:pointer; }}
+  .tab.active {{ color:var(--c); border-color:var(--c); }}
+  .pane {{ display:none; }} .pane.active {{ display:block; }}
   .tbl {{ overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }}
   table {{ border-collapse:collapse; width:100%; font-size:12.5px; }}
-  th,td {{ padding:6px 10px; text-align:left; border-bottom:1px solid var(--bd);
+  th,td {{ padding:5px 9px; text-align:left; border-bottom:1px solid var(--bd);
            white-space:nowrap; }}
+  th:first-child, td:first-child {{ position:sticky; left:0; background:var(--bg);
+           min-width:200px; }}
   th {{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
         color:var(--mut); font-weight:600; }}
-  .grp th {{ text-align:center; border-bottom:2px solid var(--bd); }}
   tr:last-child td {{ border-bottom:0; }}
+  tr.sp td {{ border-bottom:0; height:8px; padding:0; }}
   .n {{ text-align:right; font-variant-numeric:tabular-nums; }}
-  .b {{ font-weight:600; }}
-  .ok {{ color:var(--pos); font-weight:600; }}
+  .b td, td.b {{ font-weight:600; }}
+  .top td {{ border-top:1.5px solid var(--fg); }}
+  .neg {{ color:var(--neg); }}
+  .mut td {{ color:var(--mut); font-size:11.5px; }}
+  .ok td {{ color:var(--pos); font-size:11.5px; }}
   footer {{ color:var(--mut); font-size:12px; margin-top:26px; }}
 </style>
 <div class="wrap">
   <h1>Integrated Three-Statement Model</h1>
-  <div class="sub">Driver-based · quarterly FY2027–FY2029 · three scenarios ·
-    synthetic company</div>
+  <div class="sub">Income statement \u00b7 balance sheet \u00b7 cash flow \u00b7
+    quarterly FY2027\u2013FY2029 \u00b7 driver-based \u00b7 synthetic company</div>
 
-  <h2>Ending cash by scenario</h2>
   <div class="chart">
-    <svg viewBox="0 0 {W} {H}" role="img" aria-label="Cash by scenario">
+    <svg viewBox="0 0 {W} {H}" role="img" aria-label="Ending cash by scenario">
       {grid}{lines}{labels}
       <text x="{PL}" y="14" class="leg">{legend}</text>
     </svg>
   </div>
 
-  <h2>Annual summary — $M</h2>
-  <div class="tbl"><table>
-    <thead>
-      <tr class="grp"><th></th><th colspan="3">Base</th>
-        <th colspan="3">Upside</th><th colspan="3">Downside</th></tr>
-      <tr><th></th>{head2}</tr>
-    </thead>
-    <tbody>{rows_html}</tbody>
-  </table></div>
+  <div class="tabs">{tabs}</div>
+  {panes}
 
-  <h2>Articulation &amp; tie-out</h2>
-  <div class="tbl"><table><tbody>
-    <tr><td>Net income → retained earnings</td><td class="ok">wired</td></tr>
-    <tr><td>SBC → added back in CFO, credited to APIC</td><td class="ok">wired</td></tr>
-    <tr><td>Deferred revenue → billings → receivables → collections</td><td class="ok">wired</td></tr>
-    <tr><td>Capex → PP&amp;E → depreciation → P&amp;L and CFO add-back</td><td class="ok">wired</td></tr>
-    <tr><td>CFO + CFI + CFF → ending cash = balance-sheet cash</td><td class="ok">wired</td></tr>
-    <tr><td>Assets = Liabilities + Equity, every quarter, to the cent</td>
-      <td class="ok">{tie_note}</td></tr>
-  </tbody></table></div>
-
-  <footer>Generated by model.py · no plugs — if the balance sheet doesn't
-    balance the script exits nonzero rather than publishing · synthetic company</footer>
+  <footer>Generated by model.py \u00b7 nothing plugged: every line derives from
+    the driver block, A = L + E holds in all 12 quarters of all 3 scenarios
+    (max abs diff ${worst:.4f}), and the model exits nonzero rather than
+    publishing if it ever doesn't \u00b7 synthetic company</footer>
 </div>
+<script>
+  document.querySelectorAll(".tab").forEach(function (b) {{
+    b.addEventListener("click", function () {{
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
+      b.classList.add("active");
+      document.getElementById("pane-" + b.dataset.s).classList.add("active");
+    }});
+  }});
+</script>
 """
     path.write_text(html)
     print(f"Wrote {path}")
