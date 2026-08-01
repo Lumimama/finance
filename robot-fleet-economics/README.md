@@ -4,6 +4,8 @@ A per-robot P&L for a deployed fleet — the analysis that separates physical AI
 
 **No dependencies.** Python 3.10+, synthetic data.
 
+**Calibrated to how robotics fleets actually run:** a 4-year hardware *generation* (48 months, zero residual — obsolescence outruns wear), a 24-month payback target (repay within half a generation, the RaaS bar), and a validation guard that fails the build if median payback ever leaves the 12–30-month band operators actually live in.
+
 ```bash
 python fleet.py            # console
 python fleet.py --validate
@@ -17,12 +19,12 @@ Software has no equivalent of an idle robot. An unused SaaS seat costs the vendo
 So the metrics are different in kind, not just in name:
 
 - **Utilization vs uptime are different problems.** A robot that is *up* but *idle* looks healthy on a maintenance dashboard and is the most expensive failure mode on the page.
-- **Payback is measured against the depreciation life.** If a unit's projected payback exceeds 60 months, it never pays for itself — that's capital destruction, not low margin.
+- **Payback is measured against the hardware generation.** Median projected payback is 22.8 months against the 24-month target, with 55% of the fleet on target. A unit whose payback exceeds the 48-month generation never pays for itself — that's capital destruction, not low margin — and it displays as **"never"**, not as a month count: an earlier version printed "683 months," and operator feedback was blunt that fleets live a few years, so any figure beyond the generation is meaningless. Failing units are ranked instead by **the share of capex they recover before end-of-life** (a unit at 12% recovery writes off 88% of its hardware), which is a number an operator can act on.
 - **Contribution is charted against the depreciation line** each unit must out-earn to be worth owning. A software P&L has no equivalent chart.
 
 ## Two distinct failure modes, and they need opposite fixes
 
-24 of 152 units (16% of the fleet, **$2.04M of capital**) never repay their hardware inside the depreciation life — for two different reasons:
+29 of 152 units (19% of the fleet, **$2.53M of capital**) never repay their hardware inside the 48-month generation — for different reasons needing different fixes:
 
 - **25 are low-utilization sites.** The volume was never there; no price change fixes them. The remedy is redeployment or recovery.
 - **9 are reliability failures** whose field-service cost now exceeds their revenue outright — worse than idle, because every month they run they lose money.

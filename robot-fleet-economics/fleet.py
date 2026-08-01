@@ -61,7 +61,14 @@ CONFIGS = {
     "heavy_payload":   (0.17, 112_000),
 }
 HARDWARE_CAPEX = 68_000          # baseline config, used for display defaults
-DEPRECIATION_LIFE_MO = 60        # 5-year straight line
+# Robots are refreshed on hardware GENERATIONS, not equipment lifespans --
+# obsolescence outruns wear. A 4-year useful life is the realistic ceiling for
+# a deployed mobile-robot fleet, and operators target payback well inside half
+# of it. (An earlier version used 60 months and displayed 20-50 YEAR paybacks
+# for weak units; operator feedback was blunt: fleets live a few years, so any
+# month-count beyond the generation is meaningless. Both fixed.)
+DEPRECIATION_LIFE_MO = 48        # one hardware generation, zero residual value
+PAYBACK_TARGET_MO = 24           # the RaaS bar: repay within half a generation
 HOURS_AVAILABLE_MO = 22 * 16     # 22 working days x 2 shifts
 DEPLOY_RAMP_MO = 4               # F3: utilization ramps over ~4 months
 
@@ -210,6 +217,13 @@ def per_robot(robots, panel):
             "payback_observed_mo": observed,
             "payback_projected_mo": projected,
             "clears_capex": projected <= DEPRECIATION_LIFE_MO,
+            "meets_target": projected <= PAYBACK_TARGET_MO,
+            # The number an operator can act on for a failing unit: what share
+            # of its hardware cost will this robot recover before the fleet
+            # refreshes? (contribution to date + run-rate over remaining life)
+            "eol_recovery": (contrib_total
+                             + run_rate * max(0, DEPRECIATION_LIFE_MO - months_live)
+                             ) / r["hardware_capex"],
             "utilization_steady": (sum(x["utilization"] for x in steady) / len(steady)
                                    if steady else rows[-1]["utilization"]),
             "uptime_avg": sum(x["uptime"] for x in rows) / months_live,
@@ -287,18 +301,21 @@ def print_report(robots, panel) -> None:
     print("-" * w)
     med = sorted(r["payback_projected_mo"] for r in pr
                  if r["payback_projected_mo"] != float("inf"))
-    print(f"  median projected payback    {med[len(med)//2]:>10.1f}mo")
+    on_target = sum(1 for r in pr if r["meets_target"])
+    print(f"  median projected payback    {med[len(med)//2]:>10.1f}mo   "
+          f"(target: {PAYBACK_TARGET_MO}mo)")
+    print(f"  units meeting the target    {on_target:>12,}   ({on_target/len(pr):.0%} of fleet)")
     print(f"  units that never clear capex{len(fails):>12,}   "
           f"({len(fails)/len(pr):.0%} of fleet, "
           f"{money(sum(r['hardware_capex'] for r in fails))} of capital)")
 
     print(f"\n  worst units by projected payback:")
-    worst = sorted(pr, key=lambda r: r["run_rate_contribution_mo"])[:6]
+    worst = sorted(pr, key=lambda r: r["eol_recovery"])[:6]
     for r in worst:
         print(f"    {r['robot_id']}  {r['customer']:<24}{r['archetype']:<17}"
               f"util {r['utilization_steady']:>5.0%}   "
               f"contrib ${r['run_rate_contribution_mo']:>7,.0f}/mo   "
-              f"payback {pb_label(r)}")
+              f"recovers {max(0, r['eol_recovery']):>4.0%} of capex by end of life")
 
     print(f"\nBY ARCHETYPE")
     print("-" * w)
@@ -390,6 +407,19 @@ def validate(robots, panel) -> None:
     print(f"  [{'ok ' if f2 else 'MISS'}] F2: field-service cost is tail-concentrated "
           f"(mean {money(mean_)} vs median {money(median_)}/mo, ratio {mean_/median_:.2f}x)")
 
+    # Realism guard -- the check that would have caught the original
+    # calibration (60-month life, 20-50 YEAR paybacks): a RaaS fleet's median
+    # projected payback must land in the band operators actually live in.
+    med_pb = sorted(r["payback_projected_mo"] for r in pr
+                    if r["payback_projected_mo"] != float("inf"))
+    med_pb = med_pb[len(med_pb) // 2]
+    realistic = 12 <= med_pb <= 30 and PAYBACK_TARGET_MO <= DEPRECIATION_LIFE_MO / 2 + 1
+    ok &= realistic
+    print(f"  [{'ok ' if realistic else 'MISS'}] realism guard: median projected "
+          f"payback {med_pb:.1f}mo sits in the 12-30mo RaaS band; target "
+          f"{PAYBACK_TARGET_MO}mo is within half the {DEPRECIATION_LIFE_MO}mo "
+          f"hardware generation")
+
     ramp = ramp_curve(panel)
     f3 = ramp[0] < ramp[DEPLOY_RAMP_MO] * 0.6
     ok &= f3
@@ -402,15 +432,18 @@ def validate(robots, panel) -> None:
 
 # ---------------------------------------------------------------------------
 def pb_label(r: dict) -> str:
-    """Payback display. Beyond the depreciation life the exact month count is
-    noise -- payback = capex / contribution is hyperbolic near zero, so 251 mo
-    and 683 mo both simply mean "never". Bin, don't rank."""
+    """Payback display. A fleet refreshes every hardware generation
+    (48mo), so any month-count beyond it is meaningless -- the
+    unit is a "no". Rank failing units by how much capex they recover before
+    end-of-life instead, which is the number an operator can act on."""
     v = r["payback_projected_mo"]
     if v == float("inf"):
         return "never — loses money"
     if v > DEPRECIATION_LIFE_MO:
-        return f"never (~{v/12:.0f}y at run-rate)"
-    return f"{v:.0f} mo"
+        return "never"
+    if v > PAYBACK_TARGET_MO:
+        return f"{v:.0f} mo — misses {PAYBACK_TARGET_MO}mo target"
+    return f"{v:.0f} mo ✓"
 
 
 def write_html(robots, panel, path: Path) -> None:
@@ -507,10 +540,10 @@ def write_html(robots, panel, path: Path) -> None:
         f"<td class='n'>{r['utilization_steady']:.0%}</td>"
         f"<td class='n {'neg' if r['run_rate_contribution_mo'] <= 0 else ''}'>"
         f"${r['run_rate_contribution_mo']:,.0f}</td>"
-        f"<td class='n neg'>{pb_label(r)}</td>"
+        f"<td class='n neg'>{max(0, r['eol_recovery']):.0%}</td>"
         f"<td>{r['config'].replace('_',' ')}</td>"
         f"<td class='n'>${r['hardware_capex']:,.0f}</td></tr>"
-        for r in sorted(fails, key=lambda r: r["run_rate_contribution_mo"])[:10])
+        for r in sorted(fails, key=lambda r: r["eol_recovery"])[:10])
 
     svc = sorted((r["field_service_total"] / r["months_live"] for r in pr))
     mean_, median_ = sum(svc) / len(svc), svc[len(svc) // 2]
@@ -591,6 +624,9 @@ def write_html(robots, panel, path: Path) -> None:
     <div class="kpi"><div class="k">Contribution / robot / mo</div>
       <div class="v">${last['contribution_per_robot']:,.0f}</div>
       <div class="n2">vs ${depr:,.0f} avg depreciation</div></div>
+    <div class="kpi"><div class="k">Median payback</div>
+      <div class="v">{sorted(x['payback_projected_mo'] for x in pr if x['payback_projected_mo'] != float('inf'))[len(pr)//2]:.0f} mo</div>
+      <div class="n2">target {PAYBACK_TARGET_MO}mo · {sum(1 for x in pr if x['meets_target'])/len(pr):.0%} of fleet on target</div></div>
     <div class="kpi warn"><div class="k">Units that never repay capex</div>
       <div class="v">{len(fails)}</div>
       <div class="n2">${sum(r['hardware_capex'] for r in fails)/1e6:,.1f}M of capital</div></div>
@@ -645,17 +681,17 @@ def write_html(robots, panel, path: Path) -> None:
     capital destruction.</div>
 
   <h2>Worst 10 of {len(fails)} units, ranked by monthly cash contribution</h2>
-  <div class="note" style="margin-bottom:8px">Payback beyond the
-    {DEPRECIATION_LIFE_MO}-month depreciation life displays as
-    <strong>never</strong> — the formula (capex ÷ monthly contribution) goes
-    hyperbolic as contribution approaches zero, so "251 months" and "683
-    months" differ enormously as numbers and not at all as decisions. The
-    run-rate-years figure is kept only as context for how far under water the
-    unit is.</div>
+  <div class="note" style="margin-bottom:8px">Fleets refresh on hardware
+    generations, so a payback month-count beyond the
+    {DEPRECIATION_LIFE_MO}-month life is meaningless — the unit is simply a
+    "no". Failing units are ranked instead by <strong>the share of their
+    hardware cost they will recover before end-of-life</strong>: a unit at 12%
+    recovery writes off ~88% of its capex, and that number — unlike "683
+    months" — tells you the size of the decision.</div>
   <div class="tbl"><table>
     <thead><tr><th>Robot</th><th>Customer</th><th>Archetype</th>
       <th class="n">Steady util</th><th class="n">Contribution / mo</th>
-      <th class="n">Projected payback</th><th>Config</th>
+      <th class="n">Capex recovered by end of life</th><th>Config</th>
       <th class="n">Capex at risk</th></tr></thead>
     <tbody>{worst_rows}</tbody></table></div>
 

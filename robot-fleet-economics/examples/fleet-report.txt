@@ -7,27 +7,28 @@ ROBOT FLEET UNIT ECONOMICS  |  152 units deployed  |  through 2026-06
   fleet uptime                      96.9%
   revenue / robot / month           $4,395
   contribution / robot / mo         $3,355
-  EBITDA after depreciation       $305,332
+  EBITDA after depreciation       $254,182
 
-PAYBACK  (hardware capex $68,000, depreciation life 60mo)
+PAYBACK  (hardware capex $68,000, depreciation life 48mo)
 --------------------------------------------------------------------------------------------------------
-  median projected payback          22.8mo
-  units that never clear capex          24   (16% of fleet, $2,040,000 of capital)
+  median projected payback          22.8mo   (target: 24mo)
+  units meeting the target              83   (55% of fleet)
+  units that never clear capex          29   (19% of fleet, $2,528,000 of capital)
 
   worst units by projected payback:
-    RB0007  Halcyon Manufacturing   low_util_site    util   21%   contrib $ -3,551/mo   payback never — loses money
-    RB0151  Silverline Auto         low_util_site    util   16%   contrib $   -317/mo   payback never — loses money
-    RB0149  Orchard Cold Chain      high_throughput  util   63%   contrib $   -306/mo   payback never — loses money
-    RB0065  Kestrel Materials       low_util_site    util   22%   contrib $    164/mo   payback never (~57y at run-rate)
-    RB0128  Orchard Cold Chain      low_util_site    util   20%   contrib $    243/mo   payback never (~23y at run-rate)
-    RB0023  Fairhaven Packaging     standard         util   61%   contrib $    271/mo   payback never (~21y at run-rate)
+    RB0007  Halcyon Manufacturing   low_util_site    util   21%   contrib $ -3,551/mo   recovers   0% of capex by end of life
+    RB0151  Silverline Auto         low_util_site    util   16%   contrib $   -317/mo   recovers   0% of capex by end of life
+    RB0149  Orchard Cold Chain      high_throughput  util   63%   contrib $   -306/mo   recovers   0% of capex by end of life
+    RB0065  Kestrel Materials       low_util_site    util   22%   contrib $    164/mo   recovers   6% of capex by end of life
+    RB0118  Halcyon Manufacturing   low_util_site    util   21%   contrib $    288/mo   recovers  11% of capex by end of life
+    RB0124  Kestrel Materials       standard         util   66%   contrib $    375/mo   recovers  13% of capex by end of life
 
 BY ARCHETYPE
 --------------------------------------------------------------------------------------------------------
   archetype           units    util     rev/mo  contrib/mo   payback  clears capex
-  high_throughput        56     77%     $4,658      $4,351      17mo         53/56
-  standard               58     61%     $3,538      $3,172      23mo         52/58
-  seasonal               24     48%     $2,701      $2,246      32mo         23/24
+  high_throughput        56     77%     $4,658      $4,351      17mo         52/56
+  standard               58     61%     $3,538      $3,172      23mo         51/58
+  seasonal               24     48%     $2,701      $2,246      32mo         20/24
   low_util_site          14     21%     $1,152         $64     never          0/14
 
 FIELD SERVICE CONCENTRATION
