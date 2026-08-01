@@ -72,6 +72,10 @@ customers" header against a 1,448-row dataset). Two rules:
   from the data at generation time.
 - **Run `python3 check_freshness.py` before every push.** It fails if any
   `examples/*.html` is older than the script or data that produce it.
+- Note: several scripts rewrite their `data/*.csv` on every run, so a
+  `--validate` sweep across all projects will legitimately mark dashboards
+  stale. Regenerate the HTML after any sweep — that is the guard working, not
+  a false alarm.
 
 ## Publishing
 
