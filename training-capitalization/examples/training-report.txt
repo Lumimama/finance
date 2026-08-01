@@ -1,0 +1,49 @@
+============================================================================================================
+TRAINING RUN CAPITALIZATION  |  10 runs  |  2025-01 to 2026-12
+============================================================================================================
+  total training spend             $21.73M
+  runs deployed / abandoned   8 / 2
+  abandoned cost                    $2.68M
+  pre-feasibility share               35%   (expensed under both)
+  useful life                         24mo
+
+THE TWO TREATMENTS  ($M)
+------------------------------------------------------------------------------------------------------------
+  month       revenue    EXPENSE:    EBITDA    |  CAPITALIZE:     R&D   amort   impair    EBITDA    delta
+  2025-01        1.40        0.30      0.24                      0.10    0.00     0.00      0.43    +0.19
+  2025-04        1.79        0.36      0.32                      0.13    0.02     0.00      0.53    +0.21
+  2025-07        2.28        0.53      0.34                      0.19    0.05     0.00      0.63    +0.29
+  2025-10        2.92        0.26      0.84                      0.09    0.10     0.00      0.92    +0.08
+  2026-01        3.73        1.74     -0.33                      0.61    0.10     0.00      0.71    +1.04
+  2026-04        4.76        0.63      1.18                      0.22    0.24     0.00      1.35    +0.17
+  2026-07        6.08        1.67      0.64                      0.59    0.24     0.00      1.49    +0.85
+  2026-10        7.77        1.75      1.20                      0.61    0.37     0.00      1.96    +0.76
+
+  LTM EBITDA — expensed           $11.78M
+  LTM EBITDA — capitalized        $17.59M
+  difference                       $5.80M   (+49% on the expensed base)
+
+INTANGIBLE ROLL-FORWARD  (capitalize treatment, $M)
+------------------------------------------------------------------------------------------------------------
+  month        opening   additions  amortization  impairment    closing
+  2026-07         5.71        1.09         -0.24       -0.00       6.56
+  2026-08         6.56        0.26         -0.34       -0.00       6.49
+  2026-09         6.49        1.40         -0.34       -0.00       7.55
+  2026-10         7.55        1.14         -0.37       -0.00       8.31
+  2026-11         8.31        1.14         -0.37       -0.00       9.07
+  2026-12         9.07        0.00         -0.52       -0.00       8.56
+
+COST PER RUN vs COST PER UNIT OF USEFUL WORK
+------------------------------------------------------------------------------------------------------------
+  run                  total cost   GPU-hours  $/useful unit      status
+  v0.1-pretrain            $0.89M     180,000          4.933    deployed
+  v0.2-pretrain            $1.08M     240,000          3.877    deployed
+  v0.3-scaling             $1.59M     410,000          2.908    deployed
+  v0.4-arch-probe          $0.79M     190,000          2.902   abandoned
+  v0.5-pretrain            $2.22M     620,000          2.312    deployed
+  v0.6-multimodal          $3.01M     880,000          2.059    deployed
+  v0.7-longctx             $1.88M     540,000          1.971   abandoned
+  v0.8-pretrain            $3.80M   1,150,000          1.758    deployed
+  v0.9-distill             $1.22M     320,000          1.919    deployed
+  v1.0-flagship            $5.24M   1,640,000          1.523    deployed
+

@@ -14,14 +14,15 @@
          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
   .wrap { max-width:1080px; margin:0 auto; }
   h1 { font-size:28px; margin:0 0 8px; letter-spacing:-.02em; }
-  .lede { color:var(--mut); font-size:15.5px; margin:0 0 8px; max-width:70ch; }
+  .lede { color:var(--mut); font-size:15.5px; margin:0 0 8px; max-width:72ch; }
   .toc { color:var(--mut); font-size:13px; margin:0 0 30px; }
   .toc a { color:var(--link); text-decoration:none; }
   .toc a:hover { text-decoration:underline; }
   h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em;
-       color:var(--mut); margin:34px 0 14px; font-weight:700;
-       border-bottom:1px solid var(--bd); padding-bottom:8px; }
-  h2:first-of-type { margin-top:10px; }
+       color:var(--mut); margin:36px 0 4px; font-weight:700; }
+  .shead { border-bottom:1px solid var(--bd); padding-bottom:10px;
+           margin-bottom:14px; }
+  .sdesc { font-size:13px; color:var(--mut); margin:4px 0 0; max-width:72ch; }
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
   @media (max-width:820px) { .grid { grid-template-columns:1fr; } }
   .card { display:block; background:var(--card); border:1px solid var(--bd);
@@ -33,7 +34,7 @@
   .meta { font-size:11px; color:var(--mut); text-transform:uppercase;
           letter-spacing:.06em; }
   .live { color:var(--accent); font-weight:600; }
-  .note { border-top:1px solid var(--bd); margin-top:38px; padding-top:20px;
+  .note { border-top:1px solid var(--bd); margin-top:40px; padding-top:20px;
           color:var(--mut); font-size:13.5px; }
   .note a { color:var(--link); }
 </style>
@@ -41,39 +42,91 @@
   <h1>finance</h1>
   <p class="lede">Finance tooling built for work that's already part of the job.
     Python, synthetic data, readable logic — every project ships a validation
-    step that must pass before its dashboard publishes.</p>
+    step that must pass before its dashboard publishes, and several of them
+    caught real errors in my own models before you could.</p>
   <p class="toc">Jump to:
+    <a href="#robotics">Physical AI &amp; robotics</a> ·
+    <a href="#ai">AI-native</a> ·
+    <a href="#saas">SaaS</a> ·
     <a href="#payments">Payments</a> ·
-    <a href="#revenue">Revenue analytics</a> ·
-    <a href="#planning">Planning &amp; cash</a> ·
-    <a href="#reporting">Reporting, metrics &amp; controls</a></p>
+    <a href="#core">Core finance — any industry</a></p>
 
-  <h2 id="payments">Payments</h2>
+  <div class="shead">
+    <h2 id="robotics">Physical AI &amp; robotics</h2>
+    <p class="sdesc">Where a deployed unit is a capital asset, acquisition runs
+      through pilots rather than trials, and the dominant cost is a training run
+      whose accounting treatment is still contested.</p>
+  </div>
   <div class="grid">
-    <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
-      <h3>Payments Reconciliation Engine →</h3>
-      <p>50,000 transactions matched against a bank settlement file. Every
-        break classified — timing, amount, missing, duplicate, FX, fee — aged
-        by exposure and routed to an owner. All 1,148 seeded breaks found and
-        correctly labeled.</p>
+    <a class="card" href="robot-fleet-economics/examples/fleet_dashboard.html">
+      <h3>Robot Fleet Unit Economics →</h3>
+      <p>A per-robot P&amp;L across 181 deployed units: utilization vs uptime,
+        contribution against the depreciation each unit must out-earn, and
+        payback per unit. 18% of the fleet never repays its hardware — for two
+        different reasons that need opposite fixes.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
-    <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
-      <h3>Payments Unit Economics →</h3>
-      <p>Contribution per transaction across 120,000 transactions by rail,
-        region, and merchant segment. Contribution waterfall, cross-border
-        premium, and mix-shift sensitivity.</p>
+    <a class="card" href="training-capitalization/examples/training_dashboard.html">
+      <h3>Training Run Capitalization →</h3>
+      <p>Is a training run R&amp;D expense or an intangible asset? Both
+        treatments modelled side by side, with the identity that keeps them
+        honest: over a run's full life they charge the same total. I predicted
+        the EBITDA gap would compress; validation proved it compounds.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="pilot-to-production/examples/pilots_dashboard.html">
+      <h3>Pilot-to-Production Funnel →</h3>
+      <p>True CAC counts the pilots you lost — $580K, 5.3× the naive figure.
+        Conversion collapses past nine months, making pilot purgatory datable.
+        Run only qualified pilots and CAC falls to 31% of three-year TCV.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
   </div>
 
-  <h2 id="revenue">Revenue analytics</h2>
+  <div class="shead">
+    <h2 id="ai">AI-native</h2>
+    <p class="sdesc">Inference is cost of goods sold. These treat it that way —
+      the margin question is whether cost per unit of work falls faster than
+      price does.</p>
+  </div>
   <div class="grid">
+    <a class="card" href="ai-infra-metrics/examples/ai_dashboard.html">
+      <h3>AI Infrastructure Metrics →</h3>
+      <p>Cost per token and per inference, GPU utilization, the cost-latency
+        frontier, revenue per token, DAU/MAU. A model-routing deploy cuts cost
+        per call 41% at flat pricing — finance participating in an engineering
+        decision, quantified.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
     <a class="card" href="usage-revenue-engine/examples/usage_dashboard.html">
       <h3>Usage-Based Revenue Engine →</h3>
-      <p>AI pricing: license + metered usage against committed minimums. An ARR
-        walk where usage expansion is its own line, a commit-utilization action
-        list, and the rate-compression-vs-inference-cost curve.</p>
+      <p>License + metered usage against committed minimums. An ARR walk where
+        usage expansion is its own line, a commit-utilization action list
+        (downgrade risks and the upsell list), and the rate-compression curve.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
+
+  <div class="shead">
+    <h2 id="saas">SaaS</h2>
+    <p class="sdesc">The recurring-revenue metric stack, with the definitions
+      written next to the arithmetic — because most of these have four
+      defensible definitions and a company using two of them has a credibility
+      problem.</p>
+  </div>
+  <div class="grid">
+    <a class="card" href="board-one-pager/examples/board_dashboard.html">
+      <h3>Board One-Pager →</h3>
+      <p>Thirty metrics in five sections — growth, customer health, efficiency,
+        financial, AI-specific — every one with its definition on the page.
+        LTV:CAC is flagged as formulaic right on the scorecard.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="board-metrics/examples/dashboard.html">
+      <h3>Board Metrics →</h3>
+      <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each
+        computed by a function whose docstring states which definition it uses.
+        The ARR walk has to tie, and the report says whether it did.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="revenue-cohorts/examples/cohorts_dashboard.html">
@@ -86,8 +139,8 @@
     <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
       <h3>Revenue Recognition →</h3>
       <p>Bookings → billings → revenue from a 900-contract ledger. Deferred and
-        RPO roll-forwards tie to the cent every month; deferred unwind schedule
-        and the RPO disclosure split.</p>
+        RPO roll-forwards tie to the cent every month, with the deferred unwind
+        schedule and RPO disclosure split.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="revenue-forecast/examples/forecast_dashboard.html">
@@ -104,16 +157,36 @@
         with deal size. The waterfall ties on every deal.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
-    <a class="card" href="https://github.com/Lumimama/finance/tree/main/variance-narrator">
-      <h3>Variance Narrator →</h3>
-      <p>Budget-vs-actuals in, board-ready variance commentary out. Python
-        computes every figure; Claude drafts the narrative. The model never
-        does arithmetic and never sees a number it wasn't handed.</p>
-      <span class="meta">Command-line tool · source on GitHub</span>
+  </div>
+
+  <div class="shead">
+    <h2 id="payments">Payments</h2>
+    <p class="sdesc">Reconciliation at transaction scale, and contribution
+      measured in basis points per transaction rather than margin per customer.</p>
+  </div>
+  <div class="grid">
+    <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
+      <h3>Payments Reconciliation Engine →</h3>
+      <p>50,000 transactions matched against a bank settlement file. Every break
+        classified — timing, amount, missing, duplicate, FX, fee — aged by
+        exposure and routed to an owner. All 1,148 seeded breaks found and
+        correctly labeled.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
+      <h3>Payments Unit Economics →</h3>
+      <p>Contribution per transaction across 120,000 transactions by rail,
+        region, and merchant segment. Contribution waterfall, cross-border
+        premium, and mix-shift sensitivity.</p>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
   </div>
 
-  <h2 id="planning">Planning &amp; cash</h2>
+  <div class="shead">
+    <h2 id="core">Core finance — any industry</h2>
+    <p class="sdesc">The work that doesn't change with the business model: cash,
+      statements, scenarios, variance, controls.</p>
+  </div>
   <div class="grid">
     <a class="card" href="three-statement-model/examples/three_statement.html">
       <h3>Integrated Three-Statement Model →</h3>
@@ -138,34 +211,10 @@
     </a>
     <a class="card" href="burn-runway/examples/burn_dashboard.html">
       <h3>Cash Burn &amp; Runway →</h3>
-      <p>Gross vs net burn with the trailing 3-month line, runway trajectory,
-        and the fundraise trigger drawn as a date on the chart. A seeded
-        one-time prepay shows why single-month runway lies.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-  </div>
-
-  <h2 id="reporting">Reporting, metrics &amp; controls</h2>
-  <div class="grid">
-    <a class="card" href="board-one-pager/examples/board_dashboard.html">
-      <h3>Board One-Pager →</h3>
-      <p>Thirty metrics in five sections — growth, customer health, efficiency,
-        financial, AI-specific — every one with its definition on the page,
-        including GM after AI costs and cost per inference.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="board-metrics/examples/dashboard.html">
-      <h3>Board Metrics →</h3>
-      <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each
-        computed by a function whose docstring states which definition it uses.
-        The ARR walk has to tie, and the report says whether it did.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="ai-infra-metrics/examples/ai_dashboard.html">
-      <h3>AI Infrastructure Metrics →</h3>
-      <p>Cost per token and per inference, GPU utilization, the cost-latency
-        frontier, revenue per token. A model-routing deploy cuts cost per call
-        41% at flat pricing — finance in an engineering decision.</p>
+      <p>Gross vs net burn, runway trajectory, and the fundraise trigger drawn
+        as a date on the chart. Runway is measured on operating burn — a
+        trailing average can't absorb a one-time prepay without printing a
+        cliff that isn't real.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="controls-monitoring/examples/controls_dashboard.html">
@@ -175,12 +224,20 @@
         recall against seeded ground truth, false-positive rate reported.</p>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
+    <a class="card" href="https://github.com/Lumimama/finance/tree/main/variance-narrator">
+      <h3>Variance Narrator →</h3>
+      <p>Budget-vs-actuals in, board-ready variance commentary out. Python
+        computes every figure; Claude drafts the narrative. The model never does
+        arithmetic and never sees a number it wasn't handed.</p>
+      <span class="meta">Command-line tool · source on GitHub</span>
+    </a>
   </div>
 
   <div class="note">
     Every figure on these pages is synthetic — each project ships a seeded
     generator that reproduces its dataset exactly, and a <code>--validate</code>
-    step scoring the analysis against known ground truth. Source and full
+    step scoring the analysis against known ground truth. Where a check
+    disagreed with what I expected, the README says so. Source and full
     write-ups at <a href="https://github.com/Lumimama/finance">github.com/Lumimama/finance</a>.
   </div>
 </div>

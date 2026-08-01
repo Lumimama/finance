@@ -1,0 +1,182 @@
+robot_id,customer,archetype,deployed_month,deployed_idx,hardware_capex,price_per_hour
+RB0001,Silverline Auto,standard,2025-01,0,68000,21.0
+RB0002,Halcyon Manufacturing,high_throughput,2025-01,0,68000,22.0
+RB0003,Orchard Cold Chain,standard,2025-01,0,68000,21.0
+RB0004,Fairhaven Packaging,high_throughput,2025-01,0,68000,22.0
+RB0005,Kestrel Materials,standard,2025-01,0,68000,21.0
+RB0006,Northwind Distribution,high_throughput,2025-01,0,68000,22.0
+RB0007,Kestrel Materials,standard,2025-01,0,68000,21.0
+RB0008,Cascade Foods,high_throughput,2025-02,1,68000,22.0
+RB0009,Meridian Logistics,standard,2025-02,1,68000,21.0
+RB0010,Cascade Foods,standard,2025-02,1,68000,21.0
+RB0011,Cascade Foods,high_throughput,2025-02,1,68000,22.0
+RB0012,Meridian Logistics,standard,2025-02,1,68000,21.0
+RB0013,Cascade Foods,standard,2025-02,1,68000,21.0
+RB0014,Orchard Cold Chain,high_throughput,2025-03,2,68000,22.0
+RB0015,Northwind Distribution,standard,2025-03,2,68000,21.0
+RB0016,Halcyon Manufacturing,high_throughput,2025-03,2,68000,22.0
+RB0017,Northwind Distribution,low_util_site,2025-03,2,68000,19.0
+RB0018,Silverline Auto,standard,2025-03,2,68000,21.0
+RB0019,Meridian Logistics,low_util_site,2025-03,2,68000,19.0
+RB0020,Cascade Foods,seasonal,2025-03,2,68000,20.0
+RB0021,Cascade Foods,high_throughput,2025-03,2,68000,22.0
+RB0022,Meridian Logistics,high_throughput,2025-04,3,68000,22.0
+RB0023,Halcyon Manufacturing,standard,2025-04,3,68000,21.0
+RB0024,Meridian Logistics,standard,2025-04,3,68000,21.0
+RB0025,Silverline Auto,high_throughput,2025-04,3,68000,22.0
+RB0026,Cascade Foods,low_util_site,2025-04,3,68000,19.0
+RB0027,Orchard Cold Chain,high_throughput,2025-04,3,68000,22.0
+RB0028,Cascade Foods,high_throughput,2025-04,3,68000,22.0
+RB0029,Halcyon Manufacturing,standard,2025-04,3,68000,21.0
+RB0030,Silverline Auto,standard,2025-04,3,68000,21.0
+RB0031,Kestrel Materials,standard,2025-04,3,68000,21.0
+RB0032,Halcyon Manufacturing,standard,2025-04,3,68000,21.0
+RB0033,Meridian Logistics,seasonal,2025-04,3,68000,20.0
+RB0034,Northwind Distribution,standard,2025-04,3,68000,21.0
+RB0035,Orchard Cold Chain,high_throughput,2025-04,3,68000,22.0
+RB0036,Fairhaven Packaging,high_throughput,2025-05,4,68000,22.0
+RB0037,Silverline Auto,low_util_site,2025-05,4,68000,19.0
+RB0038,Kestrel Materials,standard,2025-05,4,68000,21.0
+RB0039,Halcyon Manufacturing,seasonal,2025-05,4,68000,20.0
+RB0040,Northwind Distribution,standard,2025-05,4,68000,21.0
+RB0041,Orchard Cold Chain,standard,2025-05,4,68000,21.0
+RB0042,Halcyon Manufacturing,standard,2025-05,4,68000,21.0
+RB0043,Halcyon Manufacturing,seasonal,2025-05,4,68000,20.0
+RB0044,Cascade Foods,high_throughput,2025-05,4,68000,22.0
+RB0045,Kestrel Materials,standard,2025-05,4,68000,21.0
+RB0046,Silverline Auto,high_throughput,2025-05,4,68000,22.0
+RB0047,Northwind Distribution,seasonal,2025-05,4,68000,20.0
+RB0048,Meridian Logistics,seasonal,2025-05,4,68000,20.0
+RB0049,Cascade Foods,standard,2025-05,4,68000,21.0
+RB0050,Northwind Distribution,high_throughput,2025-06,5,68000,22.0
+RB0051,Kestrel Materials,standard,2025-06,5,68000,21.0
+RB0052,Northwind Distribution,seasonal,2025-06,5,68000,20.0
+RB0053,Orchard Cold Chain,high_throughput,2025-06,5,68000,22.0
+RB0054,Meridian Logistics,standard,2025-06,5,68000,21.0
+RB0055,Silverline Auto,standard,2025-06,5,68000,21.0
+RB0056,Northwind Distribution,seasonal,2025-06,5,68000,20.0
+RB0057,Halcyon Manufacturing,high_throughput,2025-06,5,68000,22.0
+RB0058,Cascade Foods,low_util_site,2025-06,5,68000,19.0
+RB0059,Northwind Distribution,high_throughput,2025-07,6,68000,22.0
+RB0060,Northwind Distribution,high_throughput,2025-07,6,68000,22.0
+RB0061,Cascade Foods,standard,2025-07,6,68000,21.0
+RB0062,Halcyon Manufacturing,high_throughput,2025-07,6,68000,22.0
+RB0063,Meridian Logistics,standard,2025-07,6,68000,21.0
+RB0064,Cascade Foods,standard,2025-07,6,68000,21.0
+RB0065,Fairhaven Packaging,standard,2025-07,6,68000,21.0
+RB0066,Silverline Auto,low_util_site,2025-07,6,68000,19.0
+RB0067,Fairhaven Packaging,seasonal,2025-07,6,68000,20.0
+RB0068,Northwind Distribution,standard,2025-07,6,68000,21.0
+RB0069,Northwind Distribution,standard,2025-07,6,68000,21.0
+RB0070,Orchard Cold Chain,high_throughput,2025-07,6,68000,22.0
+RB0071,Silverline Auto,low_util_site,2025-08,7,68000,19.0
+RB0072,Fairhaven Packaging,high_throughput,2025-08,7,68000,22.0
+RB0073,Kestrel Materials,seasonal,2025-08,7,68000,20.0
+RB0074,Meridian Logistics,seasonal,2025-08,7,68000,20.0
+RB0075,Halcyon Manufacturing,low_util_site,2025-08,7,68000,19.0
+RB0076,Meridian Logistics,high_throughput,2025-08,7,68000,22.0
+RB0077,Fairhaven Packaging,high_throughput,2025-08,7,68000,22.0
+RB0078,Northwind Distribution,high_throughput,2025-08,7,68000,22.0
+RB0079,Northwind Distribution,high_throughput,2025-08,7,68000,22.0
+RB0080,Orchard Cold Chain,standard,2025-08,7,68000,21.0
+RB0081,Kestrel Materials,low_util_site,2025-08,7,68000,19.0
+RB0082,Silverline Auto,high_throughput,2025-08,7,68000,22.0
+RB0083,Halcyon Manufacturing,low_util_site,2025-08,7,68000,19.0
+RB0084,Kestrel Materials,seasonal,2025-08,7,68000,20.0
+RB0085,Fairhaven Packaging,low_util_site,2025-09,8,68000,19.0
+RB0086,Silverline Auto,standard,2025-09,8,68000,21.0
+RB0087,Northwind Distribution,seasonal,2025-09,8,68000,20.0
+RB0088,Fairhaven Packaging,high_throughput,2025-09,8,68000,22.0
+RB0089,Fairhaven Packaging,high_throughput,2025-09,8,68000,22.0
+RB0090,Fairhaven Packaging,high_throughput,2025-09,8,68000,22.0
+RB0091,Silverline Auto,high_throughput,2025-09,8,68000,22.0
+RB0092,Meridian Logistics,high_throughput,2025-09,8,68000,22.0
+RB0093,Orchard Cold Chain,high_throughput,2025-09,8,68000,22.0
+RB0094,Fairhaven Packaging,standard,2025-09,8,68000,21.0
+RB0095,Kestrel Materials,standard,2025-09,8,68000,21.0
+RB0096,Silverline Auto,standard,2025-09,8,68000,21.0
+RB0097,Fairhaven Packaging,standard,2025-09,8,68000,21.0
+RB0098,Cascade Foods,standard,2025-09,8,68000,21.0
+RB0099,Fairhaven Packaging,low_util_site,2025-10,9,68000,19.0
+RB0100,Meridian Logistics,high_throughput,2025-10,9,68000,22.0
+RB0101,Orchard Cold Chain,low_util_site,2025-10,9,68000,19.0
+RB0102,Northwind Distribution,standard,2025-10,9,68000,21.0
+RB0103,Northwind Distribution,high_throughput,2025-10,9,68000,22.0
+RB0104,Halcyon Manufacturing,high_throughput,2025-10,9,68000,22.0
+RB0105,Fairhaven Packaging,low_util_site,2025-10,9,68000,19.0
+RB0106,Orchard Cold Chain,high_throughput,2025-10,9,68000,22.0
+RB0107,Meridian Logistics,high_throughput,2025-10,9,68000,22.0
+RB0108,Kestrel Materials,high_throughput,2025-10,9,68000,22.0
+RB0109,Kestrel Materials,standard,2025-10,9,68000,21.0
+RB0110,Northwind Distribution,standard,2025-10,9,68000,21.0
+RB0111,Fairhaven Packaging,standard,2025-10,9,68000,21.0
+RB0112,Fairhaven Packaging,high_throughput,2025-10,9,68000,22.0
+RB0113,Silverline Auto,high_throughput,2025-11,10,68000,22.0
+RB0114,Northwind Distribution,low_util_site,2025-11,10,68000,19.0
+RB0115,Northwind Distribution,standard,2025-11,10,68000,21.0
+RB0116,Orchard Cold Chain,standard,2025-11,10,68000,21.0
+RB0117,Kestrel Materials,high_throughput,2025-11,10,68000,22.0
+RB0118,Kestrel Materials,low_util_site,2025-11,10,68000,19.0
+RB0119,Orchard Cold Chain,seasonal,2025-11,10,68000,20.0
+RB0120,Kestrel Materials,high_throughput,2025-11,10,68000,22.0
+RB0121,Northwind Distribution,high_throughput,2025-11,10,68000,22.0
+RB0122,Northwind Distribution,low_util_site,2025-11,10,68000,19.0
+RB0123,Silverline Auto,standard,2025-11,10,68000,21.0
+RB0124,Silverline Auto,standard,2025-11,10,68000,21.0
+RB0125,Silverline Auto,standard,2025-11,10,68000,21.0
+RB0126,Cascade Foods,high_throughput,2025-12,11,68000,22.0
+RB0127,Meridian Logistics,low_util_site,2025-12,11,68000,19.0
+RB0128,Kestrel Materials,standard,2025-12,11,68000,21.0
+RB0129,Halcyon Manufacturing,standard,2025-12,11,68000,21.0
+RB0130,Fairhaven Packaging,seasonal,2025-12,11,68000,20.0
+RB0131,Fairhaven Packaging,standard,2025-12,11,68000,21.0
+RB0132,Meridian Logistics,high_throughput,2025-12,11,68000,22.0
+RB0133,Orchard Cold Chain,high_throughput,2025-12,11,68000,22.0
+RB0134,Orchard Cold Chain,high_throughput,2025-12,11,68000,22.0
+RB0135,Meridian Logistics,high_throughput,2025-12,11,68000,22.0
+RB0136,Northwind Distribution,standard,2025-12,11,68000,21.0
+RB0137,Cascade Foods,low_util_site,2025-12,11,68000,19.0
+RB0138,Fairhaven Packaging,high_throughput,2026-01,12,68000,22.0
+RB0139,Meridian Logistics,standard,2026-01,12,68000,21.0
+RB0140,Meridian Logistics,low_util_site,2026-01,12,68000,19.0
+RB0141,Cascade Foods,standard,2026-01,12,68000,21.0
+RB0142,Orchard Cold Chain,standard,2026-01,12,68000,21.0
+RB0143,Fairhaven Packaging,low_util_site,2026-01,12,68000,19.0
+RB0144,Silverline Auto,standard,2026-01,12,68000,21.0
+RB0145,Halcyon Manufacturing,standard,2026-01,12,68000,21.0
+RB0146,Halcyon Manufacturing,seasonal,2026-01,12,68000,20.0
+RB0147,Northwind Distribution,high_throughput,2026-02,13,68000,22.0
+RB0148,Silverline Auto,standard,2026-02,13,68000,21.0
+RB0149,Halcyon Manufacturing,high_throughput,2026-02,13,68000,22.0
+RB0150,Orchard Cold Chain,high_throughput,2026-02,13,68000,22.0
+RB0151,Orchard Cold Chain,standard,2026-02,13,68000,21.0
+RB0152,Silverline Auto,high_throughput,2026-02,13,68000,22.0
+RB0153,Silverline Auto,high_throughput,2026-02,13,68000,22.0
+RB0154,Northwind Distribution,standard,2026-02,13,68000,21.0
+RB0155,Halcyon Manufacturing,standard,2026-02,13,68000,21.0
+RB0156,Kestrel Materials,standard,2026-02,13,68000,21.0
+RB0157,Orchard Cold Chain,seasonal,2026-02,13,68000,20.0
+RB0158,Halcyon Manufacturing,standard,2026-03,14,68000,21.0
+RB0159,Silverline Auto,seasonal,2026-03,14,68000,20.0
+RB0160,Northwind Distribution,standard,2026-03,14,68000,21.0
+RB0161,Orchard Cold Chain,standard,2026-03,14,68000,21.0
+RB0162,Fairhaven Packaging,seasonal,2026-03,14,68000,20.0
+RB0163,Orchard Cold Chain,high_throughput,2026-03,14,68000,22.0
+RB0164,Silverline Auto,standard,2026-03,14,68000,21.0
+RB0165,Meridian Logistics,standard,2026-03,14,68000,21.0
+RB0166,Orchard Cold Chain,low_util_site,2026-03,14,68000,19.0
+RB0167,Kestrel Materials,standard,2026-03,14,68000,21.0
+RB0168,Meridian Logistics,standard,2026-03,14,68000,21.0
+RB0169,Halcyon Manufacturing,standard,2026-04,15,68000,21.0
+RB0170,Silverline Auto,low_util_site,2026-04,15,68000,19.0
+RB0171,Meridian Logistics,standard,2026-04,15,68000,21.0
+RB0172,Halcyon Manufacturing,low_util_site,2026-04,15,68000,19.0
+RB0173,Kestrel Materials,seasonal,2026-04,15,68000,20.0
+RB0174,Kestrel Materials,standard,2026-04,15,68000,21.0
+RB0175,Kestrel Materials,low_util_site,2026-04,15,68000,19.0
+RB0176,Halcyon Manufacturing,standard,2026-04,15,68000,21.0
+RB0177,Silverline Auto,standard,2026-04,15,68000,21.0
+RB0178,Orchard Cold Chain,standard,2026-04,15,68000,21.0
+RB0179,Northwind Distribution,standard,2026-04,15,68000,21.0
+RB0180,Cascade Foods,high_throughput,2026-04,15,68000,22.0
+RB0181,Silverline Auto,high_throughput,2026-04,15,68000,22.0

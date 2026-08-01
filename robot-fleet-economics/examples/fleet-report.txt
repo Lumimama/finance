@@ -1,0 +1,42 @@
+========================================================================================================
+ROBOT FLEET UNIT ECONOMICS  |  181 units deployed  |  through 2026-06
+========================================================================================================
+  active robots                        181
+  deployed capital             $12,308,000
+  fleet utilization                 58.8%
+  fleet uptime                      96.5%
+  revenue / robot / month           $4,238
+  contribution / robot / mo         $3,150
+  EBITDA after depreciation       $365,100
+
+PAYBACK  (hardware capex $68,000, depreciation life 60mo)
+--------------------------------------------------------------------------------------------------------
+  median projected payback          19.3mo
+  units that never clear capex          33   (18% of fleet, $2,244,000 of capital)
+
+  worst units by projected payback:
+    RB0073  Kestrel Materials       seasonal         util   48%   payback   never
+    RB0101  Orchard Cold Chain      low_util_site    util   23%   payback   never
+    RB0118  Kestrel Materials       low_util_site    util   23%   payback   never
+    RB0164  Silverline Auto         standard         util   61%   payback   never
+    RB0166  Orchard Cold Chain      low_util_site    util   21%   payback   never
+    RB0169  Halcyon Manufacturing   standard         util   47%   payback   never
+
+BY ARCHETYPE
+--------------------------------------------------------------------------------------------------------
+  archetype           units    util     rev/mo  contrib/mo   payback  clears capex
+  high_throughput        60     77%     $4,827      $4,575      14mo         60/60
+  standard               76     59%     $3,451      $3,024      19mo         70/76
+  seasonal               20     47%     $2,651      $2,018      30mo         18/20
+  low_util_site          25     21%     $1,128         $41     160mo          0/25
+
+FIELD SERVICE CONCENTRATION
+--------------------------------------------------------------------------------------------------------
+  median unit  $657/mo      mean unit  $911/mo
+  worst 10% of units carry 32% of total field-service cost
+
+DEPLOYMENT RAMP  (utilization by months since install)
+--------------------------------------------------------------------------------------------------------
+  M0     M1     M2     M3     M4     M5     M6     M7     
+  15%    30%    45%    61%    61%    60%    61%    60%    
+

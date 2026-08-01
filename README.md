@@ -11,6 +11,9 @@ Finance tooling I built for work that's already part of the job — payments rec
 | [controls-monitoring](controls-monitoring) | Seven audit detectors over a year of AP + T&E; 100% recall vs seeded issues, precision reported honestly |
 | [three-statement-model](three-statement-model) | Driver-based P&L → BS → CF, three scenarios; ties to the cent or exits nonzero |
 | [scenario-planner](scenario-planner) | 10K-run Monte Carlo; P10/P50/P90 fans, floor-breach probability, tornado of what drives the outcome |
+| [robot-fleet-economics](robot-fleet-economics) | Per-robot P&L: utilization vs uptime, contribution vs depreciation, payback per unit |
+| [training-capitalization](training-capitalization) | Training runs as R&D expense vs capitalized intangible — both treatments, same lifetime cost |
+| [pilot-to-production](pilot-to-production) | True CAC including lost pilots, datable pilot purgatory, qualification counterfactual |
 | [board-one-pager](board-one-pager) | 30 board metrics in five sections, every definition on the page, incl. AI-specific |
 | [burn-runway](burn-runway) | Gross/net burn, runway trajectory, fundraise trigger, burn bridge that ties |
 | [ai-infra-metrics](ai-infra-metrics) | Cost per token/inference, GPU utilization, cost-latency frontier, revenue per token |

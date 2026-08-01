@@ -1,0 +1,55 @@
+========================================================================================================
+PILOT-TO-PRODUCTION FUNNEL  |  103 pilots  |  through 2026-06
+========================================================================================================
+  pilots started                       103
+  converted                             23   (32% of decided)
+  lost                                  50
+  still open                            30
+  median time to production            6mo
+  ACV won                       $4,406,457
+
+THE CAC THAT MATTERS
+--------------------------------------------------------------------------------------------------------
+  naive CAC (won pilots only)     $109,630
+  TRUE CAC (all pilot cost)       $580,489   5.3x the naive figure
+  total spent on pilots        $13,351,250
+  of which on pilots not won   $10,829,750
+  average ACV won                 $191,585
+  months of first-year ACV to repay true CAC       36.4mo
+  true CAC as % of 3-year TCV        101%   <- pilot economics only work on multi-year terms
+
+  COUNTERFACTUAL -- qualified pilots only (sponsor + written criteria):
+    pilots run                          28   vs 103 actual
+    true CAC                      $170,357   vs $580,489 actual
+    CAC as % of 3-year TCV            31%   vs 101% actual
+    -> the unqualified pilots are not underperforming; they are the
+       entire reason the acquisition motion does not pay for itself.
+
+F1  CONVERSION BY PILOT AGE  (the purgatory line)
+--------------------------------------------------------------------------------------------------------
+  age band      decided  converted    rate  still open   cost of open
+  0-3mo               9          4     44%           8       $480,500
+  4-6mo              21         11     52%           7       $661,500
+  7-9mo              24          7     29%           6       $842,500
+  10-12mo            10          0      0%           5       $856,750  <- purgatory
+  13mo+               9          1     11%           4       $900,000  <- purgatory
+
+F2  CONVERSION BY QUALIFICATION
+--------------------------------------------------------------------------------------------------------
+  qualification           pilots  decided    rate          cost       ACV won
+  sponsor + criteria          28       26     54%    $2,385,000    $2,539,279
+  sponsor only                20       13      8%    $2,959,375      $162,889
+  criteria only               35       23     30%    $5,239,625    $1,521,513
+  neither                     20       11      9%    $2,767,250      $182,776
+
+PILOT PURGATORY  (9 pilots open longer than 9 months)
+--------------------------------------------------------------------------------------------------------
+  sunk cost                     $1,756,750
+  hardware still on site        $1,088,000
+    P0013  Halcyon Co                cold_chain      27mo    $261,250
+    P0003  Brightpath Co             food_bev        29mo    $235,875
+    P0050  Northwind Co              manufacturing   16mo    $210,500
+    P0065  Cascade Group             food_bev        12mo    $196,000
+    P0057  Cascade Group             logistics       14mo    $192,375
+    P0068  Maple Group               cold_chain      11mo    $181,500
+

@@ -1,0 +1,104 @@
+pilot_id,company,industry,start_month,start_idx,exec_sponsor,written_success_criteria,robots_on_loan,status,months_elapsed,decided_idx,se_cost,integration_cost,total_pilot_cost,hardware_at_risk,contract_acv
+P0001,Redshift Group,food_bev,2024-01,0,1,0,1,lost,13,13,188500.0,22000,210500.0,0,0.0
+P0002,Redshift Co,cold_chain,2024-01,0,1,1,1,converted,3,3,43500.0,22000,65500.0,0,117529.14
+P0003,Brightpath Co,food_bev,2024-01,0,0,1,1,open,29,,213875.0,22000,235875.0,68000,0.0
+P0004,Halcyon Co,food_bev,2024-01,0,1,1,2,lost,7,7,101500.0,22000,123500.0,0,0.0
+P0005,Brightpath Industries,automotive,2024-02,1,0,0,1,lost,10,11,145000.0,22000,167000.0,0,0.0
+P0006,Tidewater Partners,logistics,2024-02,1,0,0,2,lost,7,8,101500.0,22000,123500.0,0,0.0
+P0007,Cascade Partners,manufacturing,2024-02,1,0,1,2,converted,14,15,203000.0,22000,225000.0,0,165026.08
+P0008,Fairhaven Co,cold_chain,2024-02,1,1,1,2,lost,3,4,43500.0,22000,65500.0,0,0.0
+P0009,Tidewater Industries,logistics,2024-03,2,1,0,2,lost,12,14,174000.0,22000,196000.0,0,0.0
+P0010,Ninth Street Partners,manufacturing,2024-03,2,0,1,3,converted,6,8,87000.0,22000,109000.0,0,284563.17
+P0011,Cascade Group,manufacturing,2024-03,2,1,0,1,lost,13,15,188500.0,22000,210500.0,0,0.0
+P0012,Ninth Street Group,automotive,2024-03,2,1,0,1,lost,7,9,101500.0,22000,123500.0,0,0.0
+P0013,Halcyon Co,cold_chain,2024-03,2,0,0,3,open,27,,239250.0,22000,261250.0,204000,0.0
+P0014,Pinewood Industries,logistics,2024-04,3,0,1,1,lost,8,11,116000.0,22000,138000.0,0,0.0
+P0015,Vantage Co,food_bev,2024-04,3,0,0,2,lost,13,16,188500.0,22000,210500.0,0,0.0
+P0016,Brightpath Group,food_bev,2024-04,3,0,0,2,lost,6,9,87000.0,22000,109000.0,0,0.0
+P0017,Halcyon Group,logistics,2024-04,3,1,0,2,lost,12,15,174000.0,22000,196000.0,0,0.0
+P0018,Fairhaven Industries,manufacturing,2024-04,3,1,1,3,lost,6,9,87000.0,22000,109000.0,0,0.0
+P0019,Fairhaven Group,cold_chain,2024-05,4,0,1,2,lost,7,11,101500.0,22000,123500.0,0,0.0
+P0020,Ridgeline Partners,food_bev,2024-05,4,1,1,3,converted,6,10,87000.0,22000,109000.0,0,380539.3
+P0021,Pinewood Industries,automotive,2024-05,4,0,1,1,lost,11,15,159500.0,22000,181500.0,0,0.0
+P0022,Tidewater Group,manufacturing,2024-05,4,0,1,2,lost,11,15,159500.0,22000,181500.0,0,0.0
+P0023,Tidewater Partners,manufacturing,2024-06,5,0,0,2,lost,7,12,101500.0,22000,123500.0,0,0.0
+P0024,Copperfield Group,logistics,2024-06,5,1,0,1,lost,5,10,72500.0,22000,94500.0,0,0.0
+P0025,Kestrel Partners,manufacturing,2024-06,5,1,1,3,converted,3,8,43500.0,22000,65500.0,0,256413.42
+P0026,Halcyon Co,automotive,2024-06,5,0,1,3,lost,11,16,159500.0,22000,181500.0,0,0.0
+P0027,Pinewood Co,food_bev,2024-07,6,0,1,1,lost,8,14,116000.0,22000,138000.0,0,0.0
+P0028,Pinewood Industries,automotive,2024-07,6,1,0,2,lost,8,14,116000.0,22000,138000.0,0,0.0
+P0029,Ninth Street Group,food_bev,2024-08,7,0,0,2,converted,8,15,116000.0,22000,138000.0,0,182775.65
+P0030,Orchard Group,automotive,2024-08,7,0,1,1,lost,12,19,174000.0,22000,196000.0,0,0.0
+P0031,Pinewood Group,logistics,2024-09,8,0,0,1,lost,7,15,101500.0,22000,123500.0,0,0.0
+P0032,Blue Harbor Group,logistics,2024-09,8,0,1,3,converted,9,17,130500.0,22000,152500.0,0,311950.9
+P0033,Orchard Industries,logistics,2024-09,8,0,1,2,lost,14,22,203000.0,22000,225000.0,0,0.0
+P0034,Tidewater Industries,food_bev,2024-09,8,1,1,3,converted,6,14,87000.0,22000,109000.0,0,321625.49
+P0035,Meridian Group,manufacturing,2024-09,8,1,1,1,converted,5,13,72500.0,22000,94500.0,0,102951.63
+P0036,Vantage Co,cold_chain,2024-10,9,1,0,3,lost,12,21,174000.0,22000,196000.0,0,0.0
+P0037,Silverline Industries,food_bev,2024-10,9,1,0,2,lost,13,22,188500.0,22000,210500.0,0,0.0
+P0038,Kestrel Co,cold_chain,2024-10,9,0,1,2,lost,8,17,116000.0,22000,138000.0,0,0.0
+P0039,Junction Co,automotive,2024-10,9,0,1,2,converted,9,18,130500.0,22000,152500.0,0,202396.95
+P0040,Pinewood Group,manufacturing,2024-11,10,0,1,1,lost,13,23,188500.0,22000,210500.0,0,0.0
+P0041,Meridian Group,automotive,2024-11,10,0,1,3,converted,9,19,130500.0,22000,152500.0,0,357023.62
+P0042,Maple Partners,cold_chain,2024-11,10,0,1,2,lost,10,20,145000.0,22000,167000.0,0,0.0
+P0043,Foxglove Industries,logistics,2024-11,10,1,1,3,lost,3,13,43500.0,22000,65500.0,0,0.0
+P0044,Pinewood Co,manufacturing,2024-11,10,1,0,2,converted,8,18,116000.0,22000,138000.0,0,162889.36
+P0045,Foxglove Group,logistics,2024-12,11,0,0,2,lost,13,24,188500.0,22000,210500.0,0,0.0
+P0046,Blue Harbor Group,cold_chain,2024-12,11,1,0,1,lost,8,19,116000.0,22000,138000.0,0,0.0
+P0047,Blue Harbor Industries,logistics,2025-01,12,1,1,2,converted,7,19,101500.0,22000,123500.0,0,210607.46
+P0048,Halcyon Group,logistics,2025-01,12,0,1,1,lost,14,26,203000.0,22000,225000.0,0,0.0
+P0049,Junction Group,cold_chain,2025-01,12,0,1,2,lost,11,23,159500.0,22000,181500.0,0,0.0
+P0050,Northwind Co,manufacturing,2025-02,13,1,0,2,open,16,,188500.0,22000,210500.0,136000,0.0
+P0051,Northwind Industries,cold_chain,2025-02,13,1,1,2,lost,5,18,72500.0,22000,94500.0,0,0.0
+P0052,Vantage Partners,manufacturing,2025-03,14,1,1,1,converted,5,19,72500.0,22000,94500.0,0,81821.15
+P0053,Silverline Group,logistics,2025-03,14,0,0,2,lost,5,19,72500.0,22000,94500.0,0,0.0
+P0054,Foxglove Industries,food_bev,2025-03,14,1,1,2,lost,4,18,58000.0,22000,80000.0,0,0.0
+P0055,Ninth Street Co,logistics,2025-03,14,0,1,3,lost,6,20,87000.0,22000,109000.0,0,0.0
+P0056,Pinewood Industries,logistics,2025-03,14,1,0,2,lost,8,22,116000.0,22000,138000.0,0,0.0
+P0057,Cascade Group,logistics,2025-04,15,1,0,1,open,14,,170375.0,22000,192375.0,68000,0.0
+P0058,Orchard Group,cold_chain,2025-04,15,0,1,1,converted,6,21,87000.0,22000,109000.0,0,85765.53
+P0059,Tidewater Group,food_bev,2025-04,15,1,1,1,lost,3,18,43500.0,22000,65500.0,0,0.0
+P0060,Halcyon Group,manufacturing,2025-04,15,1,1,1,lost,3,18,43500.0,22000,65500.0,0,0.0
+P0061,Kestrel Group,logistics,2025-05,16,0,1,3,lost,8,24,116000.0,22000,138000.0,0,0.0
+P0062,Pinewood Partners,manufacturing,2025-05,16,0,0,1,lost,7,23,101500.0,22000,123500.0,0,0.0
+P0063,Halcyon Industries,automotive,2025-05,16,1,0,2,lost,8,24,116000.0,22000,138000.0,0,0.0
+P0064,Tidewater Partners,food_bev,2025-05,16,1,1,2,converted,3,19,43500.0,22000,65500.0,0,248064.12
+P0065,Cascade Group,food_bev,2025-06,17,0,0,3,open,12,,174000.0,22000,196000.0,204000,0.0
+P0066,Redshift Group,food_bev,2025-06,17,1,1,1,converted,3,20,43500.0,22000,65500.0,0,92460.49
+P0067,Maple Partners,food_bev,2025-07,18,1,1,1,converted,4,22,58000.0,22000,80000.0,0,99659.03
+P0068,Maple Group,cold_chain,2025-07,18,0,0,2,open,11,,159500.0,22000,181500.0,136000,0.0
+P0069,Kestrel Group,automotive,2025-07,18,0,1,3,lost,9,27,130500.0,22000,152500.0,0,0.0
+P0070,Fairhaven Industries,manufacturing,2025-07,18,1,1,2,converted,4,22,58000.0,22000,80000.0,0,234391.88
+P0071,Junction Co,logistics,2025-07,18,0,0,3,lost,6,24,87000.0,22000,109000.0,0,0.0
+P0072,Meridian Partners,food_bev,2025-08,19,0,1,2,open,10,,145000.0,22000,167000.0,136000,0.0
+P0073,Foxglove Industries,automotive,2025-08,19,0,0,1,open,10,,145000.0,22000,167000.0,68000,0.0
+P0074,Ridgeline Industries,cold_chain,2025-08,19,0,1,1,open,10,,123250.0,22000,145250.0,68000,0.0
+P0075,Northwind Industries,manufacturing,2025-09,20,0,1,1,converted,8,28,116000.0,22000,138000.0,0,114787.21
+P0076,Foxglove Industries,automotive,2025-09,20,0,1,3,open,9,,130500.0,22000,152500.0,204000,0.0
+P0077,Ninth Street Partners,food_bev,2025-09,20,1,1,1,converted,4,24,58000.0,22000,80000.0,0,104639.5
+P0078,Fairhaven Co,logistics,2025-09,20,0,0,1,open,9,,130500.0,22000,152500.0,68000,0.0
+P0079,Orchard Group,food_bev,2025-10,21,0,1,2,open,8,,116000.0,22000,138000.0,136000,0.0
+P0080,Blue Harbor Group,logistics,2025-10,21,1,0,2,open,8,,116000.0,22000,138000.0,136000,0.0
+P0081,Northwind Co,automotive,2025-10,21,1,1,2,lost,7,28,101500.0,22000,123500.0,0,0.0
+P0082,Northwind Partners,automotive,2025-10,21,0,1,1,open,8,,116000.0,22000,138000.0,68000,0.0
+P0083,Tidewater Co,cold_chain,2025-11,22,1,1,2,converted,4,26,58000.0,22000,80000.0,0,201552.47
+P0084,Junction Industries,logistics,2025-11,22,1,1,1,converted,5,27,72500.0,22000,94500.0,0,87023.57
+P0085,Tidewater Industries,automotive,2025-11,22,0,1,3,open,7,,101500.0,22000,123500.0,204000,0.0
+P0086,Vantage Group,food_bev,2025-12,23,1,1,3,lost,3,26,43500.0,22000,65500.0,0,0.0
+P0087,Halcyon Group,food_bev,2025-12,23,0,1,1,open,6,,87000.0,22000,109000.0,68000,0.0
+P0088,Foxglove Co,automotive,2025-12,23,1,1,3,lost,4,27,58000.0,22000,80000.0,0,0.0
+P0089,Copperfield Partners,logistics,2025-12,23,0,0,1,open,6,,87000.0,22000,109000.0,68000,0.0
+P0090,Northwind Group,automotive,2026-01,24,1,0,3,open,5,,72500.0,22000,94500.0,204000,0.0
+P0091,Junction Co,automotive,2026-01,24,1,1,1,lost,4,28,58000.0,22000,80000.0,0,0.0
+P0092,Ninth Street Co,manufacturing,2026-01,24,1,1,1,open,5,,72500.0,22000,94500.0,68000,0.0
+P0093,Halcyon Partners,manufacturing,2026-01,24,0,1,3,open,5,,72500.0,22000,94500.0,204000,0.0
+P0094,Cascade Co,cold_chain,2026-02,25,0,1,1,open,4,,58000.0,22000,80000.0,68000,0.0
+P0095,Blue Harbor Group,automotive,2026-02,25,1,0,2,open,4,,58000.0,22000,80000.0,136000,0.0
+P0096,Orchard Industries,food_bev,2026-03,26,0,1,2,open,3,,43500.0,22000,65500.0,136000,0.0
+P0097,Ridgeline Industries,cold_chain,2026-03,26,1,1,2,open,3,,43500.0,22000,65500.0,136000,0.0
+P0098,Blue Harbor Co,logistics,2026-03,26,0,0,1,open,3,,43500.0,22000,65500.0,68000,0.0
+P0099,Orchard Co,food_bev,2026-03,26,0,1,2,open,3,,43500.0,22000,65500.0,136000,0.0
+P0100,Copperfield Co,cold_chain,2026-03,26,1,0,3,open,3,,43500.0,22000,65500.0,204000,0.0
+P0101,Foxglove Co,manufacturing,2026-04,27,0,0,2,open,2,,29000.0,22000,51000.0,136000,0.0
+P0102,Pinewood Group,food_bev,2026-04,27,1,0,2,open,2,,29000.0,22000,51000.0,136000,0.0
+P0103,Meridian Partners,food_bev,2026-04,27,0,0,1,open,2,,29000.0,22000,51000.0,68000,0.0
