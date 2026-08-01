@@ -1,0 +1,40 @@
+==========================================================================================================
+HEADCOUNT PLAN & CAPACITY  |  scenario: plan  |  2026-01 to 2027-06
+==========================================================================================================
+  starting FTE                          51
+  ending FTE                           106
+  approved headcount                   139   <- the number plans are usually built on
+  productive FTE                      99.7   <- the number capacity should be built on
+  gap                                 39.3
+
+  gross hires                           74
+  attrition                             19   (26% of gross hires)
+  net adds                              55
+
+COST OF THE PLAN
+----------------------------------------------------------------------------------------------------------
+  salary-only budget               $23.12M
+  fully-loaded actual              $31.00M
+  understatement                    $7.88M   (+34%)
+    employer tax + benefits         23.2% of base
+    equipment + software      $620/head/mo
+    recruiting fee                    20% of first-year base, external hires
+
+  month      approved    FTE  productive  starts  leavers    salary $    loaded $
+----------------------------------------------------------------------------------------------------------
+  2026-01          57     50        50.0       0        1       0.87M       1.10M
+  2026-04          71     56        51.8       4        0       0.97M       1.25M
+  2026-07          86     68        61.6       4        0       1.15M       1.52M
+  2026-10         102     76        71.0       3        2       1.26M       1.70M
+  2027-01         116     91        82.5       8        2       1.52M       2.08M
+  2027-04         129    101        94.5       6        0       1.70M       2.32M
+
+BY DEPARTMENT  (ending)
+----------------------------------------------------------------------------------------------------------
+  department          FTE  productive   ramp mo  req lag mo  loaded $/head/yr
+  Research           24.0        23.0         3           4          $333,788
+  Engineering        41.0        39.3         2           3          $266,055
+  Deployment         18.0        16.3         2           2          $210,638
+  Go-to-market       15.0        13.0         6           2          $198,322
+  G&A                 8.0         8.0         1           2          $179,850
+

@@ -1,0 +1,106 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing Architecture Comparison</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .tick { fill:var(--mut); font-size:11px; }
+  .leg { font-size:12px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th,td { padding:7px 10px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .b { font-weight:600; } .neg { color:var(--neg); }
+  .minibar { height:9px; border-radius:4px; display:inline-block;
+              vertical-align:middle; min-width:2px; opacity:.85; }
+  .pct { font-size:11px; color:var(--mut); margin-left:6px; }
+  .note { font-size:12.5px; color:var(--mut); margin:8px 2px 0; }
+  .callout { background:var(--card); border:1px solid var(--bd);
+              border-left:3px solid var(--neg); border-radius:8px;
+              padding:14px 16px; margin-top:14px; font-size:13.5px; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Pricing Architecture Comparison</h1>
+  <div class="sub">60 accounts · identical demand, four different
+    invoices · illustrative price points for a robotics foundation-model
+    company · synthetic data</div>
+
+  <h2>Revenue by month under each architecture</h2>
+  <div class="chart"><svg viewBox="0 0 880 290"><line x1="84" y1="252.0" x2="856" y2="252.0" class="grid"/><text x="74" y="256.0" text-anchor="end" class="tick">$0.0M</text><line x1="84" y1="137.0" x2="856" y2="137.0" class="grid"/><text x="74" y="141.0" text-anchor="end" class="tick">$3.9M</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">$7.8M</text><polyline points="84.0,202.4 129.4,199.8 174.8,197.1 220.2,194.2 265.6,191.1 311.1,187.9 356.5,184.5 401.9,181.0 447.3,177.2 492.7,173.2 538.1,168.9 583.5,164.5 628.9,159.7 674.4,154.7 719.8,149.5 765.2,143.9 810.6,137.9 856.0,131.7" fill="none" stroke="var(--line)" stroke-width="2.5" stroke-linejoin="round"/><polyline points="84.0,223.5 129.4,222.4 174.8,222.1 220.2,219.2 265.6,218.1 311.1,213.5 356.5,215.4 401.9,211.3 447.3,207.8 492.7,205.5 538.1,203.3 583.5,202.3 628.9,200.2 674.4,192.5 719.8,193.3 765.2,189.6 810.6,182.9 856.0,183.1" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><polyline points="84.0,167.3 129.4,162.9 174.8,158.2 220.2,153.3 265.6,148.1 311.1,142.7 356.5,136.9 401.9,130.8 447.3,124.3 492.7,117.5 538.1,110.3 583.5,102.6 628.9,94.6 674.4,86.0 719.8,77.0 765.2,67.4 810.6,57.3 856.0,46.6" fill="none" stroke="var(--neg)" stroke-width="2.5" stroke-linejoin="round"/><polyline points="84.0,216.9 129.4,215.5 174.8,214.2 220.2,211.4 265.6,209.7 311.1,205.3 356.5,206.0 401.9,201.6 447.3,198.2 492.7,195.4 538.1,192.5 583.5,190.9 628.9,187.7 674.4,180.2 719.8,179.6 765.2,174.9 810.6,168.7 856.0,166.8" fill="none" stroke="var(--pos)" stroke-width="2.5" stroke-linejoin="round"/><text x="84.0" y="276" text-anchor="middle" class="tick">26-01</text><text x="220.2" y="276" text-anchor="middle" class="tick">26-04</text><text x="356.5" y="276" text-anchor="middle" class="tick">26-07</text><text x="492.7" y="276" text-anchor="middle" class="tick">26-10</text><text x="628.9" y="276" text-anchor="middle" class="tick">27-01</text><text x="765.2" y="276" text-anchor="middle" class="tick">27-04</text>
+    <text x="84" y="14" class="leg"><tspan fill="var(--line)">● subscription  </tspan><tspan fill="#d97706">● metered  </tspan><tspan fill="var(--neg)">● royalty  </tspan><tspan fill="var(--pos)">● hybrid  </tspan></text></svg></div>
+  <div class="note">Same robots, same tasks, same customers — only the pricing
+    logic differs. The spread between these lines is a pure business-model
+    choice, made once, and very hard to reverse later.</div>
+
+  <h2>The four dimensions that actually decide it</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Model</th><th class="n">Revenue (18mo)</th><th class="n">Exit ARR</th>
+      <th class="n">Gross margin</th><th class="n">MoM volatility</th>
+      <th class="n">Top-3 concentration</th></tr></thead>
+    <tbody><tr><td class='b'>subscription</td><td class='n'>$48.98M</td><td class='n'>$49.2M</td><td class='n'>95.7%</td><td class='n '>0.1%</td><td class='n '>32%</td></tr><tr><td class='b'>metered</td><td class='n'>$28.29M</td><td class='n'>$28.2M</td><td class='n'>92.6%</td><td class='n '>5.3%</td><td class='n '>29%</td></tr><tr><td class='b'>royalty</td><td class='n'>$83.60M</td><td class='n'>$84.0M</td><td class='n'>97.3%</td><td class='n '>0.1%</td><td class='n neg'>61%</td></tr><tr><td class='b'>hybrid</td><td class='n'>$34.80M</td><td class='n'>$34.9M</td><td class='n'>94.0%</td><td class='n '>3.4%</td><td class='n '>30%</td></tr></tbody></table></div>
+
+  <div class="callout"><strong>Revenue is not the tiebreak.</strong> The
+    <strong>royalty</strong> model produces the most revenue
+    ($83.60M) <em>and</em> the worst concentration
+    — <strong>61% of revenue sitting with
+    three counterparties</strong> who own the customer relationship, the
+    hardware roadmap, and therefore the renewal. Higher revenue, strictly worse
+    business. A pricing decision made on the revenue line alone picks this one.</div>
+
+  <h2>Scored on every axis (100 = best in class)</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Model</th><th class="n">Revenue</th><th class="n">Margin</th>
+      <th class="n">Forecastability</th><th class="n">Low concentration</th></tr></thead>
+    <tbody><tr><td class='b'>subscription</td><td class='n'><div class='minibar' style='width:59%;background:var(--line)'></div><span class='pct'>59</span></td><td class='n'><div class='minibar' style='width:98%;background:var(--line)'></div><span class='pct'>98</span></td><td class='n'><div class='minibar' style='width:100%;background:var(--line)'></div><span class='pct'>100</span></td><td class='n'><div class='minibar' style='width:91%;background:var(--line)'></div><span class='pct'>91</span></td></tr><tr><td class='b'>metered</td><td class='n'><div class='minibar' style='width:34%;background:#d97706'></div><span class='pct'>34</span></td><td class='n'><div class='minibar' style='width:95%;background:#d97706'></div><span class='pct'>95</span></td><td class='n'><div class='minibar' style='width:2%;background:#d97706'></div><span class='pct'>2</span></td><td class='n'><div class='minibar' style='width:100%;background:#d97706'></div><span class='pct'>100</span></td></tr><tr><td class='b'>royalty</td><td class='n'><div class='minibar' style='width:100%;background:var(--neg)'></div><span class='pct'>100</span></td><td class='n'><div class='minibar' style='width:100%;background:var(--neg)'></div><span class='pct'>100</span></td><td class='n'><div class='minibar' style='width:100%;background:var(--neg)'></div><span class='pct'>100</span></td><td class='n'><div class='minibar' style='width:47%;background:var(--neg)'></div><span class='pct'>47</span></td></tr><tr><td class='b'>hybrid</td><td class='n'><div class='minibar' style='width:42%;background:var(--pos)'></div><span class='pct'>42</span></td><td class='n'><div class='minibar' style='width:97%;background:var(--pos)'></div><span class='pct'>97</span></td><td class='n'><div class='minibar' style='width:3%;background:var(--pos)'></div><span class='pct'>3</span></td><td class='n'><div class='minibar' style='width:97%;background:var(--pos)'></div><span class='pct'>97</span></td></tr></tbody></table></div>
+  <div class="note"><strong>Metering</strong> aligns price with delivered value
+    and is the least forecastable — 5.3%
+    month-over-month volatility against
+    0.1% for subscription. That alignment
+    is bought with forecast error, and forecast error at a company still proving
+    its plan to a board is expensive in ways the revenue line doesn't show.
+    <br><br><strong>Royalty is not a pricing choice.</strong> It wins revenue
+    here only because it reaches 2.4× the units — it is a
+    go-to-market bet, trading the customer relationship for reach. Comparing it
+    to the direct models on revenue alone is a category error.
+    <br><br>Among the <strong>direct</strong> models, hybrid sits between the
+    other two on both axes: $34.8M revenue at
+    3.4% volatility.</div>
+
+  <div class="callout" style="border-left-color:var(--mut)">
+    <strong>What this model cannot answer.</strong> Demand here is exogenous and
+    identical across all four architectures — that is what makes the comparison
+    clean, and it is also the limitation. It cannot value the two things that
+    actually push companies toward hybrid: the expansion motion, where revenue
+    grows with usage without a renegotiation, and the churn avoided by not
+    overcharging light users. On the axes this model <em>can</em> measure, plain
+    per-robot subscription wins among the direct options. Anyone reading that as
+    "therefore price per robot" has taken the model past what it supports —
+    which is worth saying out loud on the page rather than in a footnote.</div>
+
+  <footer>Generated by pricing_models.py · demand held identical across models,
+    series tie to totals, sanity bounds enforced (run --validate) · price points
+    are illustrative assumptions, not any company's actual pricing</footer>
+</div>

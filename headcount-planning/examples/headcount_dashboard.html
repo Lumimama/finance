@@ -1,0 +1,140 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headcount Plan &amp; Capacity</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; --warn:#d97706; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; --warn:#d29922; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--mut); }
+  .kpi .v { font-size:19px; font-weight:600; margin-top:3px;
+             font-variant-numeric:tabular-nums; }
+  .kpi .n2 { font-size:11px; color:var(--mut); margin-top:1px; }
+  .warnk .v { color:var(--warn); }
+  .chart { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+            padding:8px; overflow-x:auto; }
+  svg { display:block; max-width:100%; height:auto; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .tick { fill:var(--mut); font-size:11px; }
+  .leg { font-size:12px; font-weight:600; }
+  .tbl { overflow-x:auto; border:1px solid var(--bd); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th,td { padding:6px 10px; text-align:left; border-bottom:1px solid var(--bd);
+           white-space:nowrap; }
+  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
+        color:var(--mut); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  .n { text-align:right; font-variant-numeric:tabular-nums; }
+  .b { font-weight:600; } .neg { color:var(--neg); }
+  .note { font-size:12.5px; color:var(--mut); margin:8px 2px 0; }
+  .callout { background:var(--card); border:1px solid var(--bd);
+              border-left:3px solid var(--warn); border-radius:8px;
+              padding:14px 16px; margin-top:14px; font-size:13.5px; }
+  footer { color:var(--mut); font-size:12px; margin-top:26px; }
+</style>
+<div class="wrap">
+  <h1>Headcount Plan &amp; Capacity</h1>
+  <div class="sub">Scenario: <strong>plan</strong> · 2026-01 to
+    2027-06 · fully-loaded costing · synthetic data</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Ending FTE</div><div class="v">106</div>
+      <div class="n2">from 51</div></div>
+    <div class="kpi"><div class="k">Approved headcount</div>
+      <div class="v">139</div>
+      <div class="n2">reqs opened to date</div></div>
+    <div class="kpi warnk"><div class="k">Productive FTE</div>
+      <div class="v">100</div>
+      <div class="n2">39 below approved</div></div>
+    <div class="kpi"><div class="k">Plan cost (18 mo)</div>
+      <div class="v">$31.0M</div>
+      <div class="n2">fully loaded</div></div>
+    <div class="kpi warnk"><div class="k">Understated by salary-only</div>
+      <div class="v">$7.9M</div>
+      <div class="n2">+34%</div></div>
+  </div>
+
+  <div class="callout"><strong>Approved headcount and productive headcount are
+    different numbers.</strong> A req approved in January produces a start in
+    March or April, and that person is not fully productive for another one to
+    six months depending on the role. Budget the cost from approval and you
+    overstate cash; assume the capacity from approval and you overstate output.
+    Both errors get made in the same spreadsheet, in opposite directions, and
+    they do not cancel.</div>
+
+  <h2>Approved vs actual vs productive headcount</h2>
+  <div class="chart"><svg viewBox="0 0 880 280"><line x1="84" y1="242.0" x2="856" y2="242.0" class="grid"/><text x="74" y="246.0" text-anchor="end" class="tick">0</text><line x1="84" y1="132.0" x2="856" y2="132.0" class="grid"/><text x="74" y="136.0" text-anchor="end" class="tick">78</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">156</text>
+    <polygon points="84.0,161.5 129.4,154.4 174.8,147.3 220.2,141.7 265.6,133.2 311.1,127.5 356.5,120.5 401.9,112.0 447.3,104.9 492.7,97.9 538.1,92.2 583.5,83.7 628.9,78.1 674.4,72.4 719.8,65.4 765.2,59.7 810.6,52.6 856.0,45.6 856.0,101.2 810.6,106.8 765.2,108.5 719.8,114.2 674.4,120.5 628.9,125.3 583.5,130.7 538.1,136.6 492.7,141.7 447.3,144.8 401.9,151.3 356.5,155.0 311.1,160.9 265.6,166.3 220.2,168.8 174.8,172.1 129.4,173.7 84.0,171.3" fill="var(--warn)" opacity="0.13"/>
+    <polyline points="84.0,161.5 129.4,154.4 174.8,147.3 220.2,141.7 265.6,133.2 311.1,127.5 356.5,120.5 401.9,112.0 447.3,104.9 492.7,97.9 538.1,92.2 583.5,83.7 628.9,78.1 674.4,72.4 719.8,65.4 765.2,59.7 810.6,52.6 856.0,45.6" fill="none" stroke="var(--warn)" stroke-width="2.5"/>
+    <polyline points="84.0,171.3 129.4,172.8 174.8,168.5 220.2,162.9 265.6,158.6 311.1,151.6 356.5,145.9 401.9,141.7 447.3,136.0 492.7,134.6 538.1,128.9 583.5,121.9 628.9,113.4 674.4,112.0 719.8,107.8 765.2,99.3 810.6,97.9 856.0,92.2" fill="none" stroke="var(--line)" stroke-width="2.5"/>
+    <polyline points="84.0,171.3 129.4,173.7 174.8,172.1 220.2,168.8 265.6,166.3 311.1,160.9 356.5,155.0 401.9,151.3 447.3,144.8 492.7,141.7 538.1,136.6 583.5,130.7 628.9,125.3 674.4,120.5 719.8,114.2 765.2,108.5 810.6,106.8 856.0,101.2" fill="none" stroke="var(--pos)" stroke-width="2.5"/>
+    <text x="84.0" y="266" text-anchor="middle" class="tick">26-01</text><text x="220.2" y="266" text-anchor="middle" class="tick">26-04</text><text x="356.5" y="266" text-anchor="middle" class="tick">26-07</text><text x="492.7" y="266" text-anchor="middle" class="tick">26-10</text><text x="628.9" y="266" text-anchor="middle" class="tick">27-01</text><text x="765.2" y="266" text-anchor="middle" class="tick">27-04</text>
+    <text x="84" y="14" class="leg"><tspan fill="var(--warn)">● approved</tspan>
+    <tspan fill="var(--line)"> ● on payroll</tspan>
+    <tspan fill="var(--pos)"> ● productive</tspan></text></svg></div>
+  <div class="note">The shaded band is capacity the plan assumes and the company
+    does not have — <strong>39
+    of 139 approved heads
+    (28%)</strong>.
+    It is structural, from req-to-start lag plus ramp, and it does not close by
+    recruiting harder. Hiring faster widens it, though by less than you would
+    expect — the already-ramped team dilutes the effect.</div>
+
+  <h2>Salary-only budget vs fully-loaded cash</h2>
+  <div class="chart"><svg viewBox="0 0 880 280"><line x1="84" y1="242.0" x2="856" y2="242.0" class="grid"/><text x="74" y="246.0" text-anchor="end" class="tick">$0.0M</text><line x1="84" y1="132.0" x2="856" y2="132.0" class="grid"/><text x="74" y="136.0" text-anchor="end" class="tick">$1.4M</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">$2.8M</text>
+    <polygon points="84.0,154.9 129.4,155.8 174.8,151.4 220.2,143.2 265.6,138.0 311.1,129.7 356.5,121.7 401.9,117.3 447.3,109.8 492.7,107.6 538.1,99.7 583.5,89.9 628.9,77.9 674.4,75.4 719.8,70.3 765.2,58.9 810.6,56.7 856.0,50.7 856.0,101.3 810.6,106.3 765.2,108.2 719.8,116.4 674.4,120.3 628.9,122.0 583.5,130.2 538.1,136.8 492.7,142.3 447.3,143.8 401.9,148.9 356.5,151.2 311.1,156.7 265.6,162.3 220.2,165.6 174.8,171.2 129.4,174.1 84.0,173.3" fill="var(--neg)" opacity="0.13"/>
+    <polyline points="84.0,154.9 129.4,155.8 174.8,151.4 220.2,143.2 265.6,138.0 311.1,129.7 356.5,121.7 401.9,117.3 447.3,109.8 492.7,107.6 538.1,99.7 583.5,89.9 628.9,77.9 674.4,75.4 719.8,70.3 765.2,58.9 810.6,56.7 856.0,50.7" fill="none" stroke="var(--neg)" stroke-width="2.5"/>
+    <polyline points="84.0,173.3 129.4,174.1 174.8,171.2 220.2,165.6 265.6,162.3 311.1,156.7 356.5,151.2 401.9,148.9 447.3,143.8 492.7,142.3 538.1,136.8 583.5,130.2 628.9,122.0 674.4,120.3 719.8,116.4 765.2,108.2 810.6,106.3 856.0,101.3" fill="none" stroke="var(--line)" stroke-width="2.5"/>
+    <text x="84.0" y="266" text-anchor="middle" class="tick">26-01</text><text x="220.2" y="266" text-anchor="middle" class="tick">26-04</text><text x="356.5" y="266" text-anchor="middle" class="tick">26-07</text><text x="492.7" y="266" text-anchor="middle" class="tick">26-10</text><text x="628.9" y="266" text-anchor="middle" class="tick">27-01</text><text x="765.2" y="266" text-anchor="middle" class="tick">27-04</text>
+    <text x="84" y="14" class="leg"><tspan fill="var(--neg)">● fully loaded</tspan>
+    <tspan fill="var(--line)"> ● salary only</tspan></text></svg></div>
+  <div class="note">The gap is +34% —
+    <strong>$7.9M</strong> over this plan. Employer tax and
+    benefits are 23.2% of base, equipment and software run
+    $620/head/month, and external hires carry a
+    20% recruiting fee on first-year base. A hiring plan
+    presented in base salary is not a budget.</div>
+
+  <h2>By department</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Department</th><th class="n">FTE</th><th class="n">Productive</th>
+      <th class="n">Req→start</th><th class="n">Ramp</th><th class="n">Base</th>
+      <th class="n">Fully loaded /yr</th></tr></thead>
+    <tbody><tr><td>Research</td><td class='n'>24.0</td><td class='n'>23.0</td><td class='n'>4 mo</td><td class='n'>3 mo</td><td class='n'>$265,000</td><td class='n b'>$333,788</td></tr><tr><td>Engineering</td><td class='n'>41.0</td><td class='n'>39.3</td><td class='n'>3 mo</td><td class='n'>2 mo</td><td class='n'>$210,000</td><td class='n b'>$266,055</td></tr><tr><td>Deployment</td><td class='n'>18.0</td><td class='n'>16.3</td><td class='n'>2 mo</td><td class='n'>2 mo</td><td class='n'>$165,000</td><td class='n b'>$210,638</td></tr><tr><td>Go-to-market</td><td class='n'>15.0</td><td class='n'>13.0</td><td class='n'>2 mo</td><td class='n'>6 mo</td><td class='n'>$155,000</td><td class='n b'>$198,322</td></tr><tr><td>G&A</td><td class='n'>8.0</td><td class='n'>8.0</td><td class='n'>2 mo</td><td class='n'>1 mo</td><td class='n'>$140,000</td><td class='n b'>$179,850</td></tr></tbody></table></div>
+  <div class="note">Go-to-market has the longest ramp (six months to full quota)
+    and the highest attrition — which is why GTM hiring converts to capacity far
+    more slowly than an engineering plan of the same size, and why the two
+    should never be modelled with one blended assumption.</div>
+
+  <h2>Monthly detail</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Month</th><th class="n">Approved</th><th class="n">FTE</th>
+      <th class="n">Productive</th><th class="n">Starts</th><th class="n">Leavers</th>
+      <th class="n">Salary</th><th class="n">Fully loaded</th></tr></thead>
+    <tbody><tr><td>2026-10</td><td class='n'>102</td><td class='n'>76</td><td class='n'>71.0</td><td class='n'>3</td><td class='n neg'>2</td><td class='n'>$1.26M</td><td class='n b'>$1.70M</td></tr><tr><td>2026-11</td><td class='n'>106</td><td class='n'>80</td><td class='n'>74.6</td><td class='n'>4</td><td class='n neg'>0</td><td class='n'>$1.33M</td><td class='n b'>$1.80M</td></tr><tr><td>2026-12</td><td class='n'>112</td><td class='n'>85</td><td class='n'>78.8</td><td class='n'>5</td><td class='n neg'>0</td><td class='n'>$1.42M</td><td class='n b'>$1.93M</td></tr><tr><td>2027-01</td><td class='n'>116</td><td class='n'>91</td><td class='n'>82.5</td><td class='n'>8</td><td class='n neg'>2</td><td class='n'>$1.52M</td><td class='n b'>$2.08M</td></tr><tr><td>2027-02</td><td class='n'>120</td><td class='n'>92</td><td class='n'>86.0</td><td class='n'>4</td><td class='n neg'>3</td><td class='n'>$1.54M</td><td class='n b'>$2.11M</td></tr><tr><td>2027-03</td><td class='n'>125</td><td class='n'>95</td><td class='n'>90.4</td><td class='n'>3</td><td class='n neg'>0</td><td class='n'>$1.59M</td><td class='n b'>$2.17M</td></tr><tr><td>2027-04</td><td class='n'>129</td><td class='n'>101</td><td class='n'>94.5</td><td class='n'>6</td><td class='n neg'>0</td><td class='n'>$1.70M</td><td class='n b'>$2.32M</td></tr><tr><td>2027-05</td><td class='n'>134</td><td class='n'>102</td><td class='n'>95.7</td><td class='n'>4</td><td class='n neg'>3</td><td class='n'>$1.72M</td><td class='n b'>$2.35M</td></tr><tr><td>2027-06</td><td class='n'>139</td><td class='n'>106</td><td class='n'>99.7</td><td class='n'>4</td><td class='n neg'>0</td><td class='n'>$1.78M</td><td class='n b'>$2.42M</td></tr></tbody></table></div>
+  <div class="note">Attrition consumed <strong>19 of 74 gross hires
+    (26%)</strong> over the window. A plan that treats gross
+    hires as net adds under-staffs every quarter and then reports the shortfall
+    as a recruiting problem.</div>
+
+  <footer>Generated by headcount.py · roster roll-forward ties, sanity bounds
+    enforced (run --validate) · <code>--scenario slow|plan|fast</code> ·
+    all figures synthetic</footer>
+</div>

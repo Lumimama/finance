@@ -1,0 +1,44 @@
+========================================================================================================
+PRICING ARCHITECTURE COMPARISON  |  60 accounts  |  identical demand, four invoices
+========================================================================================================
+  model                revenue    exit ARR  gross margin  volatility  top-3 conc.
+--------------------------------------------------------------------------------------------------------
+  subscription         $48.98M     $49.22M        95.7%        0.1%          32%
+  metered              $28.29M     $28.19M        92.6%        5.3%          29%
+  royalty              $83.60M     $84.01M        97.3%        0.1%          61%
+  hybrid               $34.80M     $34.87M        94.0%        3.4%          30%
+
+WHAT EACH MODEL WINS AND LOSES
+--------------------------------------------------------------------------------------------------------
+  highest revenue        royalty         $83.60M
+  most forecastable      subscription    0.1% month-over-month volatility
+  worst concentration    royalty         61% of revenue in top 3 accounts
+
+  royalty produces the most revenue AND the worst concentration.
+  Revenue is not the tiebreak; a business where 61% of revenue sits with three
+  counterparties has handed them pricing power and its own roadmap.
+
+  Royalty wins revenue only because it reaches 2.4x the units. That is not a pricing choice --
+  it is a go-to-market bet: reach, paid for with the customer
+  relationship. Compare it to the direct models on revenue alone and
+  you have made a category error.
+
+  Among DIRECT models, hybrid sits between the other two on both
+  axes: $34.80M revenue, 3.4% volatility.
+
+  LIMITATION: demand here is exogenous and identical across models,
+  so this cannot value hybrid's expansion motion or the churn avoided
+  by not overcharging light users -- the two reasons companies actually
+  choose it. On the axes measurable here subscription wins among direct
+  models, and that conclusion is weaker than it looks.
+
+REVENUE BY MONTH  ($M)
+--------------------------------------------------------------------------------------------------------
+  month        subscription         metered         royalty          hybrid
+  2026-01              1.69            0.97            2.89            1.20
+  2026-04              1.97            1.12            3.36            1.38
+  2026-07              2.30            1.25            3.92            1.57
+  2026-10              2.69            1.58            4.59            1.93
+  2027-01              3.15            1.77            5.37            2.19
+  2027-04              3.69            2.13            6.29            2.63
+
