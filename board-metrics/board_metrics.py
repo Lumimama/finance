@@ -259,13 +259,16 @@ def print_metrics(s: dict) -> None:
     print(f"  Magic number (trailing Q)  {mn:>12.2f}   [{bench(mn, .75, .50)}]"
           if mn else "  Magic number                       n/a")
     print(f"  Gross margin               {pctf(s['gross_margin']):>12}   [{bench(s['gross_margin'], .75, .70)}]")
-    print(f"  Rule of 40                 {s['rule_of_40']:>12.0f}   [{bench(s['rule_of_40'], 40, 20)}]")
+    print(f"  Rule of 40                 {s['rule_of_40']:>9.0f} pts   [{bench(s['rule_of_40'], 40, 20)}]")
 
     print("\nCAPITAL")
     print("-" * width)
     print(f"  Cash                       {m(s['cash']):>12}")
     print(f"  Net burn ({s['window']}mo)             {m(s['burn']):>12}")
-    print(f"  Average monthly burn       {m(s['avg_monthly_burn']):>12}")
+    print(f"  Average monthly burn       {m(s['avg_monthly_burn']):>12}   (12-mo avg)")
+    _rw = s["runway"]
+    if _rw != float("inf"):
+        print(f"  Trailing 3-mo burn         ${s['cash']/_rw/1e6:>11,.2f}M   <- the runway basis")
     rw = s["runway"]
     print(f"  Runway                     {rw:>9.1f} mo   [{bench(rw, 24, 12)}]"
           if rw != float("inf") else "  Runway                       cash generative")
@@ -376,10 +379,13 @@ def write_html(s: dict, path: Path) -> None:
              tone(bench(cp, 12, 18, higher_is_better=False))),
         tile("Magic number", f"{mn:.2f}" if mn else "n/a", "trailing quarter", tone(bench(mn, .75, .50))),
         tile("Gross margin", pctf(s["gross_margin"]), "", tone(bench(s["gross_margin"], .75, .70))),
-        tile("Rule of 40", f"{s['rule_of_40']:.0f}", f"{pctf(s['yoy_growth'])} growth &middot; {pctf(s['fcf_margin'])} FCF margin",
+        tile("Rule of 40", f"{s['rule_of_40']:.0f} pts", f"{pctf(s['yoy_growth'])} growth &middot; {pctf(s['fcf_margin'])} FCF margin",
              tone(bench(s["rule_of_40"], 40, 20))),
-        tile("Cash", m(s["cash"]), f"{m(s['avg_monthly_burn'])}/mo burn"),
-        tile("Runway", f"{rw:.0f} mo" if rw != float("inf") else "n/a", "at trailing 3-mo burn",
+        tile("Cash", m(s["cash"]),
+             f"${s['avg_monthly_burn']/1e6:,.2f}M/mo avg burn (12mo)"),
+        tile("Runway", f"{rw:.0f} mo" if rw != float("inf") else "n/a",
+             (f"= cash ÷ trailing 3-mo burn ${s['cash']/rw/1e6:,.2f}M/mo"
+              if rw != float("inf") else "cash generative"),
              tone(bench(rw, 24, 12))),
         tile("ARR per employee", f"${s['arr_per_employee']/1000:.0f}K", f"{s['headcount']} people",
              tone(bench(s["arr_per_employee"], 200_000, 150_000))),

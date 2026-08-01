@@ -376,7 +376,9 @@ def write_html(rows, path: Path) -> None:
     <div class="kpi"><div class="k">Cost / 1K tokens</div><div class="v">${c['cost_per_1k_tok']:.4f}</div></div>
     <div class="kpi"><div class="k">Revenue / 1K tokens</div><div class="v">${c['rev_per_1k_tok']:.4f}</div></div>
     <div class="kpi"><div class="k">Cost / inference</div><div class="v">${c['cost_per_call']:.4f}</div></div>
-    <div class="kpi"><div class="k">GM after AI cost</div><div class="v">{c['gm_after_ai']:.1%}</div></div>
+    <div class="kpi"><div class="k">GM after AI cost</div>
+      <div class="v">{c['gm_after_ai']:.1%}</div>
+      <div class="n2">trailing 30 days</div></div>
     <div class="kpi"><div class="k">GPU utilization</div><div class="v">{a['util_weekday']:.0%}</div>
       <div class="n2">weekend: {a['util_weekend']:.0%}</div></div>
     <div class="kpi"><div class="k">DAU / MAU</div><div class="v">{a['dau_mau']:.0%}</div>
@@ -393,7 +395,11 @@ def write_html(rows, path: Path) -> None:
   <div class="note">Routing simple requests to the small model cut blended cost
     per call {abs(a['post']['cost_per_call']/a['pre']['cost_per_call']-1):.0%} at
     identical customer pricing — GM after AI cost moved
-    {a['pre']['gm_after_ai']:.1%} → {a['post']['gm_after_ai']:.1%}. Model routing
+    {a['pre']['gm_after_ai']:.1%} → {a['post']['gm_after_ai']:.1%} <em>measured
+    across the pre- and post-deploy windows</em>. That post-deploy figure differs
+    from the {c['gm_after_ai']:.1%} headline above because the headline covers
+    only the trailing 30 days — a shorter, later window, not a different
+    calculation. Model routing
     is the highest-leverage finance action in an AI company, and this chart is
     how finance participates in it.</div>
 

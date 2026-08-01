@@ -14,11 +14,37 @@ and be able to bridge between them on demand.
                           month it is spent. Simple, conservative, and what
                           most AI companies do today.
 
-    CAPITALIZE            costs incurred AFTER technological feasibility are
-                          capitalized as an intangible and amortized over the
-                          model's useful service life; pre-feasibility
-                          research is still expensed. Abandoned runs are
-                          impaired -- written off in full.
+    CAPITALIZE            costs incurred AFTER the eligibility gates below
+                          are met are capitalized as an intangible and
+                          amortized over the model's useful service life;
+                          everything before that is expensed. Abandoned runs
+                          are impaired -- written off in full.
+
+ELIGIBILITY IS NOT ELECTIVE. Capitalization is permitted only where specific
+criteria are met, and this model assumes the following gates, stated so they
+can be challenged:
+
+  FRAMEWORK          US GAAP, internal-use software analogue (ASC 350-40),
+                     which splits spend into preliminary-project, application
+                     -development, and post-implementation stages. Only
+                     application-development-stage cost is capitalizable.
+                     Under IAS 38 the analogous test is the six development
+                     -phase criteria; the arithmetic here is unchanged, only
+                     the label differs.
+  GATE 1 - stage     the run has passed the preliminary/research stage: the
+                     architecture is selected and the training recipe is
+                     established, not being discovered.
+  GATE 2 - intent    management has committed to funding it to completion and
+                     intends to deploy it in service.
+  GATE 3 - feasible  technical feasibility of completing the run is
+                     established.
+  GATE 4 - benefit   the resulting model version is expected to provide future
+                     economic benefit over a determinable service life.
+
+PRE_FEASIBILITY_SHARE below is the portion of each run assumed to fall BEFORE
+those gates. It is expensed under both treatments. A run that never clears the
+gates is expensed in full -- which is exactly what happens to the two
+abandoned runs here.
 
 THE IDENTITY THAT KEEPS BOTH HONEST: over the full life of every run, the
 two treatments charge exactly the same total cost to the P&L. Capitalization
@@ -68,6 +94,8 @@ GPU_COST_PER_HOUR = 2.60          # blended reserved H100-class
 USEFUL_LIFE_MO = 24               # service life of a deployed model version
 # Share of a run's cost incurred before technological feasibility is
 # established. Pre-feasibility cost is expensed under BOTH treatments.
+# Share of a run's cost incurred BEFORE the eligibility gates are met
+# (preliminary-project / research phase). Expensed under BOTH treatments.
 PRE_FEASIBILITY_SHARE = 0.35
 
 # Training runs: (name, start month index, GPU-hours, headcount cost, status)
@@ -466,6 +494,21 @@ def write_html(runs, rows, path: Path) -> None:
       <div class="v">${rows[-1]['nbv_close']/1e6:,.1f}M</div>
       <div class="n2">{USEFUL_LIFE_MO}-mo useful life</div></div>
   </div>
+
+  <div class="callout" style="border-left-color:var(--mut)">
+    <strong>Capitalization is not an elective presentation choice.</strong> It
+    is permitted only where eligibility criteria are met. This model assumes the
+    US GAAP internal-use-software analogue (ASC 350-40): only
+    application-development-stage cost qualifies, and only once the architecture
+    and training recipe are settled, management has committed to completion and
+    intends to deploy, technical feasibility is established, and a determinable
+    service life supports future benefit. The {PRE_FEASIBILITY_SHARE:.0%} of each
+    run assumed to precede those gates is expensed under <em>both</em>
+    treatments; a run that never clears them is expensed in full, which is what
+    happens to the two abandoned runs below. Under IAS 38 the equivalent test is
+    the six development-phase criteria — the arithmetic is unchanged, only the
+    label differs. These gates are assumptions stated so they can be argued
+    with, not accounting advice.</div>
 
   <div class="callout"><strong>The identity that keeps both treatments
     honest:</strong> over the full life of every run, expensing and

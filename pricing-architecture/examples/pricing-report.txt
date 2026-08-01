@@ -1,44 +1,46 @@
 ========================================================================================================
-PRICING ARCHITECTURE COMPARISON  |  60 accounts  |  identical demand, four invoices
+PRICING ARCHITECTURE COMPARISON  |  60 accounts
 ========================================================================================================
-  model                revenue    exit ARR  gross margin  volatility  top-3 conc.
+QUESTION 1 -- PRICING.  Identical demand, four invoices.
 --------------------------------------------------------------------------------------------------------
+  model                revenue    exit ARR  gross margin  volatility  top-3 conc.
   subscription         $48.98M     $49.22M        95.7%        0.1%          32%
   metered              $28.29M     $28.19M        92.6%        5.3%          29%
-  royalty              $83.60M     $84.01M        97.3%        0.1%          61%
+  royalty              $34.83M     $35.00M        93.5%        0.1%          32%
   hybrid               $34.80M     $34.87M        94.0%        3.4%          30%
 
-WHAT EACH MODEL WINS AND LOSES
+  On identical units, subscription earns the most -- it simply charges
+  the most per robot. Royalty priced on the SAME base earns
+  $34.83M vs $48.98M;
+  as a PRICE it is strictly worse, because the rate is lower.
+
+QUESTION 2 -- DISTRIBUTION.  Royalty + OEM reach (2.4x the units).
 --------------------------------------------------------------------------------------------------------
-  highest revenue        royalty         $83.60M
-  most forecastable      subscription    0.1% month-over-month volatility
-  worst concentration    royalty         61% of revenue in top 3 accounts
+  royalty + OEM reach     $83.60M     $84.01M        97.3%        0.1%          61%
 
-  royalty produces the most revenue AND the worst concentration.
-  Revenue is not the tiebreak; a business where 61% of revenue sits with three
-  counterparties has handed them pricing power and its own roadmap.
+  Royalty wins revenue ONLY by changing distribution, not by
+  changing price: $83.60M against $48.98M for subscription.
+  And the concentration -- 61% of revenue in three
+  counterparties, against 32% when the same
+  rate is billed direct -- comes from the DISTRIBUTION choice, not
+  the pricing one. That is the trade: reach, paid for by handing
+  three partners the customer relationship and the renewal.
 
-  Royalty wins revenue only because it reaches 2.4x the units. That is not a pricing choice --
-  it is a go-to-market bet: reach, paid for with the customer
-  relationship. Compare it to the direct models on revenue alone and
-  you have made a category error.
+  Among the four PRICES, hybrid sits between subscription and
+  metering on both axes: $34.80M revenue, 3.4% volatility.
 
-  Among DIRECT models, hybrid sits between the other two on both
-  axes: $34.80M revenue, 3.4% volatility.
-
-  LIMITATION: demand here is exogenous and identical across models,
-  so this cannot value hybrid's expansion motion or the churn avoided
-  by not overcharging light users -- the two reasons companies actually
-  choose it. On the axes measurable here subscription wins among direct
-  models, and that conclusion is weaker than it looks.
+  LIMITATION: demand is exogenous, so this cannot value hybrid's
+  expansion motion or the churn avoided by not overcharging light
+  users -- the two reasons companies actually choose it. On the axes
+  measured here subscription wins, and that is weaker than it looks.
 
 REVENUE BY MONTH  ($M)
 --------------------------------------------------------------------------------------------------------
-  month        subscription         metered         royalty          hybrid
-  2026-01              1.69            0.97            2.89            1.20
-  2026-04              1.97            1.12            3.36            1.38
-  2026-07              2.30            1.25            3.92            1.57
-  2026-10              2.69            1.58            4.59            1.93
-  2027-01              3.15            1.77            5.37            2.19
-  2027-04              3.69            2.13            6.29            2.63
+  month        subscription         metered         royalty          hybrid       oem reach
+  2026-01              1.69            0.97            1.20            1.20            2.89
+  2026-04              1.97            1.12            1.40            1.38            3.36
+  2026-07              2.30            1.25            1.64            1.57            3.92
+  2026-10              2.69            1.58            1.91            1.93            4.59
+  2027-01              3.15            1.77            2.24            2.19            5.37
+  2027-04              3.69            2.13            2.62            2.63            6.29
 

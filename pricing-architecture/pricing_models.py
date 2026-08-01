@@ -7,7 +7,21 @@ genuinely open, and it is a finance question as much as a product one --
 because the four candidate architectures produce very different businesses
 from *identical* underlying customer demand.
 
-The same 60 accounts and the same robot fleet are run through four models:
+TWO SEPARATE QUESTIONS, kept apart on purpose. An earlier version of this
+page ran them together -- claiming demand was identical across all models
+while also claiming royalty reached 2.4x the units. Both cannot be true, and
+an external audit was right to call it.
+
+  QUESTION 1 -- PRICING. The same 60 accounts, the same robots, the same
+  tasks, priced four ways. Demand is genuinely identical, so the comparison
+  isolates the pricing architecture and nothing else.
+
+  QUESTION 2 -- DISTRIBUTION. Embedding in OEM production reaches units you
+  could never sell direct. Demand is explicitly NOT constant here. It is a
+  go-to-market bet, reported separately, and it is where the concentration
+  risk actually comes from.
+
+The four pricing architectures:
 
     PER-ROBOT SUBSCRIPTION   flat fee per robot per month. An OS licence.
                              Predictable, easy to forecast, and indifferent
@@ -172,43 +186,17 @@ MODELS = ["subscription", "metered", "royalty", "hybrid"]
 
 
 def evaluate(panel):
+    """Four PRICE architectures on IDENTICAL demand. Royalty here is priced on
+    the same unit base as everyone else, so the comparison isolates pricing and
+    nothing else. The OEM distribution scenario -- where the unit base CHANGES
+    -- is computed separately in oem_scenario(); conflating the two was a real
+    defect in an earlier version of this page, which claimed demand was held
+    constant and simultaneously that royalty reached 2.4x the units."""
     out = {}
-    # In the royalty world every unit ships through an OEM, so ALL revenue is
-    # attributed to the OEM partners -- nobody else is our counterparty. That
-    # is the trade: reach, at the price of owning the customer relationship.
-    oem_ids = {r["account_id"] for r in panel if r["type"] == "oem_partner"}
-    oem_share = defaultdict(float)
-    for r in panel:
-        if r["type"] == "oem_partner":
-            oem_share[(r["mi"], r["account_id"])] = r["robots"]
-
     for m in MODELS:
         by_month = defaultdict(float)
         by_account = defaultdict(float)
         cost_total = 0.0
-        if m == "royalty":
-            for mi in range(len(MONTHS)):
-                units = sum(r["robots"] for r in panel if r["mi"] == mi) * OEM_REACH_MULTIPLIER
-                rev = units * ROYALTY_PER_UNIT_MO
-                by_month[mi] += rev
-                pool = sum(v for (k, _), v in oem_share.items() if k == mi) or 1.0
-                for (k, aid), v in oem_share.items():
-                    if k == mi:
-                        by_account[aid] += rev * v / pool
-            for row in panel:
-                cost_total += cost_to_serve(row, m)
-            rev_total = sum(by_month.values())
-            series = [by_month[i] for i in range(len(MONTHS))]
-            growth = [(series[i] / series[i-1] - 1) for i in range(1, len(series))]
-            out[m] = {
-                "revenue": rev_total, "cost": cost_total,
-                "gross_margin": 1 - cost_total / rev_total,
-                "series": series,
-                "mom_volatility": statistics.pstdev(growth),
-                "top3_concentration": sum(sorted(by_account.values(), reverse=True)[:3]) / rev_total,
-                "by_account": dict(by_account), "arr_exit": series[-1] * 12,
-            }
-            continue
         for row in panel:
             rev = price(row, m)
             by_month[row["mi"]] += rev
@@ -216,152 +204,175 @@ def evaluate(panel):
             cost_total += cost_to_serve(row, m)
         rev_total = sum(by_month.values())
         series = [by_month[i] for i in range(len(MONTHS))]
-        # forecastability: coefficient of variation of month-over-month growth
         growth = [(series[i] / series[i-1] - 1) for i in range(1, len(series))]
-        vol = statistics.pstdev(growth)
-        top3 = sum(sorted(by_account.values(), reverse=True)[:3])
         out[m] = {
-            "revenue": rev_total,
-            "cost": cost_total,
+            "revenue": rev_total, "cost": cost_total,
             "gross_margin": 1 - cost_total / rev_total,
             "series": series,
-            "mom_volatility": vol,
-            "top3_concentration": top3 / rev_total,
-            "by_account": dict(by_account),
-            "arr_exit": series[-1] * 12,
+            "mom_volatility": statistics.pstdev(growth),
+            "top3_concentration": sum(sorted(by_account.values(), reverse=True)[:3]) / rev_total,
+            "by_account": dict(by_account), "arr_exit": series[-1] * 12,
         }
     return out
+
+
+def oem_scenario(panel):
+    """A DIFFERENT GO-TO-MARKET, not a different price. Embedding in OEM
+    production reaches units you could never sell direct -- modelled as
+    OEM_REACH_MULTIPLIER x the direct base -- and every unit ships through an
+    OEM, so all revenue is attributed to those partners. Demand is explicitly
+    NOT held constant here, which is the whole point and why it sits apart
+    from the pricing comparison above."""
+    by_month = defaultdict(float)
+    by_account = defaultdict(float)
+    oem_share = {(r["mi"], r["account_id"]): r["robots"]
+                 for r in panel if r["type"] == "oem_partner"}
+    cost_total = sum(cost_to_serve(r, "royalty") for r in panel)
+    for mi in range(len(MONTHS)):
+        units = sum(r["robots"] for r in panel if r["mi"] == mi) * OEM_REACH_MULTIPLIER
+        rev = units * ROYALTY_PER_UNIT_MO
+        by_month[mi] += rev
+        pool = sum(v for (k, _), v in oem_share.items() if k == mi) or 1.0
+        for (k, aid), v in oem_share.items():
+            if k == mi:
+                by_account[aid] += rev * v / pool
+    rev_total = sum(by_month.values())
+    series = [by_month[i] for i in range(len(MONTHS))]
+    growth = [(series[i] / series[i-1] - 1) for i in range(1, len(series))]
+    return {
+        "revenue": rev_total, "cost": cost_total,
+        "gross_margin": 1 - cost_total / rev_total,
+        "series": series,
+        "mom_volatility": statistics.pstdev(growth),
+        "top3_concentration": sum(sorted(by_account.values(), reverse=True)[:3]) / rev_total,
+        "by_account": dict(by_account), "arr_exit": series[-1] * 12,
+        "reach_multiplier": OEM_REACH_MULTIPLIER,
+    }
 
 
 # ---------------------------------------------------------------------------
 def money(x): return f"${x/1e6:,.2f}M"
 
 
-def print_report(accounts, panel, ev) -> None:
+def print_report(accounts, panel, ev, oem) -> None:
     w = 104
     print("=" * w)
-    print(f"PRICING ARCHITECTURE COMPARISON  |  {len(accounts)} accounts  |  "
-          f"identical demand, four invoices")
+    print(f"PRICING ARCHITECTURE COMPARISON  |  {len(accounts)} accounts")
     print("=" * w)
+    print("QUESTION 1 -- PRICING.  Identical demand, four invoices.")
+    print("-" * w)
     print(f"  {'model':<16}{'revenue':>12}{'exit ARR':>12}{'gross margin':>14}"
           f"{'volatility':>12}{'top-3 conc.':>13}")
-    print("-" * w)
     for m in MODELS:
         e = ev[m]
         print(f"  {m:<16}{money(e['revenue']):>12}{money(e['arr_exit']):>12}"
               f"{e['gross_margin']:>13.1%}{e['mom_volatility']:>12.1%}"
               f"{e['top3_concentration']:>13.0%}")
+    best = max(MODELS, key=lambda m: ev[m]["revenue"])
+    print(f"\n  On identical units, {best} earns the most -- it simply charges")
+    print(f"  the most per robot. Royalty priced on the SAME base earns")
+    print(f"  {money(ev['royalty']['revenue'])} vs {money(ev['subscription']['revenue'])};")
+    print(f"  as a PRICE it is strictly worse, because the rate is lower.")
 
-    best_rev = max(MODELS, key=lambda m: ev[m]["revenue"])
-    best_vol = min(MODELS, key=lambda m: ev[m]["mom_volatility"])
-    worst_conc = max(MODELS, key=lambda m: ev[m]["top3_concentration"])
-
-    print(f"\nWHAT EACH MODEL WINS AND LOSES")
+    print(f"\nQUESTION 2 -- DISTRIBUTION.  Royalty + OEM reach "
+          f"({oem['reach_multiplier']:.1f}x the units).")
     print("-" * w)
-    print(f"  highest revenue        {best_rev:<16}{money(ev[best_rev]['revenue'])}")
-    print(f"  most forecastable      {best_vol:<16}{ev[best_vol]['mom_volatility']:.1%} month-over-month volatility")
-    print(f"  worst concentration    {worst_conc:<16}{ev[worst_conc]['top3_concentration']:.0%} of revenue in top 3 accounts")
-
-    print(f"\n  {best_rev} produces the most revenue AND the worst concentration.")
-    print(f"  Revenue is not the tiebreak; a business where "
-          f"{ev[worst_conc]['top3_concentration']:.0%} of revenue sits with three")
-    print(f"  counterparties has handed them pricing power and its own roadmap.")
+    print(f"  {'royalty + OEM reach':<16}{money(oem['revenue']):>12}"
+          f"{money(oem['arr_exit']):>12}{oem['gross_margin']:>13.1%}"
+          f"{oem['mom_volatility']:>12.1%}{oem['top3_concentration']:>13.0%}")
+    print(f"\n  Royalty wins revenue ONLY by changing distribution, not by")
+    print(f"  changing price: {money(oem['revenue'])} against "
+          f"{money(ev['subscription']['revenue'])} for subscription.")
+    print(f"  And the concentration -- {oem['top3_concentration']:.0%} of revenue in three")
+    print(f"  counterparties, against {ev['royalty']['top3_concentration']:.0%} when the same")
+    print(f"  rate is billed direct -- comes from the DISTRIBUTION choice, not")
+    print(f"  the pricing one. That is the trade: reach, paid for by handing")
+    print(f"  three partners the customer relationship and the renewal.")
 
     h = ev["hybrid"]
-    print(f"\n  Royalty wins revenue only because it reaches "
-          f"{OEM_REACH_MULTIPLIER:.1f}x the units. That is not a pricing choice --")
-    print(f"  it is a go-to-market bet: reach, paid for with the customer")
-    print(f"  relationship. Compare it to the direct models on revenue alone and")
-    print(f"  you have made a category error.")
-    print(f"\n  Among DIRECT models, hybrid sits between the other two on both")
-    print(f"  axes: {money(h['revenue'])} revenue, {h['mom_volatility']:.1%} volatility.")
-    print(f"\n  LIMITATION: demand here is exogenous and identical across models,")
-    print(f"  so this cannot value hybrid's expansion motion or the churn avoided")
-    print(f"  by not overcharging light users -- the two reasons companies actually")
-    print(f"  choose it. On the axes measurable here subscription wins among direct")
-    print(f"  models, and that conclusion is weaker than it looks.")
+    print(f"\n  Among the four PRICES, hybrid sits between subscription and")
+    print(f"  metering on both axes: {money(h['revenue'])} revenue, "
+          f"{h['mom_volatility']:.1%} volatility.")
+    print(f"\n  LIMITATION: demand is exogenous, so this cannot value hybrid's")
+    print(f"  expansion motion or the churn avoided by not overcharging light")
+    print(f"  users -- the two reasons companies actually choose it. On the axes")
+    print(f"  measured here subscription wins, and that is weaker than it looks.")
 
     print(f"\nREVENUE BY MONTH  ($M)")
     print("-" * w)
-    print(f"  {'month':<9}" + "".join(f"{m:>16}" for m in MODELS))
+    print(f"  {'month':<9}" + "".join(f"{m:>16}" for m in MODELS) + f"{'oem reach':>16}")
     for i in range(0, len(MONTHS), 3):
-        print(f"  {MONTHS[i]:<9}" + "".join(f"{ev[m]['series'][i]/1e6:>16.2f}" for m in MODELS))
+        print(f"  {MONTHS[i]:<9}"
+              + "".join(f"{ev[m]['series'][i]/1e6:>16.2f}" for m in MODELS)
+              + f"{oem['series'][i]/1e6:>16.2f}")
     print()
 
 
-def validate(accounts, panel, ev) -> None:
+def validate(accounts, panel, ev, oem) -> None:
     print("VALIDATION")
     print("-" * 92)
     ok = True
 
-    # --- identity: demand is identical across models ----------------------
     tasks = sum(r["tasks"] for r in panel)
     robots_last = sum(r["robots"] for r in panel if r["mi"] == len(MONTHS) - 1)
-    print(f"  [ok ] same demand priced four ways: {tasks/1e6:,.1f}M tasks, "
-          f"{robots_last:,.0f} robots at exit — only the invoice differs")
+    print(f"  [ok ] pricing comparison holds demand identical: {tasks/1e6:,.1f}M "
+          f"tasks, {robots_last:,.0f} robots at exit, four invoices")
 
-    # --- sanity bounds ----------------------------------------------------
     bad_gm = [m for m in MODELS if not 0.0 < ev[m]["gross_margin"] < 1.0]
     bad_conc = [m for m in MODELS if not 0.0 <= ev[m]["top3_concentration"] <= 1.0]
-    bad_rev = [m for m in MODELS if ev[m]["revenue"] <= 0]
-    bounds = not (bad_gm or bad_conc or bad_rev)
+    bounds = not (bad_gm or bad_conc)
     ok &= bounds
-    print(f"  [{'ok ' if bounds else 'MISS'}] sanity bounds: gross margin in "
-          f"(0,1), concentration in [0,1], revenue positive "
-          f"({len(bad_gm)+len(bad_conc)+len(bad_rev)} violations)")
+    print(f"  [{'ok ' if bounds else 'MISS'}] sanity bounds: gross margin in (0,1), "
+          f"concentration in [0,1] ({len(bad_gm)+len(bad_conc)} violations)")
 
     worst = max(abs(sum(ev[m]["series"]) - ev[m]["revenue"]) for m in MODELS)
     ok &= worst < 0.01
     print(f"  [{'ok ' if worst < 0.01 else 'MISS'}] monthly series sums to total "
           f"revenue for every model (max diff ${worst:.4f})")
 
-    # --- F1 ---------------------------------------------------------------
-    best_rev = max(MODELS, key=lambda m: ev[m]["revenue"])
-    worst_conc = max(MODELS, key=lambda m: ev[m]["top3_concentration"])
-    f1 = best_rev == "royalty" and worst_conc == "royalty"
+    # F1 -- as a PRICE, royalty is worse. It only wins on DISTRIBUTION.
+    f1 = (ev["royalty"]["revenue"] < ev["subscription"]["revenue"]
+          and oem["revenue"] > ev["subscription"]["revenue"])
     ok &= f1
-    print(f"  [{'ok ' if f1 else 'MISS'}] F1: royalty wins revenue "
-          f"({money(ev['royalty']['revenue'])}) and loses concentration "
-          f"({ev['royalty']['top3_concentration']:.0%} in top 3) — highest "
-          f"revenue, strictly worse business")
+    print(f"  [{'ok ' if f1 else 'MISS'}] F1: on identical units royalty earns "
+          f"{money(ev['royalty']['revenue'])} vs {money(ev['subscription']['revenue'])} "
+          f"subscription — as a PRICE it is worse. With OEM reach it earns "
+          f"{money(oem['revenue'])} — it wins on DISTRIBUTION, not price")
 
-    # --- F2 ---------------------------------------------------------------
+    # F2 -- metering trades forecastability for value alignment
     f2 = (ev["metered"]["mom_volatility"]
           > ev["subscription"]["mom_volatility"] * 1.5)
     ok &= f2
-    print(f"  [{'ok ' if f2 else 'MISS'}] F2: metering is the least forecastable "
-          f"({ev['metered']['mom_volatility']:.1%} volatility vs "
-          f"{ev['subscription']['mom_volatility']:.1%} subscription) — value "
-          f"alignment is bought with forecast error")
+    print(f"  [{'ok ' if f2 else 'MISS'}] F2: metering is least forecastable "
+          f"({ev['metered']['mom_volatility']:.1%} vs "
+          f"{ev['subscription']['mom_volatility']:.1%}) — alignment bought with "
+          f"forecast error")
 
-    # --- F3 ---------------------------------------------------------------
-    # Royalty wins revenue only because it reaches 2.4x the units. Comparing
-    # it to direct models on revenue is a category error -- it is a different
-    # go-to-market bet. Test the direct models against each other instead.
-    h, direct = ev["hybrid"], ["subscription", "metered", "hybrid"]
-    best_direct = max(direct, key=lambda m: ev[m]["revenue"])
-    between_rev = (ev["metered"]["revenue"] < h["revenue"] < ev["subscription"]["revenue"])
-    between_vol = (ev["subscription"]["mom_volatility"] < h["mom_volatility"]
-                   < ev["metered"]["mom_volatility"])
-    f3 = between_rev and between_vol
+    # F3 -- concentration is a DISTRIBUTION consequence, not a pricing one
+    f3 = oem["top3_concentration"] > ev["royalty"]["top3_concentration"] * 1.5
     ok &= f3
-    print(f"  [{'ok ' if f3 else 'MISS'}] F3: among DIRECT models hybrid sits "
-          f"between subscription and metering on both axes — revenue "
-          f"{money(h['revenue'])} (vs {money(ev['subscription']['revenue'])} / "
-          f"{money(ev['metered']['revenue'])}), volatility {h['mom_volatility']:.1%} "
-          f"(vs {ev['subscription']['mom_volatility']:.1%} / "
-          f"{ev['metered']['mom_volatility']:.1%})")
-    print(f"       LIMITATION: demand is exogenous and identical across models, so "
-          f"this cannot value hybrid's expansion motion or the churn avoided by "
-          f"not overcharging light users. On measurable axes, subscription wins "
-          f"among direct models — that conclusion is weaker than it looks.")
+    print(f"  [{'ok ' if f3 else 'MISS'}] F3: the same royalty RATE carries "
+          f"{ev['royalty']['top3_concentration']:.0%} concentration billed direct and "
+          f"{oem['top3_concentration']:.0%} through OEMs — concentration comes from "
+          f"the distribution choice, not the price")
+
+    h = ev["hybrid"]
+    between = (ev["metered"]["revenue"] < h["revenue"] <= ev["subscription"]["revenue"]
+               and ev["subscription"]["mom_volatility"] < h["mom_volatility"]
+               < ev["metered"]["mom_volatility"])
+    ok &= between
+    print(f"  [{'ok ' if between else 'MISS'}] F4: among prices, hybrid sits between "
+          f"subscription and metering on both axes")
+    print(f"       LIMITATION: demand is exogenous, so this cannot value hybrid's "
+          f"expansion motion or churn avoided — subscription 'winning' here is "
+          f"weaker than it looks.")
 
     print("-" * 92)
     print(f"  {'PASS' if ok else 'FAIL'}")
 
 
 # ---------------------------------------------------------------------------
-def write_html(accounts, panel, ev, path: Path) -> None:
+def write_html(accounts, panel, ev, oem, path: Path) -> None:
     W, H, PL, PT, PB = 880, 290, 84, 22, 38
     pw, ph = W - PL - 24, H - PT - PB
     n = len(MONTHS)
@@ -463,16 +474,21 @@ def write_html(accounts, panel, ev, path: Path) -> None:
 </style>
 <div class="wrap">
   <h1>Pricing Architecture Comparison</h1>
-  <div class="sub">{len(accounts)} accounts · identical demand, four different
-    invoices · illustrative price points for a robotics foundation-model
-    company · synthetic data</div>
+  <div class="sub">{len(accounts)} accounts · two separate questions —
+    <strong>pricing</strong> (demand held identical) and <strong>distribution</strong>
+    (demand explicitly not) · illustrative price points for a robotics
+    foundation-model company · synthetic data</div>
 
-  <h2>Revenue by month under each architecture</h2>
+  <h2>Question 1 — Pricing: revenue by month, demand held identical</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid}{lines}{ticks}
     <text x="{PL}" y="14" class="leg">{leg}</text></svg></div>
   <div class="note">Same robots, same tasks, same customers — only the pricing
-    logic differs. The spread between these lines is a pure business-model
-    choice, made once, and very hard to reverse later.</div>
+    logic differs, so the spread between these lines isolates the pricing
+    architecture and nothing else. On identical units, subscription earns most
+    because it charges most per robot; the royalty <em>rate</em> billed on the
+    same base earns ${ev['royalty']['revenue']/1e6:,.1f}M against
+    ${ev['subscription']['revenue']/1e6:,.1f}M. As a price, royalty is simply
+    worse.</div>
 
   <h2>The four dimensions that actually decide it</h2>
   <div class="tbl"><table>
@@ -481,13 +497,22 @@ def write_html(accounts, panel, ev, path: Path) -> None:
       <th class="n">Top-3 concentration</th></tr></thead>
     <tbody>{tbl_rows}</tbody></table></div>
 
-  <div class="callout"><strong>Revenue is not the tiebreak.</strong> The
-    <strong>royalty</strong> model produces the most revenue
-    (${ev['royalty']['revenue']/1e6:,.2f}M) <em>and</em> the worst concentration
-    — <strong>{ev['royalty']['top3_concentration']:.0%} of revenue sitting with
-    three counterparties</strong> who own the customer relationship, the
-    hardware roadmap, and therefore the renewal. Higher revenue, strictly worse
-    business. A pricing decision made on the revenue line alone picks this one.</div>
+  <h2>Question 2 — Distribution: royalty + OEM reach</h2>
+  <div class="callout"><strong>This is a different question, and it is not a
+    pricing choice.</strong> Embedding in OEM production reaches
+    <strong>{oem['reach_multiplier']:.1f}× the units</strong> you could sell
+    direct, so demand is deliberately <em>not</em> held constant here. On that
+    basis royalty earns <strong>${oem['revenue']/1e6:,.2f}M</strong> against
+    ${ev['subscription']['revenue']/1e6:,.2f}M for subscription — it wins on
+    <em>reach</em>, not on rate.
+    <br><br>And that is where the risk appears. The <em>same royalty rate</em>
+    carries <strong>{ev['royalty']['top3_concentration']:.0%}</strong>
+    concentration when billed direct and
+    <strong>{oem['top3_concentration']:.0%}</strong> when it flows through OEM
+    partners who own the customer relationship, the hardware roadmap, and
+    therefore the renewal. Concentration is a consequence of the
+    <strong>distribution</strong> decision, not the pricing one — which is
+    exactly why the two questions have to be answered separately.</div>
 
   <h2>Scored on every axis (100 = best in class)</h2>
   <div class="tbl"><table>
@@ -539,16 +564,17 @@ def main() -> None:
     accounts = make_accounts()
     panel = monthly_panel(accounts)
     ev = evaluate(panel)
+    oem = oem_scenario(panel)
     with (DATA / "accounts.csv").open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(accounts[0].keys()))
         w.writeheader(); w.writerows(accounts)
 
-    print_report(accounts, panel, ev)
+    print_report(accounts, panel, ev, oem)
     if args.validate:
-        validate(accounts, panel, ev)
+        validate(accounts, panel, ev, oem)
     if args.html:
         args.html.parent.mkdir(parents=True, exist_ok=True)
-        write_html(accounts, panel, ev, args.html)
+        write_html(accounts, panel, ev, oem, args.html)
 
 
 if __name__ == "__main__":

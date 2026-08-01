@@ -430,6 +430,11 @@ def write_html(weeks: list[Week], s: dict, a: Assumptions, path: Path) -> None:
         if s["runway_weeks"] == float("inf")
         else f"{s['runway_weeks']:.1f} wks"
     )
+    # Two different questions, both legitimate, routinely conflated: how long
+    # does the cash at the END of the forecast last, versus how long does the
+    # cash we hold TODAY last. Show both, labelled.
+    runway_today = ("cash-flow positive" if s["avg_weekly_burn"] <= 0
+                    else f"{s['opening'] / s['avg_weekly_burn']:.1f} wks")
 
     html = f"""<!doctype html>
 <meta charset="utf-8">
@@ -489,7 +494,12 @@ def write_html(weeks: list[Week], s: dict, a: Assumptions, path: Path) -> None:
     <div class="kpi"><div class="k">Week 13</div><div class="v">{usd(s['ending'])}</div></div>
     <div class="kpi"><div class="k">Low point</div><div class="v">{usd(s['trough_cash'])}</div></div>
     <div class="kpi"><div class="k">Avg weekly burn</div><div class="v">{usd(s['avg_weekly_burn'])}</div></div>
-    <div class="kpi"><div class="k">Runway</div><div class="v">{runway}</div></div>
+    <div class="kpi"><div class="k">Runway after week 13</div>
+      <div class="v">{runway}</div>
+      <div class="n2">week-13 cash ÷ avg weekly burn</div></div>
+    <div class="kpi"><div class="k">Runway from today</div>
+      <div class="v">{runway_today}</div>
+      <div class="n2">opening cash ÷ same burn</div></div>
   </div>
 
   <div class="chart">

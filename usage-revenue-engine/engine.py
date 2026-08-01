@@ -484,7 +484,8 @@ def write_html(contracts, detail, path: Path) -> None:
     <div>
       <div class="note" style="margin-bottom:6px">&lt;65% utilized, 3+ months —
         paying for capacity they don't use: <strong>downgrade risk at
-        renewal</strong></div>
+        renewal</strong> — showing top 6 of {len(flags['under'])} by dollars at
+        stake</div>
       <div class="tbl"><table>
         <thead><tr><th>Contract</th><th>Tier</th><th class="n">Utilization</th>
           <th class="n">Commit unused /yr</th></tr></thead>
@@ -493,7 +494,7 @@ def write_html(contracts, detail, path: Path) -> None:
     </div>
     <div>
       <div class="note" style="margin-bottom:6px">&gt;130% utilized, 3+ months —
-        on overage rates: <strong>the upsell list</strong></div>
+        on overage rates: <strong>the upsell list</strong> — showing top 6 of {len(flags['over'])} by overage run-rate</div>
       <div class="tbl"><table>
         <thead><tr><th>Contract</th><th>Tier</th><th class="n">Utilization</th>
           <th class="n">Overage run-rate /yr</th></tr></thead>

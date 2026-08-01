@@ -287,7 +287,7 @@ def print_report(res: dict, ap: list[dict], te: list[dict]) -> None:
 
     print(f"\nFINDINGS BY DETECTOR")
     print("-" * w)
-    print(f"  {'detector':<20}{'severity':<11}{'findings':>9}{'exposure':>14}")
+    print(f"  {'detector':<20}{'severity':<11}{'findings':>9}{'flagged spend':>16}")
     for name, v in sorted(res.items(), key=lambda kv: -kv[1]['exposure']):
         print(f"  {name:<20}{v['severity']:<11}{len(v['findings']):>9,}"
               f"{money(v['exposure']):>14}")
@@ -502,7 +502,7 @@ def write_html(res: dict, ap: list[dict], te: list[dict], path: Path) -> None:
   <h2>Review queue — top 25 by risk score</h2>
   <div class="tbl"><table>
     <thead><tr><th>Sev</th><th>Detector</th><th class="n">Score</th>
-      <th class="n">Exposure</th><th>Finding</th></tr></thead>
+      <th class="n">Flagged spend</th><th>Finding</th></tr></thead>
     <tbody>{top_rows}</tbody>
   </table></div>
 
