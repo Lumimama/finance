@@ -90,9 +90,12 @@ screenshots:
 curl -s -o /dev/null -w "%{http_code}" "https://lumimama.github.io/finance/<project>/examples/<dashboard>.html"
 ```
 
-When adding a project: also add a card to `index.html` (grouped grid — Payments
-/ Revenue analytics / Planning & cash / Reporting, metrics & controls) and a row
-to the table in `README.md`.
+When adding a project: also add a card to `index.html` (grouped by audience —
+Executive & board / Founder operating tools / Business-model-specific tools
+[sub-grouped Robotics & physical AI / AI-native / Payments] / Finance
+infrastructure & controls). Every card carries three `fit` labels — **Best
+for** (stage/model), **Primary user**, **Decision** (the one question the tool
+answers) — plus a row in the table in `README.md`.
 
 ## Token discipline
 

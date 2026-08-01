@@ -14,7 +14,7 @@
          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
   .wrap { max-width:1080px; margin:0 auto; }
   h1 { font-size:28px; margin:0 0 8px; letter-spacing:-.02em; }
-  .lede { color:var(--mut); font-size:15.5px; margin:0 0 8px; max-width:72ch; }
+  .lede { color:var(--mut); font-size:15.5px; margin:0 0 8px; max-width:76ch; }
   .toc { color:var(--mut); font-size:13px; margin:0 0 30px; }
   .toc a { color:var(--link); text-decoration:none; }
   .toc a:hover { text-decoration:underline; }
@@ -23,6 +23,8 @@
   .shead { border-bottom:1px solid var(--bd); padding-bottom:10px;
            margin-bottom:14px; }
   .sdesc { font-size:13px; color:var(--mut); margin:4px 0 0; max-width:72ch; }
+  .subhead { font-size:11.5px; text-transform:uppercase; letter-spacing:.07em;
+             color:var(--mut); margin:22px 0 10px; font-weight:700; }
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
   @media (max-width:820px) { .grid { grid-template-columns:1fr; } }
   .card { display:block; background:var(--card); border:1px solid var(--bd);
@@ -31,6 +33,11 @@
   .card:hover { border-color:var(--link); }
   .card h3 { font-size:16.5px; margin:0 0 6px; color:var(--link); }
   .card p { margin:0 0 10px; color:var(--fg); font-size:13.5px; line-height:1.5; }
+  .fit { list-style:none; margin:0 0 10px; padding:10px 0 0;
+         border-top:1px dashed var(--bd); font-size:12px; line-height:1.55; }
+  .fit li { margin:2px 0; color:var(--fg); }
+  .fit b { font-weight:700; color:var(--mut); text-transform:uppercase;
+           font-size:10px; letter-spacing:.06em; margin-right:2px; }
   .meta { font-size:11px; color:var(--mut); text-transform:uppercase;
           letter-spacing:.06em; }
   .live { color:var(--accent); font-weight:600; }
@@ -40,23 +47,182 @@
 </style>
 <div class="wrap">
   <h1>finance</h1>
-  <p class="lede">Finance tooling built for work that's already part of the job.
-    Python, synthetic data, readable logic — every project ships a validation
-    step that must pass before its dashboard publishes, and several of them
-    caught real errors in my own models before you could.</p>
+  <p class="lede">Finance decision tools, built with AI — for founders, finance
+    teams, executives, and boards, from early-stage startups to global
+    technology companies. Working examples of one repeatable motion: identify
+    the operating question, define the finance logic, build the tool, translate
+    the result into a decision. These are portfolio demonstrations, not one
+    recommended suite for a single company — each card states the stage it
+    fits, who runs it, and the decision it answers. Every project ships a
+    validation step that must pass before its dashboard publishes.</p>
   <p class="toc">Jump to:
-    <a href="#robotics">Physical AI &amp; robotics</a> ·
-    <a href="#ai">AI-native</a> ·
-    <a href="#saas">SaaS</a> ·
-    <a href="#payments">Payments</a> ·
-    <a href="#core">Core finance — any industry</a></p>
+    <a href="#board">Executive &amp; board</a> ·
+    <a href="#operating">Founder operating tools</a> ·
+    <a href="#models">Business-model-specific</a> ·
+    <a href="#controls">Infrastructure &amp; controls</a></p>
 
   <div class="shead">
-    <h2 id="robotics">Physical AI &amp; robotics</h2>
-    <p class="sdesc">Where a deployed unit is a capital asset, acquisition runs
-      through pilots rather than trials, and the dominant cost is a training run
-      whose accounting treatment is still contested.</p>
+    <h2 id="board">Executive &amp; board</h2>
+    <p class="sdesc">What boards and investors actually read — the statement
+      model, the scenario distribution, and the metric pack, with every
+      definition on the page.</p>
   </div>
+  <div class="grid">
+    <a class="card" href="board-one-pager/examples/board_dashboard.html">
+      <h3>Board One-Pager →</h3>
+      <p>Thirty metrics in five sections — growth, customer health, efficiency,
+        financial, AI-specific — every one with its definition on the page.
+        LTV:CAC is flagged as formulaic right on the scorecard.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Series A–C SaaS and AI companies</li>
+        <li><b>Primary user</b> CEO and board</li>
+        <li><b>Decision</b> Is the business on plan, and which metric needs a
+          conversation this quarter?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="board-metrics/examples/dashboard.html">
+      <h3>Board Metrics →</h3>
+      <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each
+        computed by a function whose docstring states which definition it uses.
+        The ARR walk has to tie, and the report says whether it did.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Series B+ recurring-revenue companies</li>
+        <li><b>Primary user</b> Board and finance team</li>
+        <li><b>Decision</b> Do NRR, burn multiple, and CAC payback support the
+          current growth-vs-efficiency posture?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="three-statement-model/examples/three_statement.html">
+      <h3>Integrated Three-Statement Model →</h3>
+      <p>Income statement, balance sheet, and indirect cash flow, line by line
+        across twelve quarters with scenario tabs. A = L + E to the cent in
+        every column, or the model refuses to publish.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Series B through pre-IPO</li>
+        <li><b>Primary user</b> CFO, board, and investors</li>
+        <li><b>Decision</b> What do the next twelve quarters look like on a
+          full P&amp;L, balance sheet, and cash flow — under each scenario?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="scenario-planner/examples/scenario_dashboard.html">
+      <h3>Monte Carlo Scenario Results →</h3>
+      <p>10,000 simulations of 12 quarters. P10/P50/P90 fans for ARR and cash,
+        floor-breach probability, and a tornado ranking which assumption
+        actually drives the outcome.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Growth-stage companies planning a raise or a
+          downturn</li>
+        <li><b>Primary user</b> CEO, CFO, and board</li>
+        <li><b>Decision</b> What is the probability we breach the cash floor,
+          and which assumption actually drives it?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
+
+  <div class="shead">
+    <h2 id="operating">Founder operating tools</h2>
+    <p class="sdesc">The internal operating cadence — where revenue is heading,
+      what pricing really realizes, what the team costs, and how long the cash
+      lasts.</p>
+  </div>
+  <div class="grid">
+    <a class="card" href="revenue-forecast/examples/forecast_dashboard.html">
+      <h3>Forward Revenue Model →</h3>
+      <p>Next four quarters from the three books that exist today: sales
+        capacity, stage-weighted pipeline with coverage flags, and a
+        per-contract risk-weighted renewal book.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Series A+ companies with a sales team</li>
+        <li><b>Primary user</b> Founder and finance team</li>
+        <li><b>Decision</b> How much revenue can the next four quarters
+          actually deliver, from capacity, pipeline, and renewals as they
+          stand?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="revenue-cohorts/examples/cohorts_dashboard.html">
+      <h3>Revenue Cohort Analysis →</h3>
+      <p>Cohort heatmap, layer cake, and empirical CAC-payback curves by
+        channel. Seeded with a promo cohort that dies at first renewal —
+        invisible in blended NRR, unmissable in the heatmap.</p>
+      <ul class="fit">
+        <li><b>Best for</b> SaaS and subscription companies, Series A+</li>
+        <li><b>Primary user</b> Founder, finance, and growth teams</li>
+        <li><b>Decision</b> Which acquisition cohorts and channels retain well
+          enough to keep funding?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="pricing-waterfall/examples/pricing_dashboard.html">
+      <h3>Pricing Waterfall →</h3>
+      <p>List → pocket price across 1,100 deals. Quarter-end deals realize 5.9
+        points less — ~$810K given to the calendar — and discount depth creeps
+        with deal size. The waterfall ties on every deal.</p>
+      <ul class="fit">
+        <li><b>Best for</b> SaaS and enterprise software with negotiated
+          discounting</li>
+        <li><b>Primary user</b> Finance and sales leadership</li>
+        <li><b>Decision</b> Where between list and pocket price is margin
+          leaking, and which discounts to pull back?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="headcount-planning/examples/headcount_dashboard.html">
+      <h3>Headcount Plan &amp; Capacity →</h3>
+      <p>The hiring plan is the budget. Fully-loaded cost runs 34% over the
+        salary-only version, and 28% of approved heads aren't productive
+        capacity — req-to-start lag plus ramp, not a recruiting failure.
+        Three hiring scenarios.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Any company where payroll is the largest line</li>
+        <li><b>Primary user</b> Founder, finance, and department leads</li>
+        <li><b>Decision</b> What does the hiring plan cost fully loaded, and
+          when do approved heads become productive capacity?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="burn-runway/examples/burn_dashboard.html">
+      <h3>Cash Burn &amp; Runway →</h3>
+      <p>Gross vs net burn, runway trajectory, and the fundraise trigger drawn
+        as a date on the chart. Runway is measured on operating burn — a
+        trailing average can't absorb a one-time prepay without printing a
+        cliff that isn't real.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Any venture-funded company</li>
+        <li><b>Primary user</b> Founder and board</li>
+        <li><b>Decision</b> When does the fundraise need to start, measured on
+          operating burn rather than a noisy trailing average?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+    <a class="card" href="cash-forecast-13w/examples/forecast.html">
+      <h3>13-Week Cash Forecast →</h3>
+      <p>Direct-method forecast from the AR aging, the AP aging, and the
+        recurring commitments in neither. Low point, covenant floor test, and
+        collections stress scenarios.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Early-stage or liquidity-sensitive companies</li>
+        <li><b>Primary user</b> Founder and finance team</li>
+        <li><b>Decision</b> Which collection, payment, or financing actions
+          protect minimum liquidity?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
+
+  <div class="shead">
+    <h2 id="models">Business-model-specific tools</h2>
+    <p class="sdesc">Different business models break generic finance tooling in
+      different places. These are built for the economics that make each model
+      unusual — hardware as a capital asset, inference as COGS, revenue in
+      basis points.</p>
+  </div>
+
+  <h3 class="subhead">Robotics &amp; physical AI</h3>
   <div class="grid">
     <a class="card" href="robot-fleet-economics/examples/fleet_dashboard.html">
       <h3>Robot Fleet Unit Economics →</h3>
@@ -64,6 +230,13 @@
         contribution against the depreciation each unit must out-earn, and
         payback per unit. 18% of the fleet never repays its hardware — for two
         different reasons that need opposite fixes.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Robotics and hardware-deployment companies,
+          Series A+</li>
+        <li><b>Primary user</b> Founder, finance, and operations</li>
+        <li><b>Decision</b> Which units will never repay their hardware — and
+          for each, redeploy, renegotiate, or wait out the contract?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="training-capitalization/examples/training_dashboard.html">
@@ -72,6 +245,13 @@
         treatments modelled side by side, with the identity that keeps them
         honest: over a run's full life they charge the same total. I predicted
         the EBITDA gap would compress; validation proved it compounds.</p>
+      <ul class="fit">
+        <li><b>Best for</b> AI and robotics companies with large training
+          spend</li>
+        <li><b>Primary user</b> CFO, auditors, and board</li>
+        <li><b>Decision</b> Expense or capitalize the training run — and what
+          does each treatment do to EBITDA credibility?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="pilot-to-production/examples/pilots_dashboard.html">
@@ -79,16 +259,18 @@
       <p>True CAC counts the pilots you lost — $580K, 5.3× the naive figure.
         Conversion collapses past nine months, making pilot purgatory datable.
         Run only qualified pilots and CAC falls to 31% of three-year TCV.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Hardware and enterprise-AI companies that sell
+          through pilots</li>
+        <li><b>Primary user</b> Founder, finance, and sales</li>
+        <li><b>Decision</b> What does a production customer truly cost
+          including lost pilots, and which pilots should never start?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
   </div>
 
-  <div class="shead">
-    <h2 id="ai">AI-native</h2>
-    <p class="sdesc">Inference is cost of goods sold. These treat it that way —
-      the margin question is whether cost per unit of work falls faster than
-      price does.</p>
-  </div>
+  <h3 class="subhead">AI-native</h3>
   <div class="grid">
     <a class="card" href="pricing-architecture/examples/pricing_arch_dashboard.html">
       <h3>Pricing Architecture Comparison →</h3>
@@ -96,6 +278,12 @@
         four invoices) and distribution (OEM reach, where demand deliberately
         isn't constant). As a price royalty is worse; it wins only on reach —
         and that's where 61% concentration comes from, not from the rate.</p>
+      <ul class="fit">
+        <li><b>Best for</b> AI companies choosing a monetization model</li>
+        <li><b>Primary user</b> Founder and pricing team</li>
+        <li><b>Decision</b> Subscription, metered, royalty, or hybrid — and
+          separately, is OEM reach worth the concentration it creates?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="ai-infra-metrics/examples/ai_dashboard.html">
@@ -105,74 +293,31 @@
         at degraded quality is a regression, not a saving. A model-routing
         deploy cuts cost per successful task 41% with quality held flat; tokens
         and GPU-hours sit underneath as drivers.</p>
+      <ul class="fit">
+        <li><b>Best for</b> AI-native companies where inference is COGS</li>
+        <li><b>Primary user</b> Finance and engineering leadership</li>
+        <li><b>Decision</b> Is cost per successful task falling without giving
+          up task success or human-intervention quality?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="usage-revenue-engine/examples/usage_dashboard.html">
       <h3>Usage-Based Revenue Engine →</h3>
-      <p>License + metered usage against committed minimums. An ARR walk where
-        usage expansion is its own line, a commit-utilization action list
-        (downgrade risks and the upsell list), and the rate-compression curve.</p>
+      <p>License + metered usage against committed minimums. A run-rate revenue
+        walk (committed / variable / one-time split, with the metered event
+        defined), a commit-utilization action list that excludes still-ramping
+        deployments, and the rate-compression curve.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Usage-priced AI and infrastructure companies</li>
+        <li><b>Primary user</b> Finance and customer success</li>
+        <li><b>Decision</b> Which commitments are at downgrade risk, which
+          deserve an upsell, and how much run-rate is really committed?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
   </div>
 
-  <div class="shead">
-    <h2 id="saas">SaaS</h2>
-    <p class="sdesc">The recurring-revenue metric stack, with the definitions
-      written next to the arithmetic — because most of these have four
-      defensible definitions and a company using two of them has a credibility
-      problem.</p>
-  </div>
-  <div class="grid">
-    <a class="card" href="board-one-pager/examples/board_dashboard.html">
-      <h3>Board One-Pager →</h3>
-      <p>Thirty metrics in five sections — growth, customer health, efficiency,
-        financial, AI-specific — every one with its definition on the page.
-        LTV:CAC is flagged as formulaic right on the scorecard.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="board-metrics/examples/dashboard.html">
-      <h3>Board Metrics →</h3>
-      <p>NRR, GRR, burn multiple, CAC payback, magic number, Rule of 40 — each
-        computed by a function whose docstring states which definition it uses.
-        The ARR walk has to tie, and the report says whether it did.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="revenue-cohorts/examples/cohorts_dashboard.html">
-      <h3>Revenue Cohort Analysis →</h3>
-      <p>Cohort heatmap, layer cake, and empirical CAC-payback curves by
-        channel. Seeded with a promo cohort that dies at first renewal —
-        invisible in blended NRR, unmissable in the heatmap.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
-      <h3>Revenue Recognition →</h3>
-      <p>Bookings → billings → revenue from a 857-contract ledger. Deferred and
-        RPO roll-forwards tie to the cent every month, with the deferred unwind
-        schedule and RPO disclosure split.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="revenue-forecast/examples/forecast_dashboard.html">
-      <h3>Forward Revenue Model →</h3>
-      <p>Next four quarters from the three books that exist today: sales
-        capacity, stage-weighted pipeline with coverage flags, and a
-        per-contract risk-weighted renewal book.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="pricing-waterfall/examples/pricing_dashboard.html">
-      <h3>Pricing Waterfall →</h3>
-      <p>List → pocket price across 1,100 deals. Quarter-end deals realize 5.9
-        points less — ~$810K given to the calendar — and discount depth creeps
-        with deal size. The waterfall ties on every deal.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-  </div>
-
-  <div class="shead">
-    <h2 id="payments">Payments</h2>
-    <p class="sdesc">Reconciliation at transaction scale, and contribution
-      measured in basis points per transaction rather than margin per customer.</p>
-  </div>
+  <h3 class="subhead">Payments</h3>
   <div class="grid">
     <a class="card" href="payments-reconciliation/examples/recon_dashboard.html">
       <h3>Payments Reconciliation Engine →</h3>
@@ -180,6 +325,13 @@
         classified — timing, amount, missing, duplicate, FX, fee — aged by
         exposure and routed to an owner. All 1,148 seeded breaks found and
         correctly labeled.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Payments companies and marketplaces at transaction
+          scale</li>
+        <li><b>Primary user</b> Finance operations</li>
+        <li><b>Decision</b> Which breaks between ledger and settlement need
+          action today, and who owns each?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="payments-unit-economics/examples/unit_econ_dashboard.html">
@@ -187,51 +339,35 @@
       <p>Contribution per transaction across 120,000 transactions by rail,
         region, and merchant segment. Contribution waterfall, cross-border
         premium, and mix-shift sensitivity.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Payments and fintech companies</li>
+        <li><b>Primary user</b> Finance and product leadership</li>
+        <li><b>Decision</b> Which rails, regions, and segments earn their basis
+          points — and what does mix shift do to contribution?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
   </div>
 
   <div class="shead">
-    <h2 id="core">Core finance — any industry</h2>
-    <p class="sdesc">The work that doesn't change with the business model: cash,
-      statements, scenarios, variance, controls.</p>
+    <h2 id="controls">Finance infrastructure &amp; controls</h2>
+    <p class="sdesc">The reliability layer — revenue recognized correctly,
+      spend monitored continuously, commentary generated from computed figures.
+      The part of finance that makes the charts trustworthy.</p>
   </div>
   <div class="grid">
-    <a class="card" href="headcount-planning/examples/headcount_dashboard.html">
-      <h3>Headcount Plan &amp; Capacity →</h3>
-      <p>The hiring plan is the budget. Fully-loaded cost runs 34% over the
-        salary-only version, and 28% of approved heads aren't productive
-        capacity — req-to-start lag plus ramp, not a recruiting failure.
-        Three hiring scenarios.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="three-statement-model/examples/three_statement.html">
-      <h3>Integrated Three-Statement Model →</h3>
-      <p>Income statement, balance sheet, and indirect cash flow, line by line
-        across twelve quarters with scenario tabs. A = L + E to the cent in
-        every column, or the model refuses to publish.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="scenario-planner/examples/scenario_dashboard.html">
-      <h3>Monte Carlo Scenario Results →</h3>
-      <p>10,000 simulations of 12 quarters. P10/P50/P90 fans for ARR and cash,
-        floor-breach probability, and a tornado ranking which assumption
-        actually drives the outcome.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="cash-forecast-13w/examples/forecast.html">
-      <h3>13-Week Cash Forecast →</h3>
-      <p>Direct-method forecast from the AR aging, the AP aging, and the
-        recurring commitments in neither. Low point, covenant floor test, and
-        collections stress scenarios.</p>
-      <span class="meta"><span class="live">● Live dashboard</span></span>
-    </a>
-    <a class="card" href="burn-runway/examples/burn_dashboard.html">
-      <h3>Cash Burn &amp; Runway →</h3>
-      <p>Gross vs net burn, runway trajectory, and the fundraise trigger drawn
-        as a date on the chart. Runway is measured on operating burn — a
-        trailing average can't absorb a one-time prepay without printing a
-        cliff that isn't real.</p>
+    <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
+      <h3>Revenue Recognition →</h3>
+      <p>Bookings → billings → revenue from a 857-contract ledger. Deferred and
+        RPO roll-forwards tie to the cent every month, with the deferred unwind
+        schedule and RPO disclosure split.</p>
+      <ul class="fit">
+        <li><b>Best for</b> SaaS and usage-based software, audit-ready from
+          Series B</li>
+        <li><b>Primary user</b> Controller and auditors</li>
+        <li><b>Decision</b> Do bookings, billings, deferred, and RPO tie — and
+          what will revenue be as contracts unwind?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="controls-monitoring/examples/controls_dashboard.html">
@@ -239,6 +375,13 @@
       <p>Seven audit detectors over a year of AP and T&amp;E — duplicates,
         split invoices, Benford's law, policy and velocity anomalies. 100%
         recall against seeded ground truth, false-positive rate reported.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Any company past ~50 employees with AP/T&amp;E
+          volume</li>
+        <li><b>Primary user</b> Controller and internal audit</li>
+        <li><b>Decision</b> Which transactions deserve review this week, at a
+          false-positive rate the team can staff?</li>
+      </ul>
       <span class="meta"><span class="live">● Live dashboard</span></span>
     </a>
     <a class="card" href="https://github.com/Lumimama/finance/tree/main/variance-narrator">
@@ -246,6 +389,13 @@
       <p>Budget-vs-actuals in, board-ready variance commentary out. Python
         computes every figure; Claude drafts the narrative. The model never does
         arithmetic and never sees a number it wasn't handed.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Any company producing monthly board or management
+          reporting</li>
+        <li><b>Primary user</b> Finance team</li>
+        <li><b>Decision</b> What explains this month's variances — drafted in
+          minutes, every figure computed rather than model-generated?</li>
+      </ul>
       <span class="meta">Command-line tool · source on GitHub</span>
     </a>
   </div>
