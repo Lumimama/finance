@@ -409,7 +409,7 @@ def write_html(res: dict, ap: list[dict], te: list[dict], path: Path) -> None:
       <div class="brk-head"><span class="brk-name">{name.replace('_', ' ')}</span>
         <span class="sev" style="color:{sev_color[v['severity']]}">{v['severity']}</span></div>
       <div class="bar-track"><div class="bar" style="width:{pct:.1f}%"></div></div>
-      <div class="brk-meta">{len(v['findings']):,} findings · ${v['exposure']:,.0f} exposure</div>
+      <div class="brk-meta">{len(v['findings']):,} findings · ${v['exposure']:,.0f} flagged spend under review</div>
     </div>"""
 
     all_f = [(name, v["severity"], f) for name, v in res.items()
@@ -495,7 +495,13 @@ def write_html(res: dict, ap: list[dict], te: list[dict], path: Path) -> None:
       <div class="n2">run --validate to verify</div></div>
   </div>
 
-  <h2>Findings by detector — exposure-ranked</h2>
+  <h2>Findings by detector — ranked by flagged spend</h2>
+  <div class="note" style="margin-bottom:10px"><strong>"Flagged spend" is the
+    dollar value of records a detector flagged for review — not an estimated
+    loss.</strong> A Benford anomaly on $2.6M of vendor spend means $2.6M
+    deserves a look, not that $2.6M is misstated; most flagged spend clears on
+    review. No loss estimate is made anywhere on this page, deliberately —
+    estimating losses before review is how monitoring reports get walked back.</div>
   <div class="panel">{det_rows}
   </div>
 

@@ -32,6 +32,10 @@ The reason is structural. While training spend is still accelerating, amortizati
 
 Two abandoned runs also impair in full ($1.74M), delivering lumpy charges that expensing would have spread smoothly — the risk capitalization actually carries.
 
-**Not accounting advice.** The feasibility threshold (35% pre-feasibility) and 24-month useful life are modelling choices, stated on the page so they can be argued with.
+## The use case selects the framework
+
+The model assumes the trained model is **internal-use** — it powers the company's own hosted service and is never sold, licensed, or marketed. That assumption comes first because it selects the framework: on it, ASC 350-40 applies (only application-development-stage cost qualifies). A different use case means a different framework, not a different parameter — externally marketed software falls under ASC 985-20 (capitalization only from technological feasibility to general release, often a very short window), and software used solely in R&D is expensed under ASC 730 with no capitalization at all. IFRS is not the same arithmetic with another label either: IAS 38's six development criteria can produce a different qualifying cost pool and start date. A third-pass external audit pushed on exactly this scope question, correctly.
+
+**Not accounting advice.** The use-case assumption, feasibility threshold (35% pre-feasibility), and 24-month useful life are modelling choices, stated on the page so they can be argued with.
 
 Built with Claude as a pair.

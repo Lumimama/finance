@@ -24,13 +24,23 @@ ELIGIBILITY IS NOT ELECTIVE. Capitalization is permitted only where specific
 criteria are met, and this model assumes the following gates, stated so they
 can be challenged:
 
-  FRAMEWORK          US GAAP, internal-use software analogue (ASC 350-40),
-                     which splits spend into preliminary-project, application
-                     -development, and post-implementation stages. Only
-                     application-development-stage cost is capitalizable.
-                     Under IAS 38 the analogous test is the six development
-                     -phase criteria; the arithmetic here is unchanged, only
-                     the label differs.
+  ASSUMED USE CASE   the trained model is INTERNAL-USE: it powers the
+                     company's own hosted service and is never sold, licensed,
+                     or otherwise marketed as software. That assumption comes
+                     FIRST because it selects the framework -- software to be
+                     sold or marketed falls under ASC 985-20 (capitalization
+                     from technological feasibility to general release, often
+                     a very short window), and software used only in R&D is
+                     expensed under ASC 730 with no capitalization at all.
+                     Change the use case and the framework changes with it.
+  FRAMEWORK          given internal use: ASC 350-40, which splits spend into
+                     preliminary-project, application-development, and
+                     post-implementation stages. Only application-development
+                     -stage cost is capitalizable.
+                     IFRS is NOT the same arithmetic with another label: IAS
+                     38 applies its six development criteria, under which the
+                     qualifying cost pool and the capitalization start date
+                     may both differ from the US GAAP result.
   GATE 1 - stage     the run has passed the preliminary/research stage: the
                      architecture is selected and the training recipe is
                      established, not being discovered.
@@ -496,19 +506,27 @@ def write_html(runs, rows, path: Path) -> None:
   </div>
 
   <div class="callout" style="border-left-color:var(--mut)">
-    <strong>Capitalization is not an elective presentation choice.</strong> It
-    is permitted only where eligibility criteria are met. This model assumes the
-    US GAAP internal-use-software analogue (ASC 350-40): only
-    application-development-stage cost qualifies, and only once the architecture
-    and training recipe are settled, management has committed to completion and
-    intends to deploy, technical feasibility is established, and a determinable
-    service life supports future benefit. The {PRE_FEASIBILITY_SHARE:.0%} of each
-    run assumed to precede those gates is expensed under <em>both</em>
-    treatments; a run that never clears them is expensed in full, which is what
-    happens to the two abandoned runs below. Under IAS 38 the equivalent test is
-    the six development-phase criteria — the arithmetic is unchanged, only the
-    label differs. These gates are assumptions stated so they can be argued
-    with, not accounting advice.</div>
+    <strong>The use case selects the framework, and it is assumed before
+    anything else:</strong> this model treats the trained model as
+    <strong>internal-use</strong> — it powers the company's own hosted service
+    and is never sold, licensed, or marketed as software. On that assumption,
+    ASC 350-40 applies: only application-development-stage cost qualifies, and
+    only once the architecture and training recipe are settled, management has
+    committed to completion and intends to deploy, technical feasibility is
+    established, and a determinable service life supports future benefit.
+    <br><br><strong>A different use case means a different framework, not a
+    different parameter.</strong> Software to be sold or marketed falls under
+    ASC 985-20, where capitalization runs only from technological feasibility to
+    general release — often a very short window that capitalizes far less.
+    Software used solely in R&amp;D is expensed under ASC 730 with no
+    capitalization at all. And IFRS is not this arithmetic with another label:
+    IAS 38's six development criteria can produce a different qualifying cost
+    pool and a different capitalization start date than the US GAAP result.
+    <br><br>The {PRE_FEASIBILITY_SHARE:.0%} of each run assumed to precede the
+    gates is expensed under <em>both</em> treatments; a run that never clears
+    them is expensed in full — which is what happens to the two abandoned runs
+    below. These are modelling assumptions stated so they can be argued with,
+    not accounting advice.</div>
 
   <div class="callout"><strong>The identity that keeps both treatments
     honest:</strong> over the full life of every run, expensing and

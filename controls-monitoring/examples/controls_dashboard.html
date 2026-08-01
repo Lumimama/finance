@@ -70,49 +70,55 @@
       <div class="n2">run --validate to verify</div></div>
   </div>
 
-  <h2>Findings by detector — exposure-ranked</h2>
+  <h2>Findings by detector — ranked by flagged spend</h2>
+  <div class="note" style="margin-bottom:10px"><strong>"Flagged spend" is the
+    dollar value of records a detector flagged for review — not an estimated
+    loss.</strong> A Benford anomaly on $2.6M of vendor spend means $2.6M
+    deserves a look, not that $2.6M is misstated; most flagged spend clears on
+    review. No loss estimate is made anywhere on this page, deliberately —
+    estimating losses before review is how monitoring reports get walked back.</div>
   <div class="panel">
     <div class="brk">
       <div class="brk-head"><span class="brk-name">benford violation</span>
         <span class="sev" style="color:#d97706">high</span></div>
       <div class="bar-track"><div class="bar" style="width:100.0%"></div></div>
-      <div class="brk-meta">2 findings · $2,577,802 exposure</div>
+      <div class="brk-meta">2 findings · $2,577,802 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">split invoices</span>
         <span class="sev" style="color:var(--neg)">critical</span></div>
       <div class="bar-track"><div class="bar" style="width:10.1%"></div></div>
-      <div class="brk-meta">14 findings · $259,105 exposure</div>
+      <div class="brk-meta">14 findings · $259,105 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">round dollar</span>
         <span class="sev" style="color:#d97706">high</span></div>
       <div class="bar-track"><div class="bar" style="width:4.8%"></div></div>
-      <div class="brk-meta">1 findings · $122,500 exposure</div>
+      <div class="brk-meta">1 findings · $122,500 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">duplicate payment</span>
         <span class="sev" style="color:var(--neg)">critical</span></div>
       <div class="bar-track"><div class="bar" style="width:3.0%"></div></div>
-      <div class="brk-meta">15 findings · $77,028 exposure</div>
+      <div class="brk-meta">15 findings · $77,028 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">weekend entry</span>
         <span class="sev" style="color:var(--mut)">low</span></div>
       <div class="bar-track"><div class="bar" style="width:1.7%"></div></div>
-      <div class="brk-meta">31 findings · $43,825 exposure</div>
+      <div class="brk-meta">31 findings · $43,825 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">policy violation</span>
         <span class="sev" style="color:var(--line)">medium</span></div>
       <div class="bar-track"><div class="bar" style="width:1.5%"></div></div>
-      <div class="brk-meta">77 findings · $37,946 exposure</div>
+      <div class="brk-meta">77 findings · $37,946 flagged spend under review</div>
     </div>
     <div class="brk">
       <div class="brk-head"><span class="brk-name">expense velocity</span>
         <span class="sev" style="color:#d97706">high</span></div>
       <div class="bar-track"><div class="bar" style="width:0.0%"></div></div>
-      <div class="brk-meta">3 findings · $0 exposure</div>
+      <div class="brk-meta">3 findings · $0 flagged spend under review</div>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 # Continuous Controls Monitor
 
-Seven audit-style detectors over a fiscal year of AP invoices (~6,000, 270 vendors) and T&E expenses (~21,500, 380 employees): duplicate payments, split invoices, Benford's-law violations, round-dollar clustering, weekend entries, T&E policy violations, and expense-velocity anomalies. Risk-scored review queue, exposure by detector, self-contained dashboard.
+Seven audit-style detectors over a fiscal year of AP invoices (~6,000, 270 vendors) and T&E expenses (~21,500, 380 employees): duplicate payments, split invoices, Benford's-law violations, round-dollar clustering, weekend entries, T&E policy violations, and expense-velocity anomalies. Risk-scored review queue, flagged spend by detector (spend flagged for review, never an estimated loss), self-contained dashboard.
 
 **No dependencies.** Python 3.10+, runs in ~0.1 seconds.
 
