@@ -18,7 +18,7 @@ A SaaS trial costs the vendor a seat. A robotics pilot costs hardware on loan, a
 
 **Pilot purgatory is datable.** Conversion collapses past 9 months (52% at 4–6 months → 0% at 10–12). That turns "we should probably close some of these" into a defensible kill rule with a number attached.
 
-**Contract term is a financial lever.** At $191K average ACV, true CAC takes 36 months of first-year revenue to repay — 101% of three-year TCV. Pilot-heavy acquisition is only solvent on multi-year terms, and term is usually negotiated by people who've never seen this number.
+**As run, this motion does not pay back — on any realistic term.** At $191K average ACV and 68% gross margin, a customer produces ~$130K of gross profit a year; three years recovers ~$391K against $580K of CAC, leaving ~$190K unrecovered. The minimum term that clears the hurdle is ~4.5 years, which customers won't sign. (An earlier version called the three-year term "workable" off a revenue-basis ratio — an external review correctly caught the contradiction: gross profit, not revenue, repays CAC.)
 
 ## The counterfactual that makes it actionable
 
@@ -30,6 +30,6 @@ A SaaS trial costs the vendor a seat. A robotics pilot costs hardware on loan, a
 
 Qualified = named executive sponsor **and** written success criteria. Those pilots convert at 54% vs 9% for unqualified ones.
 
-The conclusion isn't "the pilot motion is broken." It's that the unqualified pilots aren't underperforming — **they are the entire reason the acquisition motion doesn't pay for itself**, and a qualification gate before a robot ever ships is the cheapest intervention available.
+The qualified motion pays back in ~16 months of gross profit — comfortably inside a three-year term. So the conclusion isn't "pilots don't work"; it's that **the unqualified pilots are the entire reason the blended motion doesn't pay for itself**, and a qualification gate before a robot ever ships is the difference between a broken funnel and a working one.
 
 Built with Claude as a pair.

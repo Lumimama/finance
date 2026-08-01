@@ -15,8 +15,12 @@ THE CAC THAT MATTERS
   total spent on pilots        $13,351,250
   of which on pilots not won   $10,829,750
   average ACV won                 $191,585
-  months of first-year ACV to repay true CAC       36.4mo
-  true CAC as % of 3-year TCV        101%   <- pilot economics only work on multi-year terms
+  gross margin assumed                68%
+  CAC payback (gross-profit basis)             53.5mo
+    = true CAC / (ACV x GM / 12); on a revenue basis it would read 36.4mo, which overstates payback
+  3-yr gross profit vs CAC        $390,834 vs $580,489   -> $189,656 UNRECOVERED at 3 years
+  minimum term to clear CAC           4.5yr   <- as run, this motion
+                                             does not pay back on realistic terms
 
   COUNTERFACTUAL -- qualified pilots only (sponsor + written criteria):
     pilots run                          28   vs 103 actual

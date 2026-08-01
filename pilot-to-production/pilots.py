@@ -235,8 +235,11 @@ def print_report(pilots) -> None:
     print(f"  CAC payback (gross-profit basis) {payback:>16.1f}mo")
     print(f"    = true CAC / (ACV x GM / 12); on a revenue basis it would read "
           f"{f['true_cac']/avg_acv*12:.1f}mo, which overstates payback")
-    print(f"  true CAC as % of 3-year TCV {f['true_cac']/tcv_3yr:>11.0%}   "
-          f"<- pilot economics only work on multi-year terms")
+    gp_yr = avg_acv * DEPLOYMENT_GROSS_MARGIN
+    print(f"  3-yr gross profit vs CAC    {money(gp_yr*3):>12} vs {money(f['true_cac'])}"
+          f"   -> {money(f['true_cac']-gp_yr*3)} UNRECOVERED at 3 years")
+    print(f"  minimum term to clear CAC   {payback/12:>11.1f}yr   <- as run, this motion")
+    print(f"                                             does not pay back on realistic terms")
 
     # Counterfactual: what if the qualification gate had been enforced?
     q = [p_ for p_ in pilots if p_["exec_sponsor"] and p_["written_success_criteria"]]
@@ -489,30 +492,37 @@ def write_html(pilots, path: Path) -> None:
     <strong>${f['true_cac']:,.0f}</strong>, or {f['true_cac']/f['naive_cac']:.1f}×.
     The lost and stalled pilots are not overhead; they are the cost of acquiring
     the customers you did win. At an average ${avg_acv:,.0f} ACV and
-    {DEPLOYMENT_GROSS_MARGIN:.0%} deployment gross margin, that CAC takes
-    <strong>{payback:.0f} months of gross profit</strong> to repay (a
-    revenue-basis figure would read {f['true_cac']/avg_acv*12:.0f} months and
-    overstate the payback) — which
-    is the real conclusion on this page: <strong>pilot-heavy acquisition is only
-    solvent on multi-year terms.</strong> Against a three-year deployment
-    contract the same CAC is {f['true_cac']/tcv_3yr:.0%} of TCV, which is
-    workable. Against a one-year contract it is not. In robotics, contract
-    <em>term</em> is a financial lever every bit as important as price, and it
-    is usually negotiated by people who have never seen this number.
-    <br><br><strong>And the counterfactual is the actionable half:</strong> had
-    only the qualified pilots been run — named sponsor plus written success
-    criteria — true CAC would be <strong>${qf['true_cac']:,.0f}</strong>, or
-    <strong>{q_ratio:.0%} of three-year TCV</strong> against
-    {f['true_cac']/tcv_3yr:.0%} actual. The unqualified pilots are not
-    underperforming; they are the entire reason the acquisition motion does not
-    pay for itself.</div>
+    {DEPLOYMENT_GROSS_MARGIN:.0%} deployment gross margin, a won customer
+    produces about ${avg_acv*DEPLOYMENT_GROSS_MARGIN/1e3:,.0f}K of gross profit
+    a year — so a three-year contract recovers roughly
+    ${avg_acv*DEPLOYMENT_GROSS_MARGIN*3/1e3:,.0f}K against
+    ${f['true_cac']/1e3:,.0f}K of CAC, leaving
+    <strong>${(f['true_cac']-avg_acv*DEPLOYMENT_GROSS_MARGIN*3)/1e3:,.0f}K
+    unrecovered</strong>. The minimum term that clears the hurdle is about
+    <strong>{payback/12:.1f} years</strong> — longer than customers will sign.
+    The blunt conclusion: <strong>as currently run, this acquisition motion does
+    not pay back on any realistic contract term.</strong> (An earlier version of
+    this page called the three-year term "workable" off a revenue-basis ratio;
+    an external review correctly called the contradiction — gross profit, not
+    revenue, repays CAC.)
+    <br><br><strong>The counterfactual is what makes this fixable rather than
+    fatal:</strong> had only the qualified pilots been run — named sponsor plus
+    written success criteria — true CAC would be
+    <strong>${qf['true_cac']:,.0f}</strong>, repaid by gross profit in about
+    <strong>{qf['true_cac']/(avg_acv*DEPLOYMENT_GROSS_MARGIN)*12:.0f}
+    months</strong> — comfortably inside a three-year term. The unqualified
+    pilots are not underperforming; they are the entire reason the motion as a
+    whole does not pay for itself, and a qualification gate is the difference
+    between a broken funnel and a working one.</div>
 
   <h2>The funnel</h2>
   <div class="chart"><svg viewBox="0 0 {W} {PT + 3*46 + 20}">{fun}</svg></div>
 
   <h2>F1 — Conversion by pilot age</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid}{purg_line}{bars}</svg></div>
-  <div class="note">Conversion collapses past the {PURGATORY_MONTHS}-month mark.
+  <div class="note">Rates are computed on decided pilots only — the 30 still
+    open are right-censored and excluded, so recent cohorts' rates can move as
+    they resolve. Conversion collapses past the {PURGATORY_MONTHS}-month mark.
     That makes pilot purgatory <em>datable</em>, which is what turns "we should
     probably close some of these" into a defensible kill rule with a number
     attached. Everything to the right of the dashed line is engineering capacity
