@@ -22,13 +22,14 @@ EFFICIENCY
   CAC payback (trailing Q)        26.6 mo   [watch]
   Magic number (trailing Q)          0.91   [strong]
   Gross margin                      77.8%   [strong]
-  Rule of 40                           23   [ok]
+  Rule of 40                        23 pts   [ok]
 
 CAPITAL
 --------------------------------------------------------------------------
   Cash                             $26.8M
   Net burn (12mo)                   $10.0M
-  Average monthly burn              $0.8M
+  Average monthly burn              $0.8M   (12-mo avg)
+  Trailing 3-mo burn         $       0.72M   <- the runway basis
   Runway                          37.5 mo   [strong]
 
 ARR WALK  (trailing 12 months)
