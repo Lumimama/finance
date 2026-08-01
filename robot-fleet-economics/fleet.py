@@ -293,11 +293,12 @@ def print_report(robots, panel) -> None:
           f"{money(sum(r['hardware_capex'] for r in fails))} of capital)")
 
     print(f"\n  worst units by projected payback:")
-    for r in sorted(pr, key=lambda r: -r["payback_projected_mo"])[:6]:
-        pb = ("never" if r["payback_projected_mo"] == float("inf")
-              else f"{r['payback_projected_mo']:.0f}mo")
+    worst = sorted(pr, key=lambda r: r["run_rate_contribution_mo"])[:6]
+    for r in worst:
         print(f"    {r['robot_id']}  {r['customer']:<24}{r['archetype']:<17}"
-              f"util {r['utilization_steady']:>5.0%}   payback {pb:>7}")
+              f"util {r['utilization_steady']:>5.0%}   "
+              f"contrib ${r['run_rate_contribution_mo']:>7,.0f}/mo   "
+              f"payback {pb_label(r)}")
 
     print(f"\nBY ARCHETYPE")
     print("-" * w)
@@ -308,7 +309,8 @@ def print_report(robots, panel) -> None:
         if not g:
             continue
         pbs = [r["payback_projected_mo"] for r in g if r["payback_projected_mo"] != float("inf")]
-        pb = f"{sorted(pbs)[len(pbs)//2]:.0f}mo" if pbs else "never"
+        med = sorted(pbs)[len(pbs)//2] if pbs else float("inf")
+        pb = f"{med:.0f}mo" if med <= DEPRECIATION_LIFE_MO else "never"
         clears = sum(1 for r in g if r["clears_capex"])
         print(f"  {a:<18}{len(g):>7}{sum(r['utilization_steady'] for r in g)/len(g):>8.0%}"
               f"{money(sum(r['revenue_total']/r['months_live'] for r in g)/len(g)):>11}"
@@ -400,8 +402,15 @@ def validate(robots, panel) -> None:
 
 # ---------------------------------------------------------------------------
 def pb_label(r: dict) -> str:
+    """Payback display. Beyond the depreciation life the exact month count is
+    noise -- payback = capex / contribution is hyperbolic near zero, so 251 mo
+    and 683 mo both simply mean "never". Bin, don't rank."""
     v = r["payback_projected_mo"]
-    return "never" if v == float("inf") else f"{v:.0f} mo"
+    if v == float("inf"):
+        return "never — loses money"
+    if v > DEPRECIATION_LIFE_MO:
+        return f"never (~{v/12:.0f}y at run-rate)"
+    return f"{v:.0f} mo"
 
 
 def write_html(robots, panel, path: Path) -> None:
@@ -478,7 +487,8 @@ def write_html(robots, panel, path: Path) -> None:
         if not g:
             continue
         pbs = [r["payback_projected_mo"] for r in g if r["payback_projected_mo"] != float("inf")]
-        pb = f"{sorted(pbs)[len(pbs)//2]:.0f} mo" if pbs else "never"
+        med = sorted(pbs)[len(pbs)//2] if pbs else float("inf")
+        pb = f"{med:.0f} mo" if med <= DEPRECIATION_LIFE_MO else "never"
         clears = sum(1 for r in g if r["clears_capex"])
         bad = clears < len(g) * 0.5
         arch_rows += (
@@ -635,6 +645,13 @@ def write_html(robots, panel, path: Path) -> None:
     capital destruction.</div>
 
   <h2>Worst 10 of {len(fails)} units, ranked by monthly cash contribution</h2>
+  <div class="note" style="margin-bottom:8px">Payback beyond the
+    {DEPRECIATION_LIFE_MO}-month depreciation life displays as
+    <strong>never</strong> — the formula (capex ÷ monthly contribution) goes
+    hyperbolic as contribution approaches zero, so "251 months" and "683
+    months" differ enormously as numbers and not at all as decisions. The
+    run-rate-years figure is kept only as context for how far under water the
+    unit is.</div>
   <div class="tbl"><table>
     <thead><tr><th>Robot</th><th>Customer</th><th>Archetype</th>
       <th class="n">Steady util</th><th class="n">Contribution / mo</th>
