@@ -1,42 +1,47 @@
 ========================================================================================================
-ROBOT FLEET UNIT ECONOMICS  |  181 units deployed  |  through 2026-06
+ROBOT FLEET UNIT ECONOMICS  |  152 units deployed  |  through 2026-06
 ========================================================================================================
-  active robots                        181
-  deployed capital             $12,308,000
-  fleet utilization                 58.8%
-  fleet uptime                      96.5%
-  revenue / robot / month           $4,238
-  contribution / robot / mo         $3,150
-  EBITDA after depreciation       $365,100
+  active robots                        152
+  deployed capital             $12,276,000
+  fleet utilization                 60.6%
+  fleet uptime                      96.9%
+  revenue / robot / month           $4,395
+  contribution / robot / mo         $3,355
+  EBITDA after depreciation       $305,332
 
 PAYBACK  (hardware capex $68,000, depreciation life 60mo)
 --------------------------------------------------------------------------------------------------------
-  median projected payback          19.3mo
-  units that never clear capex          33   (18% of fleet, $2,244,000 of capital)
+  median projected payback          22.8mo
+  units that never clear capex          24   (16% of fleet, $2,040,000 of capital)
 
   worst units by projected payback:
-    RB0073  Kestrel Materials       seasonal         util   48%   payback   never
-    RB0101  Orchard Cold Chain      low_util_site    util   23%   payback   never
-    RB0118  Kestrel Materials       low_util_site    util   23%   payback   never
-    RB0164  Silverline Auto         standard         util   61%   payback   never
-    RB0166  Orchard Cold Chain      low_util_site    util   21%   payback   never
-    RB0169  Halcyon Manufacturing   standard         util   47%   payback   never
+    RB0007  Halcyon Manufacturing   low_util_site    util   21%   payback   never
+    RB0149  Orchard Cold Chain      high_throughput  util   63%   payback   never
+    RB0151  Silverline Auto         low_util_site    util   16%   payback   never
+    RB0065  Kestrel Materials       low_util_site    util   22%   payback   681mo
+    RB0118  Halcyon Manufacturing   low_util_site    util   21%   payback   390mo
+    RB0124  Kestrel Materials       standard         util   66%   payback   298mo
 
 BY ARCHETYPE
 --------------------------------------------------------------------------------------------------------
   archetype           units    util     rev/mo  contrib/mo   payback  clears capex
-  high_throughput        60     77%     $4,827      $4,575      14mo         60/60
-  standard               76     59%     $3,451      $3,024      19mo         70/76
-  seasonal               20     47%     $2,651      $2,018      30mo         18/20
-  low_util_site          25     21%     $1,128         $41     160mo          0/25
+  high_throughput        56     77%     $4,658      $4,351      17mo         53/56
+  standard               58     61%     $3,538      $3,172      23mo         52/58
+  seasonal               24     48%     $2,701      $2,246      32mo         23/24
+  low_util_site          14     21%     $1,152         $64     211mo          0/14
 
 FIELD SERVICE CONCENTRATION
 --------------------------------------------------------------------------------------------------------
-  median unit  $657/mo      mean unit  $911/mo
-  worst 10% of units carry 32% of total field-service cost
+  median unit  $658/mo  = 10.8% of its capex per year
+  mean unit    $873/mo  = 13.2% of capex per year
+  benchmark: industrial equipment maintenance typically runs 5-15% of
+  capital cost per year; high-duty-cycle mobile robots sit at the top
+  of that band. The median here is inside it; the mean is above it,
+  and the tail is what pushes it there.
+  worst 10% of units carry 34% of total field-service cost
 
 DEPLOYMENT RAMP  (utilization by months since install)
 --------------------------------------------------------------------------------------------------------
   M0     M1     M2     M3     M4     M5     M6     M7     
-  15%    30%    45%    61%    61%    60%    61%    60%    
+  15%    31%    46%    62%    61%    61%    61%    61%    
 

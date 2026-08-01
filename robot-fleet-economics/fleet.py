@@ -52,7 +52,15 @@ DATA = Path(__file__).parent / "data"
 MONTHS = [f"{y}-{m:02d}" for y in (2025, 2026) for m in range(1, 13)][:18]
 MIDX = {m: i for i, m in enumerate(MONTHS)}
 
-HARDWARE_CAPEX = 68_000          # per robot, installed (mobile manipulator)
+# Capex varies by hardware configuration. An earlier version used a single
+# constant, which made the "capital at risk" column identical on every row --
+# a column that cannot vary cannot inform.
+CONFIGS = {
+    "standard":        (0.55,  68_000),
+    "extended_sensor": (0.28,  84_000),
+    "heavy_payload":   (0.17, 112_000),
+}
+HARDWARE_CAPEX = 68_000          # baseline config, used for display defaults
 DEPRECIATION_LIFE_MO = 60        # 5-year straight line
 HOURS_AVAILABLE_MO = 22 * 16     # 22 working days x 2 shifts
 DEPLOY_RAMP_MO = 4               # F3: utilization ramps over ~4 months
@@ -75,6 +83,15 @@ CUSTOMERS = ["Meridian Logistics", "Cascade Foods", "Halcyon Manufacturing",
              "Orchard Cold Chain", "Kestrel Materials"]
 
 
+def pick_config() -> tuple[str, int]:
+    r, cum = random.random(), 0.0
+    for k, (w, capex) in CONFIGS.items():
+        cum += w
+        if r <= cum:
+            return k, capex
+    return "standard", 68_000
+
+
 def pick_archetype() -> str:
     r, cum = random.random(), 0.0
     for k, v in ARCHETYPES.items():
@@ -94,13 +111,15 @@ def make_fleet():
             rid += 1
             arch = pick_archetype()
             _, steady_util, price, svc_mult = ARCHETYPES[arch]
+            config, capex = pick_config()
             r = {
                 "robot_id": f"RB{rid:04d}",
                 "customer": random.choice(CUSTOMERS),
                 "archetype": arch,
+                "config": config,
                 "deployed_month": month,
                 "deployed_idx": mi,
-                "hardware_capex": HARDWARE_CAPEX,
+                "hardware_capex": capex,
                 "price_per_hour": price,
             }
             robots.append(r)
@@ -200,7 +219,10 @@ def per_robot(robots, panel):
 
 
 def fleet_month(robots, panel):
-    """Fleet-level monthly roll-up."""
+    """Fleet-level monthly roll-up. Depreciation and deployed capital are
+    summed from each unit's ACTUAL capex, not a fleet-average constant."""
+    capex_of = {r["robot_id"]: r["hardware_capex"] for r in robots}
+    capex_by_id = {}
     by_m = defaultdict(list)
     for p in panel:
         by_m[p["month"]].append(p)
@@ -219,8 +241,8 @@ def fleet_month(robots, panel):
             "revenue": sum(x["revenue"] for x in rs),
             "field_service": sum(x["field_service"] for x in rs),
             "contribution": sum(contribution(x) for x in rs),
-            "depreciation": active * HARDWARE_CAPEX / DEPRECIATION_LIFE_MO,
-            "deployed_capital": active * HARDWARE_CAPEX,
+            "depreciation": sum(capex_of[x["robot_id"]] for x in rs) / DEPRECIATION_LIFE_MO,
+            "deployed_capital": sum(capex_of[x["robot_id"]] for x in rs),
         })
     for r in rows:
         r["ebitda_after_depr"] = r["contribution"] - r["depreciation"]
@@ -294,13 +316,21 @@ def print_report(robots, panel) -> None:
               f"{pb:>10}{f'{clears}/{len(g)}':>14}")
 
     svc = sorted((r["field_service_total"] / r["months_live"] for r in pr))
+    ratio = sorted((r["field_service_total"] / r["months_live"] * 12
+                    / r["hardware_capex"]) for r in pr)
     top = sorted(pr, key=lambda r: -r["field_service_total"] / r["months_live"])
     top_share = (sum(r["field_service_total"] for r in top[:len(pr)//10])
                  / sum(r["field_service_total"] for r in pr))
     print(f"\nFIELD SERVICE CONCENTRATION")
     print("-" * w)
-    print(f"  median unit  {money(svc[len(svc)//2])}/mo      "
-          f"mean unit  {money(sum(svc)/len(svc))}/mo")
+    print(f"  median unit  {money(svc[len(svc)//2])}/mo  "
+          f"= {ratio[len(ratio)//2]:.1%} of its capex per year")
+    print(f"  mean unit    {money(sum(svc)/len(svc))}/mo  "
+          f"= {sum(ratio)/len(ratio):.1%} of capex per year")
+    print(f"  benchmark: industrial equipment maintenance typically runs 5-15% of")
+    print(f"  capital cost per year; high-duty-cycle mobile robots sit at the top")
+    print(f"  of that band. The median here is inside it; the mean is above it,")
+    print(f"  and the tail is what pushes it there.")
     print(f"  worst 10% of units carry {top_share:.0%} of total field-service cost")
 
     ramp = ramp_curve(panel)
@@ -419,10 +449,10 @@ def write_html(robots, panel, path: Path) -> None:
     def yc(v): return PT + ph * (1 - v / hi_c)
     contrib_line = " ".join(f"{x(i):.1f},{yc(r['contribution_per_robot']):.1f}"
                             for i, r in enumerate(fm))
-    depr = HARDWARE_CAPEX / DEPRECIATION_LIFE_MO
+    depr = (sum(r["hardware_capex"] for r in pr) / len(pr)) / DEPRECIATION_LIFE_MO
     depr_line = (f'<line x1="{PL}" y1="{yc(depr):.1f}" x2="{W-24}" y2="{yc(depr):.1f}" '
                  f'class="trig"/><text x="{W-28}" y="{yc(depr)-7:.1f}" text-anchor="end" '
-                 f'class="tick" fill="var(--neg)">depreciation ${depr:,.0f}/robot/mo</text>')
+                 f'class="tick" fill="var(--neg)">avg depreciation ${depr:,.0f}/robot/mo</text>')
     grid_c = "".join(
         f'<line x1="{PL}" y1="{yc(hi_c*f):.1f}" x2="{W-24}" y2="{yc(hi_c*f):.1f}" class="grid"/>'
         f'<text x="{PL-10}" y="{yc(hi_c*f)+4:.1f}" text-anchor="end" class="tick">${hi_c*f:,.0f}</text>'
@@ -458,16 +488,26 @@ def write_html(robots, panel, path: Path) -> None:
             f"<td class='n {'neg' if bad else ''}'>{pb}</td>"
             f"<td class='n {'neg' if bad else 'pos'}'>{clears}/{len(g)}</td></tr>")
 
+    # Rank by monthly cash impact (most negative first). Sorting by projected
+    # payback put every infinite-payback unit at the top, so the table showed
+    # eight identical "never" rows and told the reader nothing.
     worst_rows = "".join(
         f"<tr><td class='mono'>{r['robot_id']}</td><td>{r['customer']}</td>"
         f"<td>{r['archetype'].replace('_',' ')}</td>"
         f"<td class='n'>{r['utilization_steady']:.0%}</td>"
+        f"<td class='n {'neg' if r['run_rate_contribution_mo'] <= 0 else ''}'>"
+        f"${r['run_rate_contribution_mo']:,.0f}</td>"
         f"<td class='n neg'>{pb_label(r)}</td>"
+        f"<td>{r['config'].replace('_',' ')}</td>"
         f"<td class='n'>${r['hardware_capex']:,.0f}</td></tr>"
-        for r in sorted(pr, key=lambda r: -r["payback_projected_mo"])[:8])
+        for r in sorted(fails, key=lambda r: r["run_rate_contribution_mo"])[:10])
 
     svc = sorted((r["field_service_total"] / r["months_live"] for r in pr))
     mean_, median_ = sum(svc) / len(svc), svc[len(svc) // 2]
+    ratios = sorted((r["field_service_total"] / r["months_live"] * 12
+                     / r["hardware_capex"]) for r in pr)
+    med_ratio = ratios[len(ratios) // 2]
+    mean_ratio = sum(ratios) / len(ratios)
     top = sorted(pr, key=lambda r: -r["field_service_total"] / r["months_live"])
     top_share = (sum(r["field_service_total"] for r in top[:max(1, len(pr)//10)])
                  / sum(r["field_service_total"] for r in pr))
@@ -525,8 +565,9 @@ def write_html(robots, panel, path: Path) -> None:
 <div class="wrap">
   <h1>Robot Fleet Unit Economics</h1>
   <div class="sub">{len(robots)} deployed units · {last['month']} ·
-    hardware capex ${HARDWARE_CAPEX:,} / unit · {DEPRECIATION_LIFE_MO}-month
-    depreciation · synthetic data</div>
+    hardware capex ${min(c[1] for c in CONFIGS.values()):,}–${max(c[1] for c in CONFIGS.values()):,}
+    by configuration · {DEPRECIATION_LIFE_MO}-month depreciation · synthetic
+    data</div>
 
   <div class="kpis">
     <div class="kpi"><div class="k">Active robots</div>
@@ -539,7 +580,7 @@ def write_html(robots, panel, path: Path) -> None:
       <div class="v">${last['revenue_per_robot']:,.0f}</div></div>
     <div class="kpi"><div class="k">Contribution / robot / mo</div>
       <div class="v">${last['contribution_per_robot']:,.0f}</div>
-      <div class="n2">vs ${depr:,.0f} depreciation</div></div>
+      <div class="n2">vs ${depr:,.0f} avg depreciation</div></div>
     <div class="kpi warn"><div class="k">Units that never repay capex</div>
       <div class="v">{len(fails)}</div>
       <div class="n2">${sum(r['hardware_capex'] for r in fails)/1e6:,.1f}M of capital</div></div>
@@ -593,10 +634,11 @@ def write_html(robots, panel, path: Path) -> None:
     business none of these would be more than low-margin; here all four are
     capital destruction.</div>
 
-  <h2>Worst 8 units by projected payback (of {len(fails)} that never clear capex)</h2>
+  <h2>Worst 10 of {len(fails)} units, ranked by monthly cash contribution</h2>
   <div class="tbl"><table>
     <thead><tr><th>Robot</th><th>Customer</th><th>Archetype</th>
-      <th class="n">Steady util</th><th class="n">Projected payback</th>
+      <th class="n">Steady util</th><th class="n">Contribution / mo</th>
+      <th class="n">Projected payback</th><th>Config</th>
       <th class="n">Capex at risk</th></tr></thead>
     <tbody>{worst_rows}</tbody></table></div>
 
@@ -610,11 +652,17 @@ def write_html(robots, panel, path: Path) -> None:
 
   <h2>Field-service concentration</h2>
   <div class="note" style="margin-top:0">Median unit costs
-    <strong>${median_:,.0f}/month</strong> to service; the mean is
-    <strong>${mean_:,.0f}</strong>. The worst 10% of units carry
-    <strong>{top_share:.0%}</strong> of all field-service cost. Budgeting from
-    the mean over-provisions the healthy fleet and still under-provisions the
-    tail — the actionable unit is the problem robot, not the average robot.</div>
+    <strong>${median_:,.0f}/month</strong> to service —
+    <strong>{med_ratio:.1%} of its own capex per year</strong>. The mean is
+    <strong>${mean_:,.0f}/month ({mean_ratio:.1%} of capex)</strong>. For
+    context, industrial-equipment maintenance typically runs 5–15% of capital
+    cost annually and high-duty-cycle mobile robots sit at the top of that
+    band, so the median here is inside the range and the mean is above it.
+    <br><br>The worst 10% of units carry <strong>{top_share:.0%}</strong> of all
+    field-service cost. Budgeting from the mean over-provisions the healthy
+    fleet and still under-provisions the tail — the actionable unit is the
+    problem robot, not the average robot, which is also why a dollar figure
+    alone is not enough to judge this line.</div>
 
   <footer>Generated by fleet.py · roll-ups tie, sanity bounds enforced, seeded
     findings verified (run --validate) · all data synthetic</footer>

@@ -12,7 +12,7 @@ python fleet.py --html examples/fleet_dashboard.html
 
 ## The asymmetry that drives everything
 
-Software has no equivalent of an idle robot. An unused SaaS seat costs the vendor nothing. An unused robot has already consumed $68K of capex, is depreciating on schedule, and destroys capital every month it sits below its payback utilization.
+Software has no equivalent of an idle robot. An unused SaaS seat costs the vendor nothing. An unused robot has already consumed $68K–$112K of capex, is depreciating on schedule, and destroys capital every month it sits below its payback utilization.
 
 So the metrics are different in kind, not just in name:
 
@@ -22,12 +22,12 @@ So the metrics are different in kind, not just in name:
 
 ## Two distinct failure modes, and they need opposite fixes
 
-33 of 181 units (18% of the fleet, **$2.24M of capital**) never repay their hardware inside the depreciation life — for two different reasons:
+24 of 152 units (16% of the fleet, **$2.04M of capital**) never repay their hardware inside the depreciation life — for two different reasons:
 
 - **25 are low-utilization sites.** The volume was never there; no price change fixes them. The remedy is redeployment or recovery.
 - **9 are reliability failures** whose field-service cost now exceeds their revenue outright — worse than idle, because every month they run they lose money.
 
-Field service is also tail-concentrated: the median unit costs $657/month, the mean $911, and the worst 10% of units carry ~30% of all service cost. Budgeting from the mean over-provisions the healthy fleet and still under-provisions the tail.
+Field service is also tail-concentrated: the median unit costs $658/month — **10.8% of its own capex per year**, inside the 5–15% band typical for industrial equipment — while the mean is $873 (13.2%) and the worst 10% of units carry ~30% of all service cost. A dollar figure alone can't be judged; the capex ratio is what makes it interpretable. Budgeting from the mean over-provisions the healthy fleet and still under-provisions the tail.
 
 ## The pricing constraint the model enforces
 
