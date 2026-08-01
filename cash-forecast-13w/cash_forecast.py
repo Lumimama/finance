@@ -317,9 +317,14 @@ def print_forecast(weeks: list[Week], s: dict, a: Assumptions, beyond: float) ->
         print("  Runway                          cash-flow positive")
     else:
         print(
-            f"  Runway at current burn      {s['runway_weeks']:>13.1f} wks"
+            f"  Runway FROM WEEK 13         {s['runway_weeks']:>13.1f} wks"
             f"   ({s['runway_weeks'] / 4.33:.1f} months)"
         )
+        print(f"    = week-13 cash {usd(s['ending'])} / avg weekly burn "
+              f"{usd(s['avg_weekly_burn'])}")
+        cur = s["opening"] / s["avg_weekly_burn"] if s["avg_weekly_burn"] > 0 else float("inf")
+        print(f"  Runway from TODAY           {cur:>13.1f} wks   "
+              f"(opening cash at the same burn)")
     if beyond > 0:
         print(f"  AR collecting after week 13 {usd(beyond):>16}   (not in this forecast)")
     print()

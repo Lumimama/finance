@@ -1,6 +1,6 @@
 # Revenue Recognition — Bookings → Billings → Revenue
 
-The controller-grade view of a subscription business: ~900 contracts expanded into billing schedules and ratable recognition, producing the three series everyone conflates — **bookings** (sales reality), **billings** (cash reality), **revenue** (GAAP reality) — plus the two balances they throw off: **deferred revenue** (billed, not yet earned) and **RPO** (booked, not yet earned; unbilled backlog = RPO − deferred).
+The controller-grade view of a subscription business: 857 contracts expanded into billing schedules and ratable recognition, producing the three series everyone conflates — **bookings** (sales reality), **billings** (cash reality), **revenue** (GAAP reality) — plus the two balances they throw off: **deferred revenue** (billed, not yet earned) and **RPO** (booked, not yet earned; unbilled backlog = RPO − deferred).
 
 **No dependencies.** Python 3.10+.
 

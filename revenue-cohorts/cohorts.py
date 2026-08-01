@@ -349,7 +349,7 @@ def write_html(customers, panel, path: Path) -> None:
 </style>
 <div class="wrap">
   <h1>Revenue Cohort Analysis</h1>
-  <div class="sub">Net revenue retention by acquisition cohort · 1,450 customers
+  <div class="sub">Net revenue retention by acquisition cohort · {len(customers):,} customers
     · 54 months · synthetic data</div>
 
   <h2>Cohort heatmap — % of initial ARR retained, by months since acquisition</h2>

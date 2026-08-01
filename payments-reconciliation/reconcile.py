@@ -214,6 +214,15 @@ def analyze(res: dict) -> dict:
         "matched": res["matched"],
         "match_rate": res["matched"] / res["ledger_count"],
         "exception_count": len(exc),
+        # A reader adding "clean + exceptions" gets 50,099 against a 50,000
+        # ledger, because two exception types are NOT ledger transactions:
+        # missing_in_ledger (bank rows we have no txn for) and
+        # duplicate_settlement (an extra settlement against an already-clean
+        # txn). Split the population so the ledger actually reconciles.
+        "settlement_only": sum(1 for e in exc if e["type"] in
+                               ("missing_in_ledger", "duplicate_settlement")),
+        "ledger_exceptions": sum(1 for e in exc if e["type"] not in
+                                 ("missing_in_ledger", "duplicate_settlement")),
         "gross_exposure": round(total_gross, 2),
         "net_position": round(net_position, 2),
         "by_type": by_type,
@@ -240,6 +249,11 @@ def print_report(a: dict) -> None:
     print(f"  ledger transactions        {a['ledger_count']:>10,}")
     print(f"  settlement rows            {a['settlement_count']:>10,}")
     print(f"  matched clean              {a['matched']:>10,}   ({a['match_rate']:.2%})")
+    print(f"  ledger txns with exceptions{a['ledger_exceptions']:>10,}")
+    print(f"    -> ledger reconciles      {a['matched']+a['ledger_exceptions']:>10,}   "
+          f"= clean + flagged")
+    print(f"  settlement-only events     {a['settlement_only']:>10,}   "
+          f"(bank rows with no ledger txn, and duplicate settlements)")
     print(f"  exceptions                 {a['exception_count']:>10,}")
     print(f"  gross exposure             {usd(a['gross_exposure']):>12}")
     print(f"  net position               {usd(a['net_position']):>12}   "
@@ -397,11 +411,22 @@ def write_html(a: dict, path: Path) -> None:
     <div class="kpi"><div class="k">Transactions</div><div class="v">{a['ledger_count']:,}</div></div>
     <div class="kpi"><div class="k">Match rate</div><div class="v">{a['match_rate']:.2%}</div>
       <div class="n2">{a['matched']:,} clean</div></div>
-    <div class="kpi"><div class="k">Exceptions</div><div class="v">{a['exception_count']:,}</div></div>
+    <div class="kpi"><div class="k">Exception events</div>
+      <div class="v">{a['exception_count']:,}</div>
+      <div class="n2">{a['ledger_exceptions']:,} ledger + {a['settlement_only']:,} settlement-only</div></div>
     <div class="kpi"><div class="k">Gross exposure</div><div class="v">${a['gross_exposure']:,.0f}</div></div>
     <div class="kpi"><div class="k">Net position</div><div class="v">${abs(a['net_position']):,.0f}</div>
       <div class="n2">{'bank owes us' if a['net_position'] < 0 else 'we hold excess'}</div></div>
   </div>
+
+  <div class="note" style="margin-top:14px"><strong>Population
+    reconciliation.</strong> {a['matched']:,} clean + {a['ledger_exceptions']:,}
+    flagged = {a['matched']+a['ledger_exceptions']:,} ledger transactions. The
+    remaining {a['settlement_only']:,} exception events are <em>not</em> ledger
+    transactions — bank rows with no matching txn, and duplicate settlements
+    against transactions that themselves matched cleanly. Adding clean +
+    exception events gives {a['matched']+a['exception_count']:,}, which is why
+    the two populations are reported separately.</div>
 
   <h2>Breaks by type — exposure-ranked</h2>
   <div class="panel">{type_rows}

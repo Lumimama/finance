@@ -370,12 +370,31 @@ def validate(res: dict) -> None:
     n_all = sum(len(v["findings"]) for v in res.values())
     print("-" * 86)
     print(f"  {'PASS -- 100% recall on seeded issues' if ok else 'FAIL -- seeded issues missed'}")
-    print(f"  total review queue: {n_all} findings (extra flags beyond seeded are "
-          f"expected;\n  a monitor tuned for zero false positives is tuned to miss things)")
+    # Precision as a NUMBER, not a gesture. Reporting recall alone tells half
+    # the story; the other half is how much human review that recall costs.
+    seeded_issues = (truth["C1_duplicates"]["count"]   # 14 duplicate pairs
+                     + 1                                # round-dollar vendor
+                     + truth["C3_splits"]["clusters"]   # split clusters
+                     + 1                                # Benford vendor
+                     + 1                                # weekend pattern
+                     + 2                                # policy classes
+                     + 1)                               # velocity spike
+    prec = seeded_issues / max(1, n_all)
+    print(f"  PRECISION            {prec:>6.0%}   ({seeded_issues} distinct seeded "
+          f"issues among {n_all} findings)")
+    print(f"  FALSE-POSITIVE RATE  {1-prec:>6.0%}   ({n_all-seeded_issues} findings "
+          f"need review to confirm or clear)")
+    print(f"  The honest trade: 100% recall is bought with a review queue. A "
+          f"detector\n  tuned to zero false positives is tuned to miss things.")
 
 
 # ---------------------------------------------------------------------------
 def write_html(res: dict, ap: list[dict], te: list[dict], path: Path) -> None:
+    import json as _json
+    _t = _json.loads((DATA / "seeded_findings.json").read_text())
+    seeded_ct = (_t["C1_duplicates"]["count"] + 1 + _t["C3_splits"]["clusters"]
+                 + 1 + 1 + 2 + 1)
+    n_find = sum(len(v["findings"]) for v in res.values())
     sev_color = {"critical": "var(--neg)", "high": "#d97706",
                  "medium": "var(--line)", "low": "var(--mut)"}
     n_findings = sum(len(v["findings"]) for v in res.values())
@@ -465,7 +484,13 @@ def write_html(res: dict, ap: list[dict], te: list[dict], path: Path) -> None:
     <div class="kpi"><div class="k">T&E lines</div><div class="v">{len(te):,}</div>
       <div class="n2">${sum(r['amount'] for r in te):,.0f}</div></div>
     <div class="kpi"><div class="k">Findings</div><div class="v">{n_findings:,}</div></div>
-    <div class="kpi"><div class="k">Flagged exposure</div><div class="v">${exposure:,.0f}</div></div>
+    <div class="kpi"><div class="k">Flagged spend under review</div><div class="v">${exposure:,.0f}</div></div>
+    <div class="kpi"><div class="k">Precision</div>
+      <div class="v">{seeded_ct/max(1,n_find):.0%}</div>
+      <div class="n2">{seeded_ct} seeded issues / {n_find} findings</div></div>
+    <div class="kpi"><div class="k">False-positive rate</div>
+      <div class="v">{1-seeded_ct/max(1,n_find):.0%}</div>
+      <div class="n2">the review cost of 100% recall</div></div>
     <div class="kpi"><div class="k">Recall vs seeded</div><div class="v">100%</div>
       <div class="n2">run --validate to verify</div></div>
   </div>

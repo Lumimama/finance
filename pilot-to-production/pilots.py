@@ -53,6 +53,10 @@ MIDX = {m: i for i, m in enumerate(MONTHS)}
 AS_OF = len(MONTHS) - 1
 
 PURGATORY_MONTHS = 9          # F1: the age past which conversion collapses
+# Payback must be measured on GROSS PROFIT, not revenue. An earlier version
+# divided CAC by ACV and called the result "CAC payback", which is only
+# correct at 100% gross margin.
+DEPLOYMENT_GROSS_MARGIN = 0.68
 HARDWARE_ON_LOAN = 68_000     # per pilot, same unit as the fleet model
 SE_COST_PER_MONTH = 14_500    # solutions engineer time on a pilot
 INTEGRATION_COST = 22_000     # one-time: safety, workflow, IT integration
@@ -224,10 +228,13 @@ def print_report(pilots) -> None:
     print(f"  total spent on pilots       {money(f['total_pilot_cost']):>12}")
     print(f"  of which on pilots not won  {money(f['total_pilot_cost']-f['won_pilot_cost']):>12}")
     avg_acv = f["acv_won"] / max(1, f["converted"])
-    payback = f["true_cac"] / avg_acv * 12
+    payback = f["true_cac"] / (avg_acv * DEPLOYMENT_GROSS_MARGIN) * 12
     tcv_3yr = avg_acv * 3
     print(f"  average ACV won             {money(avg_acv):>12}")
-    print(f"  months of first-year ACV to repay true CAC {payback:>10.1f}mo")
+    print(f"  gross margin assumed        {DEPLOYMENT_GROSS_MARGIN:>11.0%}")
+    print(f"  CAC payback (gross-profit basis) {payback:>16.1f}mo")
+    print(f"    = true CAC / (ACV x GM / 12); on a revenue basis it would read "
+          f"{f['true_cac']/avg_acv*12:.1f}mo, which overstates payback")
     print(f"  true CAC as % of 3-year TCV {f['true_cac']/tcv_3yr:>11.0%}   "
           f"<- pilot economics only work on multi-year terms")
 
@@ -395,7 +402,7 @@ def write_html(pilots, path: Path) -> None:
         for p in stuck[:10])
 
     avg_acv = f["acv_won"] / max(1, f["converted"])
-    payback = f["true_cac"] / avg_acv * 12
+    payback = f["true_cac"] / (avg_acv * DEPLOYMENT_GROSS_MARGIN) * 12
     tcv_3yr = avg_acv * 3
     qp = [x for x in pilots if x["exec_sponsor"] and x["written_success_criteria"]]
     qf = funnel(qp)
@@ -481,8 +488,11 @@ def write_html(pilots, path: Path) -> None:
     divides <em>all</em> pilot cost by the wins:
     <strong>${f['true_cac']:,.0f}</strong>, or {f['true_cac']/f['naive_cac']:.1f}×.
     The lost and stalled pilots are not overhead; they are the cost of acquiring
-    the customers you did win. At an average ${avg_acv:,.0f} ACV, that CAC takes
-    <strong>{payback:.0f} months of first-year revenue</strong> to repay — which
+    the customers you did win. At an average ${avg_acv:,.0f} ACV and
+    {DEPLOYMENT_GROSS_MARGIN:.0%} deployment gross margin, that CAC takes
+    <strong>{payback:.0f} months of gross profit</strong> to repay (a
+    revenue-basis figure would read {f['true_cac']/avg_acv*12:.0f} months and
+    overstate the payback) — which
     is the real conclusion on this page: <strong>pilot-heavy acquisition is only
     solvent on multi-year terms.</strong> Against a three-year deployment
     contract the same CAC is {f['true_cac']/tcv_3yr:.0%} of TCV, which is

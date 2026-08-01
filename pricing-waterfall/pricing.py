@@ -165,7 +165,9 @@ def print_report(deals) -> None:
     gap = by_t["weeks 1-11"] - by_t["last 2 weeks"]
     late = [d for d in deals if d["days_to_quarter_end"] <= 14]
     leak = sum(d["list_price"] for d in late) * gap
-    print(f"\n  quarter-end deals realize {gap:.1%} less. On {m(sum(d['list_price'] for d in late))} "
+    rel = gap / by_t["weeks 1-11"]
+    print(f"\n  quarter-end deals realize {gap*100:.1f} pp less ({rel:.1%} lower in "
+          f"relative terms). On {m(sum(d['list_price'] for d in late))} "
           f"of late-quarter list, that is ~{m(leak)} of price given to the calendar.")
     print()
 
@@ -316,8 +318,9 @@ def write_html(deals, path: Path) -> None:
     <div class="kpi"><div class="k">Total list</div><div class="v">${wf[0][1]/1e6:,.1f}M</div></div>
     <div class="kpi"><div class="k">Pocket price</div><div class="v">${wf[-1][1]/1e6:,.1f}M</div>
       <div class="n2">{wf[-1][1]/wf[0][1]:.1%} realization</div></div>
-    <div class="kpi warn"><div class="k">Quarter-end gap</div><div class="v">{gap:.1%}</div>
-      <div class="n2">deeper discounts, last 2 weeks</div></div>
+    <div class="kpi warn"><div class="k">Quarter-end gap</div>
+      <div class="v">{gap*100:.1f} pp</div>
+      <div class="n2">{gap/by_time['weeks 1-11']:.1%} lower, relative</div></div>
     <div class="kpi warn"><div class="k">Calendar leak</div><div class="v">${leak/1e6:,.1f}M</div>
       <div class="n2">price given to the close date</div></div>
   </div>
@@ -332,7 +335,8 @@ def write_html(deals, path: Path) -> None:
   </div>
   <div class="note">The two review flags: realization falls monotonically with
     deal size (creep beyond any cost-to-serve argument), and deals closed in
-    the final two weeks of a quarter realize {gap:.1%} less — sales spending
+    the final two weeks of a quarter realize {gap*100:.1f} percentage points less
+    ({gap/by_time['weeks 1-11']:.1%} lower in relative terms) — sales spending
     price to make the date. Both patterns survive segmentation, which is what
     separates a pricing problem from a mix story.</div>
 

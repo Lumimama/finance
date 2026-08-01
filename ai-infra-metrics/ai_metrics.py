@@ -158,7 +158,12 @@ def analyze(rows):
 
     return {
         "cur": cur, "pre": pre, "post": post,
-        "dau": last30[-1]["dau"] if not last30[-1]["weekend"] else last30[-3]["dau"],
+        # Display the SAME figure the ratio uses -- average weekday DAU over the
+        # trailing 30 days. An earlier version showed a single day's DAU beside
+        # a ratio computed from the 30-day average, so the card did not
+        # reproduce: 16,674 / 54,978 read as 30% while the ratio said 27%.
+        "dau": round(sum(r["dau"] for r in wk) / len(wk)),
+        "dau_latest_day": last30[-1]["dau"],
         "mau": round(mau),
         "dau_mau": (sum(r["dau"] for r in wk) / len(wk)) / mau,
         "util_weekday": util_wk, "util_weekend": util_we,
@@ -185,7 +190,7 @@ def print_report(rows) -> None:
     print(f"  GPU utilization (weekday)   {a['util_weekday']:.0%}")
     print(f"  GPU utilization (weekend)   {a['util_weekend']:.0%}")
     print(f"  DAU / MAU                   {a['dau']:,} / {a['mau']:,}  "
-          f"({a['dau_mau']:.0%} stickiness)")
+          f"({a['dau_mau']:.0%} stickiness)   [avg weekday DAU, trailing 30d]")
     print(f"  committed vs consumption    {a['committed_share']:.0%} committed drawdown / "
           f"{1-a['committed_share']:.0%} pay-as-you-go")
 
@@ -375,7 +380,8 @@ def write_html(rows, path: Path) -> None:
     <div class="kpi"><div class="k">GPU utilization</div><div class="v">{a['util_weekday']:.0%}</div>
       <div class="n2">weekend: {a['util_weekend']:.0%}</div></div>
     <div class="kpi"><div class="k">DAU / MAU</div><div class="v">{a['dau_mau']:.0%}</div>
-      <div class="n2">{a['dau']:,} / {a['mau']:,}</div></div>
+      <div class="n2">{a['dau']:,} avg weekday DAU / {a['mau']:,} MAU</div>
+      <div class="n2">trailing 30 days</div></div>
     <div class="kpi"><div class="k">Committed drawdown</div><div class="v">{a['committed_share']:.0%}</div>
       <div class="n2">of usage revenue</div></div>
   </div>

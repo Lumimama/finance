@@ -62,6 +62,17 @@ dashboard rather than inventing new styling.
 Document bugs the validation caught in the code comments — that trail is a
 feature of the READMEs, not noise to clean up.
 
+## Before publishing — freshness
+
+`--validate` checks the ANALYSIS. It cannot see the PUBLISHED HTML, so a
+dashboard can drift from its data (an external audit found a hardcoded "1,450
+customers" header against a 1,448-row dataset). Two rules:
+
+- **Never hardcode a figure in an HTML template.** Every rendered number comes
+  from the data at generation time.
+- **Run `python3 check_freshness.py` before every push.** It fails if any
+  `examples/*.html` is older than the script or data that produce it.
+
 ## Publishing
 
 ```

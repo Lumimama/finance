@@ -1,6 +1,6 @@
 # Revenue Cohort Analysis
 
-The cohort heatmap, the layer cake, and empirical CAC-payback curves — the three artifacts a diligence team asks for on day one — computed from a 1,450-customer, 54-month ARR panel.
+The cohort heatmap, the layer cake, and empirical CAC-payback curves — the three artifacts a diligence team asks for on day one — computed from a 1,448-customer, 54-month ARR panel.
 
 **No dependencies.** Python 3.10+.
 

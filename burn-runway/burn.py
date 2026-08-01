@@ -133,7 +133,8 @@ def print_report(rows) -> None:
     print("=" * w)
     print(f"  cash                        {money(latest['ending_cash']):>12}")
     print(f"  net burn (month)            {money(latest['net_burn']):>12}")
-    print(f"  net burn (trailing 3-mo)    {money(latest['t3_net_burn']):>12}   <- the quotable number")
+    print(f"  net burn (trailing 3-mo)    {money(latest['t3_net_burn']):>12}   incl. one-time items")
+    print(f"  OPERATING burn (t3)         {money(latest['t3_operating_burn']):>12}   <- the runway basis")
     print(f"  gross burn (month)          {money(latest['gross_burn']):>12}")
     print(f"  runway at trailing burn     {latest['runway_months']:>10.1f}mo")
     print(f"  runway 3-mo trend           {a['runway_delta_3mo']:>+10.1f}mo   "
@@ -324,12 +325,16 @@ def write_html(rows, path: Path) -> None:
 
   <div class="kpis">
     <div class="kpi"><div class="k">Cash</div><div class="v">${latest['ending_cash']/1e6:,.1f}M</div></div>
-    <div class="kpi"><div class="k">Net burn (t3)</div><div class="v">${latest['t3_net_burn']/1e6:,.2f}M</div>
+    <div class="kpi"><div class="k">Operating burn (t3)</div>
+      <div class="v">${latest['t3_operating_burn']/1e6:,.2f}M</div>
+      <div class="n2">runway basis · ex one-time</div></div>
+    <div class="kpi"><div class="k">Net burn (t3, incl. one-time)</div>
+      <div class="v">${latest['t3_net_burn']/1e6:,.2f}M</div>
       <div class="n2">month: ${latest['net_burn']/1e6:,.2f}M</div></div>
     <div class="kpi"><div class="k">Gross burn</div><div class="v">${latest['gross_burn']/1e6:,.2f}M</div>
       <div class="n2">the number that doesn't lie</div></div>
     <div class="kpi"><div class="k">Runway</div><div class="v">{latest['runway_months']:,.1f} mo</div>
-      <div class="n2">trailing 3-mo operating burn</div></div>
+      <div class="n2">= cash ÷ operating burn (t3)</div></div>
     <div class="kpi {'warn' if shrinking else 'good'}"><div class="k">Runway trend (3mo)</div>
       <div class="v">{a['runway_delta_3mo']:+.1f} mo</div>
       <div class="n2">{'shrinking' if shrinking else 'lengthening'}</div></div>

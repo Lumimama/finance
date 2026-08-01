@@ -379,8 +379,20 @@ def write_html(robots, panel, path: Path) -> None:
     fm = fleet_month(robots, panel)
     last = fm[-1]
     fails = [r for r in pr if not r["clears_capex"]]
+    # MUTUALLY EXCLUSIVE buckets. An earlier version reported "25 low-util + 9
+    # lemons" against a total of 33, which does not add up: 6 units are both,
+    # and 5 are neither (adequate utilization and positive contribution, just
+    # not enough of it to clear capex inside the depreciation life).
     lemons = [r for r in fails if r["run_rate_contribution_mo"] <= 0]
-    lowutil = [r for r in fails if r["archetype"] == "low_util_site"]
+    lowutil = [r for r in fails
+               if r["archetype"] == "low_util_site"
+               and r["run_rate_contribution_mo"] > 0]
+    both = [r for r in fails
+            if r["archetype"] == "low_util_site"
+            and r["run_rate_contribution_mo"] <= 0]
+    lemons_only = [r for r in lemons if r not in both]
+    marginal = [r for r in fails
+                if r not in lowutil and r not in lemons and r not in both]
     ramp = ramp_curve(panel)
 
     W, H, PL, PT, PB = 880, 270, 84, 22, 38
@@ -563,16 +575,25 @@ def write_html(robots, panel, path: Path) -> None:
     shows <strong>{len(fails)} units ({len(fails)/len(pr):.0%} of the fleet,
     ${sum(r['hardware_capex'] for r in fails)/1e6:,.1f}M of capital)</strong> that
     never repay their hardware inside the {DEPRECIATION_LIFE_MO}-month
-    depreciation life — and they fail for <em>two different reasons</em>.
-    {len(lowutil)} are low-utilization sites: the volume was never there, and no
-    price change fixes them; the remedy is redeployment or recovery.
-    {len(lemons)} are units whose field-service cost now exceeds their revenue
-    outright — reliability failures, not demand failures, and they are worse
-    than idle because every month they run they lose money. In a software
-    business neither cohort would be more than low-margin. Here both are capital
-    destruction, and they need opposite interventions.</div>
+    depreciation life. They divide into <em>four mutually exclusive</em> groups,
+    and the fixes are different for each:
+    <br><br>
+    <strong>{len(lowutil)}</strong> low-utilization sites still earning positive
+    contribution — the volume was never there; redeploy or recover the unit.
+    <strong>{len(lemons_only)}</strong> reliability failures whose field-service
+    cost exceeds revenue outright — worse than idle, because every month they
+    run they lose money. <strong>{len(both)}</strong> are both at once, and are
+    the first units to pull out. <strong>{len(marginal)}</strong> are adequately
+    utilized and contribution-positive but simply not <em>enough</em> to clear
+    capex in {DEPRECIATION_LIFE_MO} months — a pricing or capex-spec question,
+    not an operations one.
+    <br><br>
+    {len(lowutil)} + {len(lemons_only)} + {len(both)} + {len(marginal)} =
+    {len(lowutil)+len(lemons_only)+len(both)+len(marginal)}. In a software
+    business none of these would be more than low-margin; here all four are
+    capital destruction.</div>
 
-  <h2>Worst units by projected payback</h2>
+  <h2>Worst 8 units by projected payback (of {len(fails)} that never clear capex)</h2>
   <div class="tbl"><table>
     <thead><tr><th>Robot</th><th>Customer</th><th>Archetype</th>
       <th class="n">Steady util</th><th class="n">Projected payback</th>

@@ -24,7 +24,7 @@ Both are checked to the cent, every month, in --validate. A rev-rec schedule
 whose roll-forwards don't tie is how audit adjustments happen.
 
 The generator lives in this file (contracts are simple enough not to need a
-separate one): ~900 contracts, 12-36 month terms, annual-upfront / quarterly /
+separate one): 857 contracts, 12-36 month terms, annual-upfront / quarterly /
 monthly billing mixes by segment.
 
 Run:  python3 revrec.py

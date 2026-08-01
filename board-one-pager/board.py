@@ -162,7 +162,7 @@ def compute(rows):
     ]
     S["Efficiency"] = [
         ("Burn multiple (LTM)", f"{burn_ltm/net_new_ltm:.2f}", "Net burn ÷ net new ARR: dollars burned per dollar of new recurring revenue.", "<1.5 good, <1.0 strong"),
-        ("Rule of 40", f"{rule40:.0f}", "YoY ARR growth % + FCF margin %.", "≥40 strong"),
+        ("Rule of 40", f"{rule40:.0f} pts", "YoY ARR growth % + FCF margin %.", "≥40 strong"),
         ("Magic number (Q)", f"{magic:.2f}", "Net new ARR this quarter ÷ prior quarter's S&M. ARR is already annual — not annualized again.", "≥0.75 lean in"),
         ("CAC payback", f"{cac_payback:.1f} mo", "All S&M ÷ (new ARR × GM ÷ 12): months of gross profit to repay acquisition. Conservative: charges all S&M to new logos.", "<18mo acceptable"),
         ("LTV : CAC", f"{ltv/cac_per_logo:.1f}x", "Formulaic (ARPA × GM ÷ churn) ÷ CAC per logo. Stated as formulaic; treat with the suspicion it deserves — see revenue-cohorts for the empirical version.", ">3x conventional"),
