@@ -1,153 +1,156 @@
-robot_id,customer,archetype,config,deployed_month,deployed_idx,hardware_capex,price_per_hour
-RB0001,Northwind Distribution,standard,standard,2025-01,0,68000,21.0
-RB0002,Kestrel Materials,high_throughput,heavy_payload,2025-01,0,112000,22.0
-RB0003,Silverline Auto,seasonal,standard,2025-01,0,68000,20.0
-RB0004,Northwind Distribution,standard,standard,2025-01,0,68000,21.0
-RB0005,Kestrel Materials,standard,standard,2025-01,0,68000,21.0
-RB0006,Kestrel Materials,seasonal,extended_sensor,2025-01,0,84000,20.0
-RB0007,Halcyon Manufacturing,low_util_site,heavy_payload,2025-01,0,112000,19.0
-RB0008,Cascade Foods,high_throughput,standard,2025-02,1,68000,22.0
-RB0009,Meridian Logistics,seasonal,standard,2025-02,1,68000,20.0
-RB0010,Halcyon Manufacturing,standard,standard,2025-02,1,68000,21.0
-RB0011,Orchard Cold Chain,high_throughput,heavy_payload,2025-02,1,112000,22.0
-RB0012,Kestrel Materials,high_throughput,heavy_payload,2025-02,1,112000,22.0
-RB0013,Kestrel Materials,high_throughput,extended_sensor,2025-02,1,84000,22.0
-RB0014,Kestrel Materials,high_throughput,extended_sensor,2025-02,1,84000,22.0
-RB0015,Orchard Cold Chain,seasonal,standard,2025-02,1,68000,20.0
-RB0016,Northwind Distribution,standard,standard,2025-02,1,68000,21.0
-RB0017,Kestrel Materials,high_throughput,standard,2025-02,1,68000,22.0
-RB0018,Meridian Logistics,standard,standard,2025-02,1,68000,21.0
-RB0019,Halcyon Manufacturing,seasonal,extended_sensor,2025-02,1,84000,20.0
-RB0020,Kestrel Materials,high_throughput,standard,2025-03,2,68000,22.0
-RB0021,Cascade Foods,standard,heavy_payload,2025-03,2,112000,21.0
-RB0022,Northwind Distribution,seasonal,standard,2025-03,2,68000,20.0
-RB0023,Fairhaven Packaging,standard,standard,2025-03,2,68000,21.0
-RB0024,Silverline Auto,standard,extended_sensor,2025-03,2,84000,21.0
-RB0025,Orchard Cold Chain,standard,standard,2025-03,2,68000,21.0
-RB0026,Cascade Foods,standard,extended_sensor,2025-03,2,84000,21.0
-RB0027,Cascade Foods,standard,standard,2025-03,2,68000,21.0
-RB0028,Silverline Auto,standard,standard,2025-03,2,68000,21.0
-RB0029,Meridian Logistics,high_throughput,heavy_payload,2025-03,2,112000,22.0
-RB0030,Cascade Foods,seasonal,standard,2025-03,2,68000,20.0
-RB0031,Northwind Distribution,low_util_site,heavy_payload,2025-04,3,112000,19.0
-RB0032,Fairhaven Packaging,high_throughput,heavy_payload,2025-04,3,112000,22.0
-RB0033,Orchard Cold Chain,high_throughput,heavy_payload,2025-04,3,112000,22.0
-RB0034,Cascade Foods,standard,extended_sensor,2025-04,3,84000,21.0
-RB0035,Northwind Distribution,standard,extended_sensor,2025-04,3,84000,21.0
-RB0036,Cascade Foods,high_throughput,standard,2025-04,3,68000,22.0
-RB0037,Silverline Auto,standard,standard,2025-04,3,68000,21.0
-RB0038,Meridian Logistics,standard,standard,2025-04,3,68000,21.0
-RB0039,Orchard Cold Chain,standard,standard,2025-04,3,68000,21.0
-RB0040,Northwind Distribution,seasonal,extended_sensor,2025-05,4,84000,20.0
-RB0041,Fairhaven Packaging,standard,standard,2025-05,4,68000,21.0
-RB0042,Meridian Logistics,high_throughput,extended_sensor,2025-05,4,84000,22.0
-RB0043,Kestrel Materials,standard,standard,2025-05,4,68000,21.0
-RB0044,Halcyon Manufacturing,high_throughput,heavy_payload,2025-05,4,112000,22.0
-RB0045,Northwind Distribution,seasonal,standard,2025-05,4,68000,20.0
-RB0046,Halcyon Manufacturing,high_throughput,heavy_payload,2025-05,4,112000,22.0
-RB0047,Halcyon Manufacturing,standard,extended_sensor,2025-05,4,84000,21.0
-RB0048,Halcyon Manufacturing,high_throughput,heavy_payload,2025-05,4,112000,22.0
-RB0049,Kestrel Materials,high_throughput,heavy_payload,2025-05,4,112000,22.0
-RB0050,Orchard Cold Chain,low_util_site,extended_sensor,2025-06,5,84000,19.0
-RB0051,Kestrel Materials,high_throughput,standard,2025-06,5,68000,22.0
-RB0052,Meridian Logistics,high_throughput,heavy_payload,2025-06,5,112000,22.0
-RB0053,Northwind Distribution,high_throughput,standard,2025-06,5,68000,22.0
-RB0054,Fairhaven Packaging,seasonal,heavy_payload,2025-06,5,112000,20.0
-RB0055,Meridian Logistics,standard,standard,2025-06,5,68000,21.0
-RB0056,Silverline Auto,high_throughput,standard,2025-06,5,68000,22.0
-RB0057,Meridian Logistics,high_throughput,standard,2025-07,6,68000,22.0
-RB0058,Halcyon Manufacturing,high_throughput,extended_sensor,2025-07,6,84000,22.0
-RB0059,Orchard Cold Chain,low_util_site,standard,2025-07,6,68000,19.0
-RB0060,Kestrel Materials,high_throughput,standard,2025-07,6,68000,22.0
-RB0061,Orchard Cold Chain,seasonal,standard,2025-07,6,68000,20.0
-RB0062,Meridian Logistics,standard,extended_sensor,2025-07,6,84000,21.0
-RB0063,Fairhaven Packaging,high_throughput,standard,2025-07,6,68000,22.0
-RB0064,Orchard Cold Chain,standard,standard,2025-07,6,68000,21.0
-RB0065,Kestrel Materials,low_util_site,heavy_payload,2025-07,6,112000,19.0
-RB0066,Orchard Cold Chain,seasonal,extended_sensor,2025-08,7,84000,20.0
-RB0067,Halcyon Manufacturing,high_throughput,standard,2025-08,7,68000,22.0
-RB0068,Silverline Auto,high_throughput,standard,2025-08,7,68000,22.0
-RB0069,Kestrel Materials,low_util_site,standard,2025-08,7,68000,19.0
-RB0070,Halcyon Manufacturing,seasonal,standard,2025-08,7,68000,20.0
-RB0071,Northwind Distribution,high_throughput,extended_sensor,2025-08,7,84000,22.0
-RB0072,Halcyon Manufacturing,high_throughput,standard,2025-08,7,68000,22.0
-RB0073,Halcyon Manufacturing,standard,standard,2025-09,8,68000,21.0
-RB0074,Silverline Auto,standard,heavy_payload,2025-09,8,112000,21.0
-RB0075,Meridian Logistics,low_util_site,standard,2025-09,8,68000,19.0
-RB0076,Kestrel Materials,standard,heavy_payload,2025-09,8,112000,21.0
-RB0077,Northwind Distribution,low_util_site,extended_sensor,2025-09,8,84000,19.0
-RB0078,Kestrel Materials,high_throughput,heavy_payload,2025-09,8,112000,22.0
-RB0079,Kestrel Materials,high_throughput,extended_sensor,2025-10,9,84000,22.0
-RB0080,Meridian Logistics,standard,extended_sensor,2025-10,9,84000,21.0
-RB0081,Orchard Cold Chain,standard,extended_sensor,2025-10,9,84000,21.0
-RB0082,Northwind Distribution,standard,extended_sensor,2025-10,9,84000,21.0
-RB0083,Silverline Auto,high_throughput,extended_sensor,2025-10,9,84000,22.0
-RB0084,Fairhaven Packaging,standard,extended_sensor,2025-10,9,84000,21.0
-RB0085,Halcyon Manufacturing,seasonal,extended_sensor,2025-10,9,84000,20.0
-RB0086,Northwind Distribution,seasonal,standard,2025-10,9,68000,20.0
-RB0087,Orchard Cold Chain,standard,standard,2025-10,9,68000,21.0
-RB0088,Fairhaven Packaging,seasonal,extended_sensor,2025-10,9,84000,20.0
-RB0089,Cascade Foods,standard,standard,2025-10,9,68000,21.0
-RB0090,Northwind Distribution,low_util_site,extended_sensor,2025-11,10,84000,19.0
-RB0091,Kestrel Materials,high_throughput,standard,2025-11,10,68000,22.0
-RB0092,Orchard Cold Chain,standard,standard,2025-11,10,68000,21.0
-RB0093,Cascade Foods,low_util_site,extended_sensor,2025-11,10,84000,19.0
-RB0094,Orchard Cold Chain,standard,standard,2025-11,10,68000,21.0
-RB0095,Silverline Auto,standard,standard,2025-11,10,68000,21.0
-RB0096,Fairhaven Packaging,high_throughput,standard,2025-11,10,68000,22.0
-RB0097,Fairhaven Packaging,standard,extended_sensor,2025-11,10,84000,21.0
-RB0098,Northwind Distribution,standard,standard,2025-11,10,68000,21.0
-RB0099,Halcyon Manufacturing,standard,extended_sensor,2025-11,10,84000,21.0
-RB0100,Orchard Cold Chain,high_throughput,extended_sensor,2025-11,10,84000,22.0
-RB0101,Fairhaven Packaging,standard,standard,2025-12,11,68000,21.0
-RB0102,Cascade Foods,seasonal,standard,2025-12,11,68000,20.0
-RB0103,Cascade Foods,seasonal,extended_sensor,2025-12,11,84000,20.0
-RB0104,Cascade Foods,high_throughput,standard,2025-12,11,68000,22.0
-RB0105,Silverline Auto,high_throughput,standard,2025-12,11,68000,22.0
-RB0106,Northwind Distribution,seasonal,standard,2025-12,11,68000,20.0
-RB0107,Silverline Auto,low_util_site,standard,2025-12,11,68000,19.0
-RB0108,Cascade Foods,standard,standard,2026-01,12,68000,21.0
-RB0109,Meridian Logistics,high_throughput,standard,2026-01,12,68000,22.0
-RB0110,Meridian Logistics,standard,standard,2026-01,12,68000,21.0
-RB0111,Fairhaven Packaging,standard,extended_sensor,2026-01,12,84000,21.0
-RB0112,Kestrel Materials,standard,standard,2026-01,12,68000,21.0
-RB0113,Meridian Logistics,standard,extended_sensor,2026-01,12,84000,21.0
-RB0114,Cascade Foods,standard,extended_sensor,2026-01,12,84000,21.0
-RB0115,Orchard Cold Chain,standard,extended_sensor,2026-01,12,84000,21.0
-RB0116,Meridian Logistics,standard,heavy_payload,2026-01,12,112000,21.0
-RB0117,Fairhaven Packaging,high_throughput,heavy_payload,2026-01,12,112000,22.0
-RB0118,Halcyon Manufacturing,low_util_site,heavy_payload,2026-01,12,112000,19.0
-RB0119,Fairhaven Packaging,standard,extended_sensor,2026-01,12,84000,21.0
-RB0120,Silverline Auto,seasonal,extended_sensor,2026-01,12,84000,20.0
-RB0121,Fairhaven Packaging,high_throughput,extended_sensor,2026-02,13,84000,22.0
-RB0122,Northwind Distribution,high_throughput,extended_sensor,2026-02,13,84000,22.0
-RB0123,Meridian Logistics,standard,standard,2026-02,13,68000,21.0
-RB0124,Kestrel Materials,standard,heavy_payload,2026-02,13,112000,21.0
-RB0125,Kestrel Materials,high_throughput,standard,2026-02,13,68000,22.0
-RB0126,Cascade Foods,high_throughput,standard,2026-02,13,68000,22.0
-RB0127,Meridian Logistics,high_throughput,standard,2026-02,13,68000,22.0
-RB0128,Orchard Cold Chain,low_util_site,standard,2026-02,13,68000,19.0
-RB0129,Meridian Logistics,standard,heavy_payload,2026-02,13,112000,21.0
-RB0130,Cascade Foods,high_throughput,extended_sensor,2026-02,13,84000,22.0
-RB0131,Orchard Cold Chain,seasonal,heavy_payload,2026-02,13,112000,20.0
-RB0132,Northwind Distribution,high_throughput,standard,2026-02,13,68000,22.0
-RB0133,Cascade Foods,high_throughput,standard,2026-02,13,68000,22.0
-RB0134,Orchard Cold Chain,standard,extended_sensor,2026-02,13,84000,21.0
-RB0135,Cascade Foods,seasonal,standard,2026-03,14,68000,20.0
-RB0136,Fairhaven Packaging,high_throughput,extended_sensor,2026-03,14,84000,22.0
-RB0137,Meridian Logistics,high_throughput,extended_sensor,2026-03,14,84000,22.0
-RB0138,Halcyon Manufacturing,seasonal,standard,2026-03,14,68000,20.0
-RB0139,Kestrel Materials,high_throughput,extended_sensor,2026-03,14,84000,22.0
-RB0140,Halcyon Manufacturing,standard,standard,2026-03,14,68000,21.0
-RB0141,Northwind Distribution,standard,heavy_payload,2026-03,14,112000,21.0
-RB0142,Cascade Foods,standard,standard,2026-03,14,68000,21.0
-RB0143,Orchard Cold Chain,high_throughput,standard,2026-04,15,68000,22.0
-RB0144,Fairhaven Packaging,seasonal,extended_sensor,2026-04,15,84000,20.0
-RB0145,Fairhaven Packaging,high_throughput,heavy_payload,2026-04,15,112000,22.0
-RB0146,Meridian Logistics,high_throughput,standard,2026-04,15,68000,22.0
-RB0147,Meridian Logistics,standard,extended_sensor,2026-04,15,84000,21.0
-RB0148,Halcyon Manufacturing,high_throughput,standard,2026-04,15,68000,22.0
-RB0149,Orchard Cold Chain,high_throughput,extended_sensor,2026-04,15,84000,22.0
-RB0150,Kestrel Materials,high_throughput,standard,2026-04,15,68000,22.0
-RB0151,Silverline Auto,low_util_site,standard,2026-04,15,68000,19.0
-RB0152,Northwind Distribution,standard,standard,2026-04,15,68000,21.0
+robot_id,customer,archetype,config,deployed_month,deployed_idx,hardware_capex,price_per_hour,contract_term_mo,redeploy_cost
+RB0001,Halcyon Manufacturing,standard,standard,2025-01,0,68000,21.0,24,6500
+RB0002,Silverline Auto,low_util_site,extended_sensor,2025-01,0,84000,19.0,24,8000
+RB0003,Orchard Cold Chain,high_throughput,standard,2025-01,0,68000,22.0,36,6500
+RB0004,Cascade Foods,standard,extended_sensor,2025-01,0,84000,21.0,24,8000
+RB0005,Fairhaven Packaging,standard,standard,2025-01,0,68000,21.0,36,6500
+RB0006,Kestrel Materials,high_throughput,heavy_payload,2025-01,0,112000,22.0,36,9500
+RB0007,Silverline Auto,low_util_site,extended_sensor,2025-01,0,84000,19.0,36,8000
+RB0008,Halcyon Manufacturing,high_throughput,heavy_payload,2025-02,1,112000,22.0,36,9500
+RB0009,Fairhaven Packaging,standard,extended_sensor,2025-02,1,84000,21.0,24,8000
+RB0010,Orchard Cold Chain,high_throughput,standard,2025-02,1,68000,22.0,24,6500
+RB0011,Silverline Auto,standard,standard,2025-02,1,68000,21.0,36,6500
+RB0012,Orchard Cold Chain,low_util_site,heavy_payload,2025-02,1,112000,19.0,48,9500
+RB0013,Fairhaven Packaging,high_throughput,extended_sensor,2025-02,1,84000,22.0,24,8000
+RB0014,Cascade Foods,seasonal,standard,2025-02,1,68000,20.0,24,6500
+RB0015,Cascade Foods,standard,extended_sensor,2025-02,1,84000,21.0,36,8000
+RB0016,Silverline Auto,low_util_site,heavy_payload,2025-03,2,112000,19.0,24,9500
+RB0017,Silverline Auto,seasonal,heavy_payload,2025-03,2,112000,20.0,36,9500
+RB0018,Meridian Logistics,standard,standard,2025-03,2,68000,21.0,36,6500
+RB0019,Orchard Cold Chain,standard,standard,2025-03,2,68000,21.0,48,6500
+RB0020,Halcyon Manufacturing,high_throughput,standard,2025-03,2,68000,22.0,36,6500
+RB0021,Halcyon Manufacturing,standard,heavy_payload,2025-03,2,112000,21.0,48,9500
+RB0022,Fairhaven Packaging,high_throughput,extended_sensor,2025-03,2,84000,22.0,36,8000
+RB0023,Fairhaven Packaging,low_util_site,heavy_payload,2025-03,2,112000,19.0,24,9500
+RB0024,Silverline Auto,standard,extended_sensor,2025-03,2,84000,21.0,48,8000
+RB0025,Cascade Foods,standard,standard,2025-03,2,68000,21.0,36,6500
+RB0026,Halcyon Manufacturing,high_throughput,standard,2025-03,2,68000,22.0,48,6500
+RB0027,Silverline Auto,standard,extended_sensor,2025-03,2,84000,21.0,24,8000
+RB0028,Halcyon Manufacturing,high_throughput,extended_sensor,2025-04,3,84000,22.0,36,8000
+RB0029,Halcyon Manufacturing,low_util_site,standard,2025-04,3,68000,19.0,36,6500
+RB0030,Meridian Logistics,high_throughput,heavy_payload,2025-04,3,112000,22.0,36,9500
+RB0031,Halcyon Manufacturing,seasonal,standard,2025-04,3,68000,20.0,36,6500
+RB0032,Meridian Logistics,high_throughput,extended_sensor,2025-04,3,84000,22.0,36,8000
+RB0033,Halcyon Manufacturing,high_throughput,standard,2025-04,3,68000,22.0,24,6500
+RB0034,Cascade Foods,seasonal,heavy_payload,2025-04,3,112000,20.0,36,9500
+RB0035,Northwind Distribution,standard,extended_sensor,2025-04,3,84000,21.0,48,8000
+RB0036,Kestrel Materials,high_throughput,standard,2025-04,3,68000,22.0,24,6500
+RB0037,Kestrel Materials,high_throughput,heavy_payload,2025-05,4,112000,22.0,36,9500
+RB0038,Fairhaven Packaging,standard,standard,2025-05,4,68000,21.0,36,6500
+RB0039,Silverline Auto,high_throughput,standard,2025-05,4,68000,22.0,48,6500
+RB0040,Meridian Logistics,standard,standard,2025-05,4,68000,21.0,36,6500
+RB0041,Halcyon Manufacturing,seasonal,standard,2025-05,4,68000,20.0,48,6500
+RB0042,Meridian Logistics,standard,standard,2025-05,4,68000,21.0,24,6500
+RB0043,Halcyon Manufacturing,seasonal,extended_sensor,2025-05,4,84000,20.0,48,8000
+RB0044,Northwind Distribution,low_util_site,standard,2025-05,4,68000,19.0,48,6500
+RB0045,Cascade Foods,seasonal,extended_sensor,2025-05,4,84000,20.0,36,8000
+RB0046,Silverline Auto,low_util_site,standard,2025-05,4,68000,19.0,24,6500
+RB0047,Cascade Foods,low_util_site,extended_sensor,2025-05,4,84000,19.0,48,8000
+RB0048,Halcyon Manufacturing,high_throughput,heavy_payload,2025-05,4,112000,22.0,24,9500
+RB0049,Kestrel Materials,standard,extended_sensor,2025-05,4,84000,21.0,36,8000
+RB0050,Orchard Cold Chain,low_util_site,extended_sensor,2025-06,5,84000,19.0,36,8000
+RB0051,Kestrel Materials,high_throughput,standard,2025-06,5,68000,22.0,36,6500
+RB0052,Orchard Cold Chain,standard,standard,2025-06,5,68000,21.0,24,6500
+RB0053,Kestrel Materials,standard,extended_sensor,2025-06,5,84000,21.0,48,8000
+RB0054,Halcyon Manufacturing,high_throughput,extended_sensor,2025-06,5,84000,22.0,36,8000
+RB0055,Meridian Logistics,standard,extended_sensor,2025-06,5,84000,21.0,36,8000
+RB0056,Silverline Auto,high_throughput,standard,2025-06,5,68000,22.0,36,6500
+RB0057,Meridian Logistics,high_throughput,standard,2025-07,6,68000,22.0,48,6500
+RB0058,Northwind Distribution,high_throughput,extended_sensor,2025-07,6,84000,22.0,24,8000
+RB0059,Northwind Distribution,standard,standard,2025-07,6,68000,21.0,48,6500
+RB0060,Silverline Auto,low_util_site,standard,2025-07,6,68000,19.0,36,6500
+RB0061,Cascade Foods,standard,standard,2025-07,6,68000,21.0,36,6500
+RB0062,Kestrel Materials,standard,standard,2025-07,6,68000,21.0,24,6500
+RB0063,Silverline Auto,seasonal,standard,2025-07,6,68000,20.0,24,6500
+RB0064,Meridian Logistics,standard,extended_sensor,2025-07,6,84000,21.0,36,8000
+RB0065,Fairhaven Packaging,standard,heavy_payload,2025-07,6,112000,21.0,36,9500
+RB0066,Cascade Foods,standard,extended_sensor,2025-08,7,84000,21.0,24,8000
+RB0067,Fairhaven Packaging,low_util_site,standard,2025-08,7,68000,19.0,24,6500
+RB0068,Meridian Logistics,high_throughput,heavy_payload,2025-08,7,112000,22.0,36,9500
+RB0069,Fairhaven Packaging,high_throughput,standard,2025-08,7,68000,22.0,24,6500
+RB0070,Halcyon Manufacturing,standard,standard,2025-08,7,68000,21.0,36,6500
+RB0071,Cascade Foods,high_throughput,standard,2025-08,7,68000,22.0,24,6500
+RB0072,Kestrel Materials,low_util_site,standard,2025-08,7,68000,19.0,24,6500
+RB0073,Meridian Logistics,standard,standard,2025-08,7,68000,21.0,24,6500
+RB0074,Orchard Cold Chain,standard,standard,2025-08,7,68000,21.0,36,6500
+RB0075,Kestrel Materials,standard,standard,2025-08,7,68000,21.0,48,6500
+RB0076,Halcyon Manufacturing,standard,extended_sensor,2025-08,7,84000,21.0,36,8000
+RB0077,Orchard Cold Chain,standard,extended_sensor,2025-08,7,84000,21.0,36,8000
+RB0078,Cascade Foods,low_util_site,heavy_payload,2025-08,7,112000,19.0,36,9500
+RB0079,Meridian Logistics,standard,standard,2025-09,8,68000,21.0,36,6500
+RB0080,Kestrel Materials,low_util_site,extended_sensor,2025-09,8,84000,19.0,36,8000
+RB0081,Cascade Foods,standard,standard,2025-09,8,68000,21.0,36,6500
+RB0082,Fairhaven Packaging,standard,extended_sensor,2025-09,8,84000,21.0,36,8000
+RB0083,Orchard Cold Chain,standard,standard,2025-09,8,68000,21.0,48,6500
+RB0084,Halcyon Manufacturing,high_throughput,standard,2025-09,8,68000,22.0,48,6500
+RB0085,Northwind Distribution,standard,standard,2025-09,8,68000,21.0,36,6500
+RB0086,Silverline Auto,high_throughput,standard,2025-09,8,68000,22.0,24,6500
+RB0087,Halcyon Manufacturing,high_throughput,heavy_payload,2025-09,8,112000,22.0,36,9500
+RB0088,Meridian Logistics,seasonal,heavy_payload,2025-09,8,112000,20.0,36,9500
+RB0089,Kestrel Materials,seasonal,heavy_payload,2025-09,8,112000,20.0,48,9500
+RB0090,Halcyon Manufacturing,standard,extended_sensor,2025-10,9,84000,21.0,24,8000
+RB0091,Cascade Foods,standard,extended_sensor,2025-10,9,84000,21.0,36,8000
+RB0092,Kestrel Materials,standard,standard,2025-10,9,68000,21.0,36,6500
+RB0093,Silverline Auto,high_throughput,standard,2025-10,9,68000,22.0,36,6500
+RB0094,Orchard Cold Chain,high_throughput,extended_sensor,2025-10,9,84000,22.0,24,8000
+RB0095,Northwind Distribution,standard,extended_sensor,2025-10,9,84000,21.0,24,8000
+RB0096,Halcyon Manufacturing,high_throughput,standard,2025-10,9,68000,22.0,48,6500
+RB0097,Cascade Foods,high_throughput,standard,2025-10,9,68000,22.0,48,6500
+RB0098,Kestrel Materials,low_util_site,standard,2025-10,9,68000,19.0,36,6500
+RB0099,Orchard Cold Chain,seasonal,standard,2025-10,9,68000,20.0,24,6500
+RB0100,Northwind Distribution,high_throughput,heavy_payload,2025-11,10,112000,22.0,24,9500
+RB0101,Halcyon Manufacturing,high_throughput,heavy_payload,2025-11,10,112000,22.0,48,9500
+RB0102,Halcyon Manufacturing,seasonal,heavy_payload,2025-11,10,112000,20.0,36,9500
+RB0103,Meridian Logistics,low_util_site,standard,2025-11,10,68000,19.0,36,6500
+RB0104,Kestrel Materials,high_throughput,standard,2025-11,10,68000,22.0,48,6500
+RB0105,Meridian Logistics,standard,standard,2025-11,10,68000,21.0,36,6500
+RB0106,Silverline Auto,high_throughput,standard,2025-12,11,68000,22.0,48,6500
+RB0107,Halcyon Manufacturing,standard,standard,2025-12,11,68000,21.0,48,6500
+RB0108,Kestrel Materials,standard,standard,2025-12,11,68000,21.0,36,6500
+RB0109,Fairhaven Packaging,standard,standard,2025-12,11,68000,21.0,36,6500
+RB0110,Meridian Logistics,high_throughput,standard,2025-12,11,68000,22.0,36,6500
+RB0111,Cascade Foods,high_throughput,heavy_payload,2025-12,11,112000,22.0,24,9500
+RB0112,Halcyon Manufacturing,seasonal,standard,2025-12,11,68000,20.0,24,6500
+RB0113,Silverline Auto,high_throughput,extended_sensor,2025-12,11,84000,22.0,36,8000
+RB0114,Halcyon Manufacturing,seasonal,heavy_payload,2025-12,11,112000,20.0,48,9500
+RB0115,Northwind Distribution,seasonal,heavy_payload,2025-12,11,112000,20.0,24,9500
+RB0116,Silverline Auto,standard,extended_sensor,2025-12,11,84000,21.0,24,8000
+RB0117,Meridian Logistics,standard,standard,2025-12,11,68000,21.0,36,6500
+RB0118,Kestrel Materials,high_throughput,standard,2025-12,11,68000,22.0,36,6500
+RB0119,Orchard Cold Chain,standard,heavy_payload,2025-12,11,112000,21.0,48,9500
+RB0120,Orchard Cold Chain,low_util_site,standard,2026-01,12,68000,19.0,36,6500
+RB0121,Meridian Logistics,standard,standard,2026-01,12,68000,21.0,24,6500
+RB0122,Cascade Foods,low_util_site,heavy_payload,2026-01,12,112000,19.0,36,9500
+RB0123,Kestrel Materials,standard,standard,2026-01,12,68000,21.0,24,6500
+RB0124,Kestrel Materials,standard,standard,2026-01,12,68000,21.0,36,6500
+RB0125,Silverline Auto,high_throughput,extended_sensor,2026-01,12,84000,22.0,36,8000
+RB0126,Cascade Foods,standard,extended_sensor,2026-01,12,84000,21.0,48,8000
+RB0127,Fairhaven Packaging,standard,extended_sensor,2026-02,13,84000,21.0,36,8000
+RB0128,Northwind Distribution,high_throughput,extended_sensor,2026-02,13,84000,22.0,24,8000
+RB0129,Orchard Cold Chain,high_throughput,standard,2026-02,13,68000,22.0,48,6500
+RB0130,Northwind Distribution,high_throughput,standard,2026-02,13,68000,22.0,24,6500
+RB0131,Fairhaven Packaging,seasonal,standard,2026-02,13,68000,20.0,24,6500
+RB0132,Halcyon Manufacturing,high_throughput,extended_sensor,2026-02,13,84000,22.0,36,8000
+RB0133,Fairhaven Packaging,standard,extended_sensor,2026-02,13,84000,21.0,24,8000
+RB0134,Silverline Auto,high_throughput,standard,2026-02,13,68000,22.0,36,6500
+RB0135,Orchard Cold Chain,standard,extended_sensor,2026-02,13,84000,21.0,48,8000
+RB0136,Orchard Cold Chain,high_throughput,heavy_payload,2026-03,14,112000,22.0,36,9500
+RB0137,Silverline Auto,standard,extended_sensor,2026-03,14,84000,21.0,24,8000
+RB0138,Halcyon Manufacturing,standard,standard,2026-03,14,68000,21.0,48,6500
+RB0139,Silverline Auto,standard,standard,2026-03,14,68000,21.0,24,6500
+RB0140,Meridian Logistics,low_util_site,standard,2026-03,14,68000,19.0,48,6500
+RB0141,Northwind Distribution,high_throughput,heavy_payload,2026-03,14,112000,22.0,36,9500
+RB0142,Kestrel Materials,standard,standard,2026-03,14,68000,21.0,36,6500
+RB0143,Silverline Auto,low_util_site,heavy_payload,2026-03,14,112000,19.0,24,9500
+RB0144,Fairhaven Packaging,standard,standard,2026-03,14,68000,21.0,36,6500
+RB0145,Fairhaven Packaging,seasonal,standard,2026-03,14,68000,20.0,24,6500
+RB0146,Orchard Cold Chain,high_throughput,extended_sensor,2026-04,15,84000,22.0,36,8000
+RB0147,Silverline Auto,low_util_site,standard,2026-04,15,68000,19.0,36,6500
+RB0148,Orchard Cold Chain,high_throughput,standard,2026-04,15,68000,22.0,36,6500
+RB0149,Fairhaven Packaging,low_util_site,extended_sensor,2026-04,15,84000,19.0,36,8000
+RB0150,Northwind Distribution,standard,extended_sensor,2026-04,15,84000,21.0,36,8000
+RB0151,Halcyon Manufacturing,standard,extended_sensor,2026-04,15,84000,21.0,36,8000
+RB0152,Orchard Cold Chain,high_throughput,extended_sensor,2026-04,15,84000,22.0,24,8000
+RB0153,Halcyon Manufacturing,standard,standard,2026-04,15,68000,21.0,36,6500
+RB0154,Halcyon Manufacturing,standard,extended_sensor,2026-04,15,84000,21.0,24,8000
+RB0155,Halcyon Manufacturing,standard,heavy_payload,2026-04,15,112000,21.0,24,9500

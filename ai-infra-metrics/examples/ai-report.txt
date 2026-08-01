@@ -1,25 +1,31 @@
 ====================================================================================================
-AI INFRASTRUCTURE METRICS  |  trailing 30 days  |  27.0M calls, 69.5B tokens
+AI INFRASTRUCTURE METRICS  |  trailing 30 days  |  26.9M calls, 69.6B tokens
 ====================================================================================================
+  COST PER SUCCESSFUL TASK    $0.0112   <- the business denominator
+  task success rate                 96.1%
+  human intervention rate            1.2%
   cost per 1K tokens          $0.0042
   revenue per 1K tokens       $0.0450
-  cost per inference (call)   $0.0107
+  cost per inference (call)   $0.0108
   gross margin after AI cost  90.7%
   GPU utilization (weekday)   87%
-  GPU utilization (weekend)   62%
-  DAU / MAU                   16,674 / 54,978  (27% stickiness)
+  GPU utilization (weekend)   64%
+  DAU / MAU                   14,595 / 54,845  (27% stickiness)   [avg weekday DAU, trailing 30d]
   committed vs consumption    63% committed drawdown / 37% pay-as-you-go
 
-MODEL MIX & COST  (per call, pre vs post router deploy on day 45)
+ROUTER DEPLOY (day 45) -- an ENGINEERING-PRODUCT tradeoff, with finance visibility
 ----------------------------------------------------------------------------------------------------
-  cost per call    $0.0189 -> $0.0112   (-41%)
-  GM after AI      85.7% -> 90.3%
-  same revenue per token; routing simple requests to the small model.
+  cost per successful task  $0.0197 -> $0.0117   (-41%)
+  GUARDRAILS (must hold for the trade to be good):
+    task success   95.8% -> 96.1%   (held)
+    intervention   1.2% -> 1.2%   (held)
+  GM after AI      85.8% -> 90.3%
+  Routing is an engineering decision; finance's job is to make its
+  economics AND its quality guardrails visible on the same page.
 
 FINDINGS
 ----------------------------------------------------------------------------------------------------
-  F1 router deploy cut blended cost/call 41% at flat pricing
-  F2 weekend GPU utilization 62% vs weekday 87%; idle reserved weekend capacity ~$151,540/yr -- batch/training backfill candidate
-  F3 p95 latency 1,518ms on days above 80% utilization vs 999ms below -- the cost-latency tradeoff, quantified
+  F1 router deploy cut cost/successful task 41% with quality guardrails flat
+  F2 weekend GPU utilization 64% vs weekday 87%; idle reserved weekend capacity ~$145,061/yr -- batch/training backfill candidate
+  F3 p95 latency 1,476ms on days above 80% utilization vs 997ms below -- the cost-latency tradeoff, quantified
 
-Wrote ai-infra-metrics/examples/ai_dashboard.html

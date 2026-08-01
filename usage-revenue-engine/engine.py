@@ -76,7 +76,10 @@ INFERENCE_COST_DECAY = 0.97   # per month
 def make_contracts() -> list[dict]:
     """~42 contracts with monthly usage paths. Usage is where the story is."""
     out, n = [], 0
-    profiles = (["ramping"] * 5 + ["steady"] * 3 + ["over_committed"] * 2
+    # over_committed weighted so enough shelfware SURVIVES past the 6-month
+    # ramp-exclusion window to be visible -- a downgrade-risk list that only
+    # catches contracts too young to judge would be noise, not signal.
+    profiles = (["ramping"] * 5 + ["steady"] * 3 + ["over_committed"] * 3
                 + ["power_user"] * 2)
     for mi, month in enumerate(MONTHS[:-2]):
         for _ in range(random.choice([1, 2, 2, 3, 3, 4])):
@@ -86,8 +89,9 @@ def make_contracts() -> list[dict]:
             commit = round(t["commit"] * random.uniform(0.7, 1.6), -2)
             profile = random.choice(profiles)
             churn_at = None
-            if profile == "over_committed" and random.random() < 0.5:
-                churn_at = mi + random.randint(9, 14)   # shelfware cancels
+            if profile == "over_committed" and random.random() < 0.3:
+                churn_at = mi + random.randint(9, 14)   # some shelfware cancels;
+                # the rest limps along under-utilized -- the renewal risk list
             elif random.random() < 0.06:
                 churn_at = mi + random.randint(6, 15)
             out.append({
@@ -193,15 +197,23 @@ def arr_walk(contracts, detail):
     return walk
 
 
+RAMP_EXCLUSION_MO = 6   # a deployment still ramping is not a downgrade risk
+
+
 def utilization_flags(contracts, detail, low=0.65, high=1.30, run=3):
-    """Contracts persistently under or over commit -- the action list."""
+    """Contracts persistently under or over commit -- the action list.
+    Contracts younger than RAMP_EXCLUSION_MO are excluded: low utilization in
+    the first months after deployment is a ramp stage, not a renewal signal,
+    and flagging it teaches sales to ignore the list."""
     by_c = defaultdict(list)
     for d in detail:
         by_c[d["contract_id"]].append(d)
     flags = {"under": [], "over": []}
     for c in contracts:
-        rows = sorted(by_c[c["contract_id"]], key=lambda d: d["mi"])[-run:]
-        if len(rows) < run or c["churn_idx"] is not None:
+        all_rows = sorted(by_c[c["contract_id"]], key=lambda d: d["mi"])
+        rows = all_rows[-run:]
+        if (len(all_rows) < RAMP_EXCLUSION_MO or len(rows) < run
+                or c["churn_idx"] is not None):
             continue
         utils = [d["utilization"] for d in rows]
         annual_waste = (c["committed_tasks_mo"]
@@ -344,6 +356,11 @@ def write_html(contracts, detail, path: Path) -> None:
     flags = utilization_flags(contracts, detail)
     rm = rate_and_margin(detail)
     last = walk[-1]
+    last_mi = len(MONTHS) - 1
+    last_rows = [d for d in detail if d["mi"] == last_mi]
+    committed_rr = sum(d["platform"] + d["usage_base"] for d in last_rows) * 12
+    variable_rr = sum(d["usage_over"] for d in last_rows) * 12
+    impl_ltm = sum(d["impl"] for d in detail if d["mi"] > last_mi - 12)
 
     # stacked walk chart: monthly ending ARR line + stream mix table instead
     W, H, PL, PT, PB = 880, 290, 84, 22, 40
@@ -444,11 +461,20 @@ def write_html(contracts, detail, path: Path) -> None:
   <h1>Usage-Based Revenue Engine</h1>
   <div class="sub">Platform license + metered usage vs committed minimums +
     implementation · {len(contracts)} contracts · synthetic data</div>
+  <div class="note" style="margin-top:10px"><strong>The metered event, defined
+    (because an ambiguous meter is an unauditable invoice):</strong> one task
+    executed to completion and accepted by the customer's system. Retries,
+    failures, and internal test traffic do not bill. Every event carries
+    customer, robot, model version, and deployment ID, so any invoice line can
+    be traced to the events behind it and re-counted.</div>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">Run-rate ARR</div>
+    <div class="kpi"><div class="k">Run-rate revenue</div>
       <div class="v">${last['ending']/1e6:,.1f}M</div>
-      <div class="n2">license + usage annualized</div></div>
+      <div class="n2">${committed_rr/1e6:,.1f}M committed · ${variable_rr/1e6:,.1f}M variable</div></div>
+    <div class="kpi"><div class="k">Implementation (LTM)</div>
+      <div class="v">${impl_ltm/1e6:,.1f}M</div>
+      <div class="n2">one-time — excluded from run-rate</div></div>
     <div class="kpi"><div class="k">Usage expansion, LTM</div>
       <div class="v">${sum(r['usage_expansion'] for r in walk[-12:])/1e6:,.1f}M</div>
       <div class="n2">no signature required</div></div>
@@ -463,12 +489,12 @@ def write_html(contracts, detail, path: Path) -> None:
       <div class="n2">downgrade risks + upsell list</div></div>
   </div>
 
-  <h2>Run-rate ARR</h2>
+  <h2>Run-rate revenue</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid}
     <polyline points="{arr_line}" fill="none" stroke="var(--line)"
       stroke-width="2.5" stroke-linejoin="round"/>{ticks}</svg></div>
 
-  <h2>ARR walk — usage moves without a signature</h2>
+  <h2>Run-rate revenue walk — usage moves without a signature</h2>
   <div class="tbl"><table>
     <thead><tr><th>Month</th><th class="n">Beginning $M</th><th class="n">New</th>
       <th class="n">Usage expansion</th><th class="n">Usage contraction</th>
@@ -485,7 +511,8 @@ def write_html(contracts, detail, path: Path) -> None:
       <div class="note" style="margin-bottom:6px">&lt;65% utilized, 3+ months —
         paying for capacity they don't use: <strong>downgrade risk at
         renewal</strong> — showing top 6 of {len(flags['under'])} by dollars at
-        stake</div>
+        stake. Deployments under {RAMP_EXCLUSION_MO} months old are excluded:
+        early low utilization is ramp, not risk.</div>
       <div class="tbl"><table>
         <thead><tr><th>Contract</th><th>Tier</th><th class="n">Utilization</th>
           <th class="n">Commit unused /yr</th></tr></thead>

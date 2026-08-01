@@ -51,37 +51,46 @@
 <div class="wrap">
   <h1>Usage-Based Revenue Engine</h1>
   <div class="sub">Platform license + metered usage vs committed minimums +
-    implementation · 42 contracts · synthetic data</div>
+    implementation · 46 contracts · synthetic data</div>
+  <div class="note" style="margin-top:10px"><strong>The metered event, defined
+    (because an ambiguous meter is an unauditable invoice):</strong> one task
+    executed to completion and accepted by the customer's system. Retries,
+    failures, and internal test traffic do not bill. Every event carries
+    customer, robot, model version, and deployment ID, so any invoice line can
+    be traced to the events behind it and re-counted.</div>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">Run-rate ARR</div>
-      <div class="v">$7.0M</div>
-      <div class="n2">license + usage annualized</div></div>
+    <div class="kpi"><div class="k">Run-rate revenue</div>
+      <div class="v">$8.6M</div>
+      <div class="n2">$8.0M committed · $0.6M variable</div></div>
+    <div class="kpi"><div class="k">Implementation (LTM)</div>
+      <div class="v">$1.0M</div>
+      <div class="n2">one-time — excluded from run-rate</div></div>
     <div class="kpi"><div class="k">Usage expansion, LTM</div>
-      <div class="v">$0.9M</div>
+      <div class="v">$0.7M</div>
       <div class="n2">no signature required</div></div>
     <div class="kpi"><div class="k">Blended rate</div>
-      <div class="v">$0.127</div>
-      <div class="n2">per task, -13% vs Jul-25</div></div>
+      <div class="v">$0.133</div>
+      <div class="n2">per task, -14% vs Jul-25</div></div>
     <div class="kpi"><div class="k">Usage gross margin</div>
-      <div class="v">76%</div>
-      <div class="n2">from 70%</div></div>
+      <div class="v">77%</div>
+      <div class="n2">from 72%</div></div>
     <div class="kpi"><div class="k">Action list</div>
-      <div class="v">7 + 9</div>
+      <div class="v">11 + 3</div>
       <div class="n2">downgrade risks + upsell list</div></div>
   </div>
 
-  <h2>Run-rate ARR</h2>
-  <div class="chart"><svg viewBox="0 0 880 290"><line x1="84" y1="250.0" x2="856" y2="250.0" class="grid"/><text x="74" y="254.0" text-anchor="end" class="tick">$0.0M</text><line x1="84" y1="136.0" x2="856" y2="136.0" class="grid"/><text x="74" y="140.0" text-anchor="end" class="tick">$3.8M</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">$7.5M</text>
-    <polyline points="84.0,235.6 129.4,204.2 174.8,187.5 220.2,184.5 265.6,174.1 311.1,157.1 356.5,151.5 401.9,131.8 447.3,123.2 492.7,116.1 538.1,102.0 583.5,82.7 628.9,74.7 674.4,83.5 719.8,62.3 765.2,43.9 810.6,44.2 856.0,38.9" fill="none" stroke="var(--line)"
+  <h2>Run-rate revenue</h2>
+  <div class="chart"><svg viewBox="0 0 880 290"><line x1="84" y1="250.0" x2="856" y2="250.0" class="grid"/><text x="74" y="254.0" text-anchor="end" class="tick">$0.0M</text><line x1="84" y1="136.0" x2="856" y2="136.0" class="grid"/><text x="74" y="140.0" text-anchor="end" class="tick">$4.8M</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">$9.6M</text>
+    <polyline points="84.0,238.8 129.4,212.5 174.8,199.4 220.2,196.9 265.6,188.8 311.1,177.1 356.5,169.0 401.9,159.5 447.3,143.9 492.7,122.3 538.1,111.6 583.5,97.5 628.9,85.4 674.4,74.7 719.8,64.0 765.2,38.9 810.6,45.7 856.0,46.0" fill="none" stroke="var(--line)"
       stroke-width="2.5" stroke-linejoin="round"/><text x="84.0" y="274" text-anchor="middle" class="tick">2025-01</text><text x="220.2" y="274" text-anchor="middle" class="tick">2025-04</text><text x="356.5" y="274" text-anchor="middle" class="tick">2025-07</text><text x="492.7" y="274" text-anchor="middle" class="tick">2025-10</text><text x="628.9" y="274" text-anchor="middle" class="tick">2026-01</text><text x="765.2" y="274" text-anchor="middle" class="tick">2026-04</text></svg></div>
 
-  <h2>ARR walk — usage moves without a signature</h2>
+  <h2>Run-rate revenue walk — usage moves without a signature</h2>
   <div class="tbl"><table>
     <thead><tr><th>Month</th><th class="n">Beginning $M</th><th class="n">New</th>
       <th class="n">Usage expansion</th><th class="n">Usage contraction</th>
       <th class="n">Churn</th><th class="n">Ending $M</th></tr></thead>
-    <tbody><tr><td>2025-10</td><td class='n'>$4.19</td><td class='n pos'>+$333K</td><td class='n pos'>+$22K</td><td class='n neg'>−$0K</td><td class='n neg'>−$120K</td><td class='n b'>$4.42</td></tr><tr><td>2025-11</td><td class='n'>$4.42</td><td class='n pos'>+$435K</td><td class='n pos'>+$28K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$4.88</td></tr><tr><td>2025-12</td><td class='n'>$4.88</td><td class='n pos'>+$588K</td><td class='n pos'>+$51K</td><td class='n neg'>−$1K</td><td class='n neg'>−$0K</td><td class='n b'>$5.52</td></tr><tr><td>2026-01</td><td class='n'>$5.52</td><td class='n pos'>+$100K</td><td class='n pos'>+$161K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$5.78</td></tr><tr><td>2026-02</td><td class='n'>$5.78</td><td class='n pos'>+$54K</td><td class='n pos'>+$45K</td><td class='n neg'>−$7K</td><td class='n neg'>−$381K</td><td class='n b'>$5.49</td></tr><tr><td>2026-03</td><td class='n'>$5.49</td><td class='n pos'>+$735K</td><td class='n pos'>+$91K</td><td class='n neg'>−$12K</td><td class='n neg'>−$112K</td><td class='n b'>$6.19</td></tr><tr><td>2026-04</td><td class='n'>$6.19</td><td class='n pos'>+$464K</td><td class='n pos'>+$146K</td><td class='n neg'>−$2K</td><td class='n neg'>−$0K</td><td class='n b'>$6.80</td></tr><tr><td>2026-05</td><td class='n'>$6.80</td><td class='n pos'>+$0K</td><td class='n pos'>+$168K</td><td class='n neg'>−$16K</td><td class='n neg'>−$162K</td><td class='n b'>$6.79</td></tr><tr><td>2026-06</td><td class='n'>$6.79</td><td class='n pos'>+$0K</td><td class='n pos'>+$180K</td><td class='n neg'>−$4K</td><td class='n neg'>−$0K</td><td class='n b'>$6.97</td></tr></tbody></table></div>
+    <tbody><tr><td>2025-10</td><td class='n'>$4.48</td><td class='n pos'>+$1,030K</td><td class='n pos'>+$2K</td><td class='n neg'>−$0K</td><td class='n neg'>−$120K</td><td class='n b'>$5.39</td></tr><tr><td>2025-11</td><td class='n'>$5.39</td><td class='n pos'>+$445K</td><td class='n pos'>+$6K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$5.84</td></tr><tr><td>2025-12</td><td class='n'>$5.84</td><td class='n pos'>+$580K</td><td class='n pos'>+$16K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$6.44</td></tr><tr><td>2026-01</td><td class='n'>$6.44</td><td class='n pos'>+$429K</td><td class='n pos'>+$80K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$6.95</td></tr><tr><td>2026-02</td><td class='n'>$6.95</td><td class='n pos'>+$354K</td><td class='n pos'>+$98K</td><td class='n neg'>−$0K</td><td class='n neg'>−$0K</td><td class='n b'>$7.40</td></tr><tr><td>2026-03</td><td class='n'>$7.40</td><td class='n pos'>+$545K</td><td class='n pos'>+$39K</td><td class='n neg'>−$16K</td><td class='n neg'>−$118K</td><td class='n b'>$7.85</td></tr><tr><td>2026-04</td><td class='n'>$7.85</td><td class='n pos'>+$913K</td><td class='n pos'>+$149K</td><td class='n neg'>−$1K</td><td class='n neg'>−$0K</td><td class='n b'>$8.91</td></tr><tr><td>2026-05</td><td class='n'>$8.91</td><td class='n pos'>+$0K</td><td class='n pos'>+$110K</td><td class='n neg'>−$12K</td><td class='n neg'>−$385K</td><td class='n b'>$8.62</td></tr><tr><td>2026-06</td><td class='n'>$8.62</td><td class='n pos'>+$0K</td><td class='n pos'>+$145K</td><td class='n neg'>−$1K</td><td class='n neg'>−$155K</td><td class='n b'>$8.61</td></tr></tbody></table></div>
   <div class="note">The two middle columns are the lines a subscription-only
     walk doesn't have. In a usage business they are frequently the largest
     movements on the page — revenue that arrived, or left, with no contract
@@ -92,28 +101,29 @@
     <div>
       <div class="note" style="margin-bottom:6px">&lt;65% utilized, 3+ months —
         paying for capacity they don't use: <strong>downgrade risk at
-        renewal</strong> — showing top 6 of 7 by dollars at
-        stake</div>
+        renewal</strong> — showing top 6 of 11 by dollars at
+        stake. Deployments under 6 months old are excluded:
+        early low utilization is ramp, not risk.</div>
       <div class="tbl"><table>
         <thead><tr><th>Contract</th><th>Tier</th><th class="n">Utilization</th>
           <th class="n">Commit unused /yr</th></tr></thead>
-        <tbody><tr><td class='mono'>K040</td><td>enterprise</td><td class='n'>53%</td><td class='n'>$86,433</td></tr><tr><td class='mono'>K039</td><td>enterprise</td><td class='n'>55%</td><td class='n'>$85,697</td></tr><tr><td class='mono'>K042</td><td>enterprise</td><td class='n'>48%</td><td class='n'>$71,991</td></tr><tr><td class='mono'>K003</td><td>enterprise</td><td class='n'>43%</td><td class='n'>$66,741</td></tr><tr><td class='mono'>K041</td><td>growth</td><td class='n'>48%</td><td class='n'>$38,531</td></tr><tr><td class='mono'>K016</td><td>starter</td><td class='n'>46%</td><td class='n'>$14,089</td></tr></tbody>
+        <tbody><tr><td class='mono'>K006</td><td>enterprise</td><td class='n'>44%</td><td class='n'>$112,466</td></tr><tr><td class='mono'>K025</td><td>enterprise</td><td class='n'>51%</td><td class='n'>$110,049</td></tr><tr><td class='mono'>K012</td><td>enterprise</td><td class='n'>46%</td><td class='n'>$86,455</td></tr><tr><td class='mono'>K003</td><td>enterprise</td><td class='n'>43%</td><td class='n'>$66,741</td></tr><tr><td class='mono'>K033</td><td>enterprise</td><td class='n'>50%</td><td class='n'>$53,291</td></tr><tr><td class='mono'>K032</td><td>enterprise</td><td class='n'>51%</td><td class='n'>$50,174</td></tr></tbody>
       </table></div>
     </div>
     <div>
       <div class="note" style="margin-bottom:6px">&gt;130% utilized, 3+ months —
-        on overage rates: <strong>the upsell list</strong> — showing top 6 of 9 by overage run-rate</div>
+        on overage rates: <strong>the upsell list</strong> — showing top 6 of 3 by overage run-rate</div>
       <div class="tbl"><table>
         <thead><tr><th>Contract</th><th>Tier</th><th class="n">Utilization</th>
           <th class="n">Overage run-rate /yr</th></tr></thead>
-        <tbody><tr><td class='mono'>K012</td><td>enterprise</td><td class='n'>173%</td><td class='n'>$139,654</td></tr><tr><td class='mono'>K007</td><td>enterprise</td><td class='n'>173%</td><td class='n'>$110,080</td></tr><tr><td class='mono'>K004</td><td>enterprise</td><td class='n'>160%</td><td class='n'>$87,832</td></tr><tr><td class='mono'>K009</td><td>growth</td><td class='n'>174%</td><td class='n'>$65,483</td></tr><tr><td class='mono'>K020</td><td>enterprise</td><td class='n'>145%</td><td class='n'>$65,113</td></tr><tr><td class='mono'>K022</td><td>growth</td><td class='n'>150%</td><td class='n'>$53,345</td></tr></tbody>
+        <tbody><tr><td class='mono'>K007</td><td>enterprise</td><td class='n'>173%</td><td class='n'>$172,509</td></tr><tr><td class='mono'>K004</td><td>enterprise</td><td class='n'>160%</td><td class='n'>$87,832</td></tr><tr><td class='mono'>K005</td><td>starter</td><td class='n'>178%</td><td class='n'>$22,502</td></tr></tbody>
       </table></div>
     </div>
   </div>
 
   <h2>Realized rate vs inference cost — the AI margin story</h2>
   <div class="chart"><svg viewBox="0 0 880 290"><line x1="84" y1="250.0" x2="856" y2="250.0" class="grid"/><text x="74" y="254.0" text-anchor="end" class="tick">$0.000</text><line x1="84" y1="136.0" x2="856" y2="136.0" class="grid"/><text x="74" y="140.0" text-anchor="end" class="tick">$0.110</text><line x1="84" y1="22.0" x2="856" y2="22.0" class="grid"/><text x="74" y="26.0" text-anchor="end" class="tick">$0.219</text>
-    <polyline points="84.0,51.7 129.4,58.1 174.8,97.6 220.2,96.9 265.6,107.3 311.1,102.4 356.5,98.2 401.9,101.9 447.3,104.5 492.7,102.5 538.1,105.0 583.5,105.7 628.9,109.6 674.4,114.8 719.8,112.9 765.2,112.5 810.6,115.5 856.0,117.8" fill="none" stroke="var(--line)" stroke-width="2.5"/>
+    <polyline points="84.0,51.7 129.4,58.2 174.8,92.4 220.2,91.5 265.6,93.0 311.1,93.4 356.5,89.2 401.9,85.7 447.3,93.2 492.7,94.3 538.1,96.6 583.5,102.9 628.9,105.0 674.4,104.6 719.8,104.5 765.2,106.1 810.6,106.1 856.0,111.3" fill="none" stroke="var(--line)" stroke-width="2.5"/>
     <polyline points="84.0,196.0 129.4,197.6 174.8,199.2 220.2,200.7 265.6,202.2 311.1,203.6 356.5,205.0 401.9,206.3 447.3,207.7 492.7,208.9 538.1,210.2 583.5,211.4 628.9,212.5 674.4,213.6 719.8,214.7 765.2,215.8 810.6,216.8 856.0,217.8" fill="none" stroke="var(--neg)" stroke-width="2.5"/>
     <text x="84.0" y="274" text-anchor="middle" class="tick">2025-01</text><text x="220.2" y="274" text-anchor="middle" class="tick">2025-04</text><text x="356.5" y="274" text-anchor="middle" class="tick">2025-07</text><text x="492.7" y="274" text-anchor="middle" class="tick">2025-10</text><text x="628.9" y="274" text-anchor="middle" class="tick">2026-01</text><text x="765.2" y="274" text-anchor="middle" class="tick">2026-04</text>
     <text x="84" y="14" class="leg"><tspan fill="var(--line)">● blended

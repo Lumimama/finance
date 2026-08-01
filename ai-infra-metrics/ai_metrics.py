@@ -16,8 +16,11 @@ goes to hide.
 Three seeded findings (--validate proves each is surfaced):
 
     F1  a mid-window model-mix shift (routing simple requests to a small
-        model) cuts blended cost per call ~30% with no revenue change --
-        the single highest-leverage finance action in an AI company
+        model) cuts cost per SUCCESSFUL task ~40% while the quality
+        guardrails -- task success, human intervention -- hold flat. Routing
+        is an engineering-product decision; finance's job is to put its
+        economics and its guardrails on the same page. Cheaper at degraded
+        quality would fail validation here, by design.
     F2  weekend GPU utilization collapses while the reserved cluster bills
         24/7 -- idle reserved capacity, quantified in $/year
     F3  p95 latency degrades on exactly the days utilization runs hot --
@@ -74,8 +77,17 @@ def make_days():
         else:
             mix = {"frontier": 0.22, "mid": 0.36, "small": 0.42}
 
+        # Quality guardrails. The router deploy is only a good trade if these
+        # HOLD while cost falls -- cost per call can drop because quality
+        # dropped, and a finance page that celebrates the former without
+        # showing the latter is celebrating a possible regression.
+        success = (0.958 if i < MIX_SHIFT_DAY else 0.961) * random.uniform(0.997, 1.003)
+        intervention = 0.012 * random.uniform(0.85, 1.15)
         day = {"date": d.isoformat(), "weekend": weekend,
                "api_calls": round(calls),
+               "task_success_rate": round(min(success, 0.999), 4),
+               "intervention_rate": round(intervention, 4),
+               "successful_tasks": round(calls * min(success, 0.999)),
                "dau": round(dau_base * growth * (0.6 if weekend else 1.0)
                             * random.uniform(0.95, 1.05))}
         total_tokens = total_cost = 0.0
@@ -132,11 +144,16 @@ def analyze(rows):
         cost = sum(r["total_ai_cost"] for r in rs)
         rev = sum(r["revenue"] for r in rs)
         calls = sum(r["api_calls"] for r in rs)
+        good = sum(r["successful_tasks"] for r in rs)
         return {
             "tokens": tok, "revenue": rev, "cost": cost, "calls": calls,
+            "successful": good,
+            "success_rate": good / calls,
+            "intervention": sum(r["intervention_rate"] * r["api_calls"] for r in rs) / calls,
             "cost_per_1k_tok": cost / tok * 1000,
             "rev_per_1k_tok": rev / tok * 1000,
             "cost_per_call": cost / calls,
+            "cost_per_success": cost / good,
             "gm_after_ai": 1 - cost / rev,
         }
 
@@ -183,6 +200,9 @@ def print_report(rows) -> None:
     print(f"AI INFRASTRUCTURE METRICS  |  trailing 30 days  |  "
           f"{c['calls']/1e6:.1f}M calls, {c['tokens']/1e9:.1f}B tokens")
     print("=" * w)
+    print(f"  COST PER SUCCESSFUL TASK    ${c['cost_per_success']:.4f}   <- the business denominator")
+    print(f"  task success rate           {c['success_rate']:>11.1%}")
+    print(f"  human intervention rate     {c['intervention']:>11.1%}")
     print(f"  cost per 1K tokens          ${c['cost_per_1k_tok']:.4f}")
     print(f"  revenue per 1K tokens       ${c['rev_per_1k_tok']:.4f}")
     print(f"  cost per inference (call)   ${c['cost_per_call']:.4f}")
@@ -194,18 +214,23 @@ def print_report(rows) -> None:
     print(f"  committed vs consumption    {a['committed_share']:.0%} committed drawdown / "
           f"{1-a['committed_share']:.0%} pay-as-you-go")
 
-    print(f"\nMODEL MIX & COST  (per call, pre vs post router deploy on day {MIX_SHIFT_DAY})")
+    print(f"\nROUTER DEPLOY (day {MIX_SHIFT_DAY}) -- an ENGINEERING-PRODUCT tradeoff, with finance visibility")
     print("-" * w)
-    print(f"  cost per call    ${a['pre']['cost_per_call']:.4f} -> "
-          f"${a['post']['cost_per_call']:.4f}   "
-          f"({a['post']['cost_per_call']/a['pre']['cost_per_call']-1:+.0%})")
+    print(f"  cost per successful task  ${a['pre']['cost_per_success']:.4f} -> "
+          f"${a['post']['cost_per_success']:.4f}   "
+          f"({a['post']['cost_per_success']/a['pre']['cost_per_success']-1:+.0%})")
+    print(f"  GUARDRAILS (must hold for the trade to be good):")
+    print(f"    task success   {a['pre']['success_rate']:.1%} -> {a['post']['success_rate']:.1%}   (held)")
+    print(f"    intervention   {a['pre']['intervention']:.1%} -> {a['post']['intervention']:.1%}   (held)")
     print(f"  GM after AI      {a['pre']['gm_after_ai']:.1%} -> {a['post']['gm_after_ai']:.1%}")
-    print(f"  same revenue per token; routing simple requests to the small model.")
+    print(f"  Routing is an engineering decision; finance's job is to make its")
+    print(f"  economics AND its quality guardrails visible on the same page.")
 
     print(f"\nFINDINGS")
     print("-" * w)
-    print(f"  F1 router deploy cut blended cost/call "
-          f"{abs(a['post']['cost_per_call']/a['pre']['cost_per_call']-1):.0%} at flat pricing")
+    print(f"  F1 router deploy cut cost/successful task "
+          f"{abs(a['post']['cost_per_success']/a['pre']['cost_per_success']-1):.0%} "
+          f"with quality guardrails flat")
     print(f"  F2 weekend GPU utilization {a['util_weekend']:.0%} vs weekday "
           f"{a['util_weekday']:.0%}; idle reserved weekend capacity ~"
           f"${a['idle_weekend_annual']:,.0f}/yr -- batch/training backfill candidate")
@@ -232,11 +257,18 @@ def validate(rows) -> None:
     print(f"  [{'ok ' if worst2 < 0.01 else 'MISS'}] consumption + committed "
           f"drawdown = revenue, every day (max diff ${worst2:.4f})")
 
-    f1 = a["post"]["cost_per_call"] < a["pre"]["cost_per_call"] * 0.8
+    cheaper = a["post"]["cost_per_success"] < a["pre"]["cost_per_success"] * 0.8
+    quality_held = (abs(a["post"]["success_rate"] - a["pre"]["success_rate"]) <= 0.005
+                    and abs(a["post"]["intervention"] - a["pre"]["intervention"]) <= 0.004)
+    f1 = cheaper and quality_held
     ok &= f1
-    print(f"  [{'ok ' if f1 else 'MISS'}] F1 surfaced: cost/call fell "
-          f"{abs(a['post']['cost_per_call']/a['pre']['cost_per_call']-1):.0%} "
-          f"at the mix shift (must exceed 20%)")
+    print(f"  [{'ok ' if f1 else 'MISS'}] F1 surfaced WITH guardrails: cost per "
+          f"successful task fell "
+          f"{abs(a['post']['cost_per_success']/a['pre']['cost_per_success']-1):.0%} "
+          f"while task success ({a['pre']['success_rate']:.1%}->"
+          f"{a['post']['success_rate']:.1%}) and intervention "
+          f"({a['pre']['intervention']:.1%}->{a['post']['intervention']:.1%}) held "
+          f"— cheaper at degraded quality would NOT pass")
 
     f2 = a["util_weekend"] < a["util_weekday"] - 0.15
     ok &= f2
@@ -263,7 +295,7 @@ def write_html(rows, path: Path) -> None:
     def x(i): return PL + pw * i / (n - 1)
 
     # cost per call daily + shift marker
-    cpc = [r["total_ai_cost"] / r["api_calls"] for r in rows]
+    cpc = [r["total_ai_cost"] / r["successful_tasks"] for r in rows]
     hi_c = max(cpc) * 1.15
     def yc(v): return PT + ph * (1 - v / hi_c)
     cpc_line = " ".join(f"{x(i):.1f},{yc(v):.1f}" for i, v in enumerate(cpc))
@@ -373,7 +405,17 @@ def write_html(rows, path: Path) -> None:
     {c['tokens']/1e9:,.1f}B tokens · synthetic data</div>
 
   <div class="kpis">
-    <div class="kpi"><div class="k">Cost / 1K tokens</div><div class="v">${c['cost_per_1k_tok']:.4f}</div></div>
+    <div class="kpi"><div class="k">Cost / successful task</div>
+      <div class="v">${c['cost_per_success']:.4f}</div>
+      <div class="n2">the business denominator</div></div>
+    <div class="kpi"><div class="k">Task success</div>
+      <div class="v">{c['success_rate']:.1%}</div>
+      <div class="n2">guardrail — must hold</div></div>
+    <div class="kpi"><div class="k">Human intervention</div>
+      <div class="v">{c['intervention']:.1%}</div>
+      <div class="n2">guardrail — must hold</div></div>
+    <div class="kpi"><div class="k">Cost / 1K tokens</div><div class="v">${c['cost_per_1k_tok']:.4f}</div>
+      <div class="n2">driver, not outcome</div></div>
     <div class="kpi"><div class="k">Revenue / 1K tokens</div><div class="v">${c['rev_per_1k_tok']:.4f}</div></div>
     <div class="kpi"><div class="k">Cost / inference</div><div class="v">${c['cost_per_call']:.4f}</div></div>
     <div class="kpi"><div class="k">GM after AI cost</div>
@@ -388,20 +430,23 @@ def write_html(rows, path: Path) -> None:
       <div class="n2">of usage revenue</div></div>
   </div>
 
-  <h2>F1 — Cost per inference, daily (router deploy on day {MIX_SHIFT_DAY})</h2>
+  <h2>F1 — Cost per successful task, daily (router deploy on day {MIX_SHIFT_DAY})</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{grid_c}{shift}
     <polyline points="{cpc_line}" fill="none" stroke="var(--line)" stroke-width="2"/>
     {ticks}</svg></div>
-  <div class="note">Routing simple requests to the small model cut blended cost
-    per call {abs(a['post']['cost_per_call']/a['pre']['cost_per_call']-1):.0%} at
-    identical customer pricing — GM after AI cost moved
-    {a['pre']['gm_after_ai']:.1%} → {a['post']['gm_after_ai']:.1%} <em>measured
-    across the pre- and post-deploy windows</em>. That post-deploy figure differs
-    from the {c['gm_after_ai']:.1%} headline above because the headline covers
-    only the trailing 30 days — a shorter, later window, not a different
-    calculation. Model routing
-    is the highest-leverage finance action in an AI company, and this chart is
-    how finance participates in it.</div>
+  <div class="note"><strong>Routing is an engineering-product decision;
+    finance's job is to put its economics and its quality guardrails on the
+    same page.</strong> The router cut cost per successful task
+    {abs(a['post']['cost_per_success']/a['pre']['cost_per_success']-1):.0%} at
+    identical customer pricing — and the trade is only good because the
+    guardrails held: task success {a['pre']['success_rate']:.1%} →
+    {a['post']['success_rate']:.1%}, human intervention
+    {a['pre']['intervention']:.1%} → {a['post']['intervention']:.1%}. A cost
+    drop with degraded quality is a regression wearing a savings costume, and
+    this page's validation fails it by design. GM after AI cost moved
+    {a['pre']['gm_after_ai']:.1%} → {a['post']['gm_after_ai']:.1%} across the
+    pre/post windows (the {c['gm_after_ai']:.1%} headline covers only the
+    trailing 30 days — a shorter, later window, not a different calculation).</div>
 
   <h2>F2 — GPU utilization, daily (weekends shaded)</h2>
   <div class="chart"><svg viewBox="0 0 {W} {H}">{weekend_bands}{grid_u}

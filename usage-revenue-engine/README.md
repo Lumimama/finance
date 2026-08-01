@@ -49,7 +49,7 @@ Blended realized rate per task **compresses** as mix shifts to larger tiers with
 [ok ] blended realized rate compresses
 ```
 
-ARR here is run-rate (license + annualized usage billing); implementation is one-time and excluded by definition. Stated because "what counts as ARR" is precisely the number that gets negotiated in a usage business.
+The headline is **run-rate revenue, not "ARR"** — split into committed (platform + usage base), variable (overage), and one-time implementation, because annualized variable usage presented as ARR is precisely the number that gets challenged in diligence. The metered event is defined on the page (a completed, customer-accepted task; retries and failures don't bill; every event carries customer/robot/model-version/deployment IDs) — an ambiguous meter is an unauditable invoice. And deployments under 6 months old are excluded from the downgrade-risk list: early low utilization is ramp, not risk.
 
 ## Notes
 

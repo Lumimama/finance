@@ -119,6 +119,12 @@ def make_fleet():
             arch = pick_archetype()
             _, steady_util, price, svc_mult = ARCHETYPES[arch]
             config, capex = pick_config()
+            # The two facts that turn a failing unit into a decision: how long
+            # the customer contract still runs (can we act now, or at term?)
+            # and what moving the robot costs (decommission, ship, reinstall).
+            term = random.choice([24, 24, 36, 36, 36, 48])
+            redeploy = {"standard": 6_500, "extended_sensor": 8_000,
+                        "heavy_payload": 9_500}[config]
             r = {
                 "robot_id": f"RB{rid:04d}",
                 "customer": random.choice(CUSTOMERS),
@@ -128,6 +134,8 @@ def make_fleet():
                 "deployed_idx": mi,
                 "hardware_capex": capex,
                 "price_per_hour": price,
+                "contract_term_mo": term,
+                "redeploy_cost": redeploy,
             }
             robots.append(r)
 
@@ -221,6 +229,7 @@ def per_robot(robots, panel):
             # The number an operator can act on for a failing unit: what share
             # of its hardware cost will this robot recover before the fleet
             # refreshes? (contribution to date + run-rate over remaining life)
+            "remaining_term_mo": max(0, r["contract_term_mo"] - months_live),
             "eol_recovery": (contrib_total
                              + run_rate * max(0, DEPRECIATION_LIFE_MO - months_live)
                              ) / r["hardware_capex"],
@@ -541,7 +550,8 @@ def write_html(robots, panel, path: Path) -> None:
         f"<td class='n {'neg' if r['run_rate_contribution_mo'] <= 0 else ''}'>"
         f"${r['run_rate_contribution_mo']:,.0f}</td>"
         f"<td class='n neg'>{max(0, r['eol_recovery']):.0%}</td>"
-        f"<td>{r['config'].replace('_',' ')}</td>"
+        f"<td class='n'>{r['remaining_term_mo']} mo</td>"
+        f"<td class='n'>${r['redeploy_cost']:,.0f}</td>"
         f"<td class='n'>${r['hardware_capex']:,.0f}</td></tr>"
         for r in sorted(fails, key=lambda r: r["eol_recovery"])[:10])
 
@@ -686,12 +696,18 @@ def write_html(robots, panel, path: Path) -> None:
     {DEPRECIATION_LIFE_MO}-month life is meaningless — the unit is simply a
     "no". Failing units are ranked instead by <strong>the share of their
     hardware cost they will recover before end-of-life</strong>: a unit at 12%
-    recovery writes off ~88% of its capex, and that number — unlike "683
-    months" — tells you the size of the decision.</div>
+    recovery writes off ~88% of its capex — that number sizes the decision, and
+    the two right-hand columns time and price it. A money-loser with 3 months
+    of contract left waits for term-end recovery; one with 20 months left is a
+    renegotiation conversation now. And redeployment only makes sense where the
+    move cost is small against the capex being rescued — $8K to rescue an
+    $84K asset at a busier site is an easy yes; moving a unit that would idle
+    anywhere is not.</div>
   <div class="tbl"><table>
     <thead><tr><th>Robot</th><th>Customer</th><th>Archetype</th>
       <th class="n">Steady util</th><th class="n">Contribution / mo</th>
-      <th class="n">Capex recovered by end of life</th><th>Config</th>
+      <th class="n">Capex recovered by end of life</th>
+      <th class="n">Remaining contract</th><th class="n">Redeploy cost</th>
       <th class="n">Capex at risk</th></tr></thead>
     <tbody>{worst_rows}</tbody></table></div>
 

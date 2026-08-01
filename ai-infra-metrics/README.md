@@ -10,7 +10,7 @@ python ai_metrics.py --html examples/ai_dashboard.html
 
 Three seeded findings, each proven surfaced by `--validate`:
 
-- **F1 — model routing is the highest-leverage finance action in an AI company.** A mid-window router deploy sends simple requests to a small model: blended cost per call falls **41%** at identical customer pricing, and GM after AI cost jumps. The chart shows finance *participating* in an engineering decision, which is the job.
+- **F1 — routing, with its guardrails on the same page.** A mid-window router deploy sends simple requests to a small model: **cost per successful task falls 41%** at identical pricing — and the trade is only good because the quality guardrails held (task success 95.8%→96.1%, human intervention flat). Validation *fails* a cost drop with degraded quality, by design. Routing is an engineering-product decision; finance's job is to make its economics and its guardrails visible together. The lead metric is cost per **successful task** — the business-output denominator — with tokens and GPU-hours underneath as drivers.
 - **F2 — the reserved cluster bills 24/7; weekend demand halves.** Idle weekend capacity quantified in $/yr — a batch/training-backfill candidate, not a cost cut.
 - **F3 — the cost-latency frontier, made visible.** Above ~80% utilization, p95 latency roughly doubles. Running hotter is cheaper per token and slower per user; the tradeoff should be priced, not discovered.
 

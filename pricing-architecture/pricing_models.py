@@ -396,25 +396,10 @@ def write_html(accounts, panel, ev, oem, path: Path) -> None:
         f'<text x="{x(i):.1f}" y="{H-14}" text-anchor="middle" class="tick">{MONTHS[i][2:]}</text>'
         for i in range(0, n, 3))
 
-    # four-axis scorecard: normalize each dimension 0..1 where 1 = best
-    best_rev = max(ev[m]["revenue"] for m in MODELS)
-    best_gm = max(ev[m]["gross_margin"] for m in MODELS)
-    best_vol = min(ev[m]["mom_volatility"] for m in MODELS)
-    best_conc = min(ev[m]["top3_concentration"] for m in MODELS)
-    score_rows = ""
-    for m in MODELS:
-        e = ev[m]
-        dims = [
-            ("revenue", e["revenue"] / best_rev),
-            ("margin", e["gross_margin"] / best_gm),
-            ("forecastability", best_vol / e["mom_volatility"]),
-            ("low concentration", best_conc / e["top3_concentration"]),
-        ]
-        bars = "".join(
-            f"<td class='n'><div class='minibar' style='width:{v*100:.0f}%;"
-            f"background:{colors[m]}'></div><span class='pct'>{v*100:.0f}</span></td>"
-            for _, v in dims)
-        score_rows += f"<tr><td class='b'>{m}</td>{bars}</tr>"
+    # (A 0-100 'scored on every axis' table used to live here. Removed:
+    # a score derived from price points the author chose predetermines its
+    # own winner -- false precision. The dimensions table above plus stated
+    # assumptions are the honest artifact.)
 
     tbl_rows = "".join(
         f"<tr><td class='b'>{m}</td>"
@@ -514,11 +499,6 @@ def write_html(accounts, panel, ev, oem, path: Path) -> None:
     <strong>distribution</strong> decision, not the pricing one — which is
     exactly why the two questions have to be answered separately.</div>
 
-  <h2>Scored on every axis (100 = best in class)</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>Model</th><th class="n">Revenue</th><th class="n">Margin</th>
-      <th class="n">Forecastability</th><th class="n">Low concentration</th></tr></thead>
-    <tbody>{score_rows}</tbody></table></div>
   <div class="note"><strong>Metering</strong> aligns price with delivered value
     and is the least forecastable — {ev['metered']['mom_volatility']:.1%}
     month-over-month volatility against
