@@ -26,7 +26,9 @@ SUMMARY
   Net change                       -$3,561,743
   Low point                        $11,288,257   week 13 (ending 2026-07-05)
   Average weekly burn                 $273,980
-  Runway at current burn               41.2 wks   (9.5 months)
+  Runway FROM WEEK 13                  41.2 wks   (9.5 months)
+    = week-13 cash $11,288,257 / avg weekly burn $273,980
+  Runway from TODAY                    54.2 wks   (opening cash at the same burn)
   AR collecting after week 13         $680,313   (not in this forecast)
 
 COVENANT / BOARD FLOOR: $6,000,000
