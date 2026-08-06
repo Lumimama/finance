@@ -1,0 +1,107 @@
+<!doctype html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASC 606 allocation — steps 3-4</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .v { font-size:21px; font-weight:700; letter-spacing:-.01em; }
+  .kpi .l { font-size:11.5px; color:var(--mut); margin-top:2px; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+           padding:16px 18px; margin-top:10px; overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:560px; }
+  th, td { text-align:right; padding:6px 10px; border-bottom:1px solid var(--bd); }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--mut); font-weight:600; font-size:11.5px;
+        text-transform:uppercase; letter-spacing:.04em; }
+  .mut { color:var(--mut); } .ok { color:var(--pos); } .bad { color:var(--neg); }
+  .note { font-size:12.5px; color:var(--mut); margin-top:8px; max-width:88ch; }
+  ul.checks { list-style:none; padding:0; margin:0; font-size:13px; }
+  ul.checks li { padding:5px 0; border-bottom:1px solid var(--bd); }
+</style>
+<div class="wrap">
+  <h1>Revenue Allocation — ASC 606 Steps 3–4</h1>
+  <p class="sub">40 multi-element contracts — platform, support,
+    implementation, usage credits, and a partner add-on — allocated by
+    relative standalone selling price and recognized per obligation.
+    Companion to the
+    <a href="../../revenue-recognition/examples/revrec_dashboard.html"
+       style="color:var(--line)">Revenue Recognition</a> project, which owns
+    the deferred and RPO roll-forwards. Synthetic, seeded data.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">$18.4M</div>
+      <div class="l">Transaction price across 40 contracts —
+        blended bundle discount 15%</div></div>
+    <div class="kpi"><div class="v">$493K</div>
+      <div class="l">Reassigned to "free" implementation by relative SSP —
+        14 bundles invoice it at $0</div></div>
+    <div class="kpi"><div class="v">$0.13M</div>
+      <div class="l">Partner add-on revenue, presented NET (agent)</div></div>
+    <div class="kpi"><div class="v">$0.85M</div>
+      <div class="l">What gross presentation would have claimed — same
+        profit, 567% more "revenue"</div></div>
+    <div class="kpi"><div class="v">40/40</div>
+      <div class="l">Contracts where allocations sum to transaction price
+        to the cent</div></div>
+  </div>
+
+  <h2>One contract, two views — C-1004, 24-month bundle</h2>
+  <div class="card"><table>
+    <tr><th>Obligation</th><th>SSP</th><th>Invoice line</th>
+        <th>Allocated (606)</th><th>Alloc / SSP</th></tr>
+    <tr><td>platform</td><td>$600.0K</td><td>$590.9K</td><td><b>$550.4K</b></td><td>91.7%</td></tr><tr><td>support</td><td>$120.0K</td><td>$118.2K</td><td><b>$110.1K</b></td><td>91.7%</td></tr><tr><td>implementation</td><td>$75.0K</td><td>$0.0K</td><td><b>$68.8K</b></td><td>91.7%</td></tr><tr><td>usage credits</td><td>$300.0K</td><td>$295.4K</td><td><b>$275.2K</b></td><td>91.7%</td></tr><tr><td><b>Total</b></td><td><b>$1,095.0K</b></td><td><b>$1,004.5K</b></td><td><b>$1,004.5K</b></td><td>91.7%</td></tr>
+  </table>
+  <p class="note">Sales invoiced implementation at <b>$0</b> — a concession
+    that looks free on paper. Relative-SSP allocation reassigns transaction
+    price to it anyway, at exactly the contract's overall discount ratio.
+    You can discount an invoice line; you cannot discount the accounting.
+    The pro-rata column is a validation check, not a hope: any obligation
+    whose ratio deviates from the contract's fails the build — a discount
+    parked on one line is the classic manual-workaround error.</p></div>
+
+  <h2>Principal vs agent — scored, not vibed</h2>
+  <div class="card"><table style="min-width:520px">
+    <tr><th>ASC 606-10-55 indicator</th><th>This arrangement</th><th>Points to</th></tr>
+    <tr><td>Primary responsibility for fulfillment</td>
+        <td>Partner delivers and supports the add-on</td><td>Agent</td></tr>
+    <tr><td>Inventory risk before transfer</td>
+        <td>None — we never hold or commit to capacity</td><td>Agent</td></tr>
+    <tr><td>Pricing discretion</td>
+        <td>Partner sets list; we pass through at partner's price</td><td>Agent</td></tr>
+  </table>
+  <p class="note">Conclusion: <b>agent — net presentation.</b> The
+    arithmetic proof is check 5: profit is identical to the cent under
+    either presentation ($0.13M), which is precisely why the
+    control-of-the-good indicators — not the invoice total — make the call.
+    Gross would have added $0.72M of pass-through to the
+    revenue line. For a marketplace or reseller business this single
+    judgment swings reported revenue by multiples.</p></div>
+
+  <h2>Validation — re-run before every publish</h2>
+  <div class="card"><ul class="checks"><li><b class='ok'>PASS</b> allocated obligations sum to transaction price, all 40 contracts <span class='mut'>— max gap $0.000000</span></li><li><b class='ok'>PASS</b> bundle discount allocates pro-rata (no obligation eats it alone) <span class='mut'>— max within-contract ratio spread 0.000001</span></li><li><b class='ok'>PASS</b> "free implementation": invoiced at $0, allocated revenue anyway <span class='mut'>— 14 contracts, $493K reassigned to implementation by relative SSP</span></li><li><b class='ok'>PASS</b> lifetime recognized revenue = transaction price, every contract <span class='mut'>— max gap $0.000000</span></li><li><b class='ok'>PASS</b> agent call: profit identical gross vs net; only revenue differs <span class='mut'>— gross would report $0.85M, net reports $0.13M — same $0.13M profit</span></li><li><b class='ok'>PASS</b> blended bundle discount within the stated band <span class='mut'>— 15.0%</span></li></ul></div>
+
+  <p class="note" style="margin-top:26px">SSP bases: platform and support are
+    observable (standalone renewals and attach); implementation is
+    cost-plus-margin; usage credits use an adjusted market assessment —
+    the hierarchy stated, as a policy memo would. Synthetic, seeded
+    (<code>random.seed(606)</code>). Source:
+    <a href="https://github.com/Lumimama/finance/tree/main/revenue-allocation"
+       style="color:var(--line)">github.com/Lumimama/finance/revenue-allocation</a>.</p>
+</div>

@@ -9,6 +9,7 @@ Finance tooling I built for work that's already part of the job — payments rec
 | [consolidation-fx](consolidation-fx) | ASC 830 consolidation: translation vs remeasurement, CTA proven two ways monthly, IC matrix catches a seeded transposition |
 | [lease-accounting](lease-accounting) | ASC 842: 26-lease register, schedules amortize to exactly zero, disclosure ties to the cent, embedded lease found in a GPU 'services' contract |
 | [stock-compensation](stock-compensation) | ASC 718: expense engine vs closed-form recomputation at 96 month-ends, SL vs graded, RIF true-up at actuals, repricing at incremental FV |
+| [revenue-allocation](revenue-allocation) | ASC 606 steps 3-4: relative-SSP allocation on 40 bundles ('free implementation' gets revenue anyway), principal-vs-agent scored and proven |
 | [payments-reconciliation](payments-reconciliation) | 50K transactions vs bank settlement; every break classified, aged, routed; validated against seeded ground truth |
 | [payments-unit-economics](payments-unit-economics) | Contribution per transaction by rail/region/segment across 120K transactions; waterfall + mix-shift sensitivity |
 | [controls-monitoring](controls-monitoring) | Seven audit detectors over a year of AP + T&E; 100% recall vs seeded issues, precision reported honestly |

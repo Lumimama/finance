@@ -1,0 +1,13 @@
+REVENUE ALLOCATION — ASC 606 STEPS 3-4
+  Contracts                   40, total transaction price $18.4M
+  Free implementation         14 bundles invoice it at $0; allocation reassigns $493K to it anyway
+  Principal vs agent          partner add-on presented NET: $0.13M (gross would claim $0.85M, same profit)
+
+  [PASS] allocated obligations sum to transaction price, all 40 contracts — max gap $0.000000
+  [PASS] bundle discount allocates pro-rata (no obligation eats it alone) — max within-contract ratio spread 0.000001
+  [PASS] "free implementation": invoiced at $0, allocated revenue anyway — 14 contracts, $493K reassigned to implementation by relative SSP
+  [PASS] lifetime recognized revenue = transaction price, every contract — max gap $0.000000
+  [PASS] agent call: profit identical gross vs net; only revenue differs — gross would report $0.85M, net reports $0.13M — same $0.13M profit
+  [PASS] blended bundle discount within the stated band — 15.0%
+
+  ALL CHECKS PASS
