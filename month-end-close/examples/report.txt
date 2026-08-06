@@ -1,0 +1,15 @@
+MONTH-END CLOSE — JUL-DEC 2025
+  Days to close               8.9 (Jul) -> 6.9 (Dec)
+  How                         bank reconciliation automated in Oct; the critical path moved, then shrank
+  December critical path      rev_data -> rev_rec -> rev_cutoff -> flux -> reporting
+  Flux control                Nov: Prepaid expenses +31% breached materiality with NO commentary -> close not certified until resolved
+
+  [PASS] no task starts before its dependencies finish (6 closes) — max violation 0.000000 days
+  [PASS] sign-off ordering holds for all 78 task-instances — prepare -> review -> approve, no exceptions
+  [PASS] critical-path length equals days-to-close, every month — max gap 0.00000000 days
+  [PASS] flux control: the one seeded commentary gap is caught, only it — flagged [('Prepaid expenses', '2025-11')]
+  [PASS] materiality threshold max($50K, 5%) applied exactly — recomputed line by line, month by month
+  [PASS] December close at least 2 days faster than July — 8.9 -> 6.9 days
+  [PASS] automation moved the critical path off bank reconciliation — July path ends reporting; December path ends reporting
+
+  ALL CHECKS PASS

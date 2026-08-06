@@ -1,0 +1,79 @@
+month,task,workstream,owner,start_day,duration,finish_day
+2025-07,subledger,cash,AP accountant,0.00,1.19,1.19
+2025-07,bank_rec,cash,Staff accountant,1.19,3.37,4.57
+2025-07,payroll,accrual,Payroll lead,0.00,1.00,1.00
+2025-07,accruals,accrual,Senior accountant,1.19,1.60,2.79
+2025-07,rev_data,revenue,RevOps,0.00,1.03,1.03
+2025-07,rev_rec,revenue,Revenue accountant,1.03,1.32,2.35
+2025-07,rev_cutoff,revenue,Controller,4.57,2.12,6.69
+2025-07,sbc,accrual,Senior accountant,0.00,0.76,0.76
+2025-07,fx,consol,Senior accountant,1.19,0.74,1.93
+2025-07,ic,consol,Senior accountant,1.93,1.19,3.12
+2025-07,consol,consol,Controller,3.12,1.11,4.24
+2025-07,flux,report,Controller,6.69,1.30,7.99
+2025-07,reporting,report,Head of Finance,7.99,0.94,8.93
+2025-08,subledger,cash,AP accountant,0.00,1.13,1.13
+2025-08,bank_rec,cash,Staff accountant,1.13,3.72,4.85
+2025-08,payroll,accrual,Payroll lead,0.00,0.95,0.95
+2025-08,accruals,accrual,Senior accountant,1.13,1.52,2.64
+2025-08,rev_data,revenue,RevOps,0.00,1.01,1.01
+2025-08,rev_rec,revenue,Revenue accountant,1.01,1.38,2.39
+2025-08,rev_cutoff,revenue,Controller,4.85,2.47,7.32
+2025-08,sbc,accrual,Senior accountant,0.00,0.79,0.79
+2025-08,fx,consol,Senior accountant,1.13,0.78,1.90
+2025-08,ic,consol,Senior accountant,1.90,1.23,3.13
+2025-08,consol,consol,Controller,3.13,1.13,4.26
+2025-08,flux,report,Controller,7.32,1.24,8.56
+2025-08,reporting,report,Head of Finance,8.56,0.94,9.49
+2025-09,subledger,cash,AP accountant,0.00,1.13,1.13
+2025-09,bank_rec,cash,Staff accountant,1.13,3.88,5.01
+2025-09,payroll,accrual,Payroll lead,0.00,0.94,0.94
+2025-09,accruals,accrual,Senior accountant,1.13,1.55,2.67
+2025-09,rev_data,revenue,RevOps,0.00,0.93,0.93
+2025-09,rev_rec,revenue,Revenue accountant,0.93,1.57,2.50
+2025-09,rev_cutoff,revenue,Controller,5.01,2.05,7.06
+2025-09,sbc,accrual,Senior accountant,0.00,0.89,0.89
+2025-09,fx,consol,Senior accountant,1.13,0.69,1.82
+2025-09,ic,consol,Senior accountant,1.82,1.26,3.08
+2025-09,consol,consol,Controller,3.08,0.96,4.04
+2025-09,flux,report,Controller,7.06,1.11,8.17
+2025-09,reporting,report,Head of Finance,8.17,1.01,9.18
+2025-10,subledger,cash,AP accountant,0.00,1.13,1.13
+2025-10,bank_rec,cash,Staff accountant,1.13,0.86,1.99
+2025-10,payroll,accrual,Payroll lead,0.00,1.08,1.08
+2025-10,accruals,accrual,Senior accountant,1.13,1.51,2.64
+2025-10,rev_data,revenue,RevOps,0.00,1.09,1.09
+2025-10,rev_rec,revenue,Revenue accountant,1.09,1.51,2.60
+2025-10,rev_cutoff,revenue,Controller,2.60,2.40,5.00
+2025-10,sbc,accrual,Senior accountant,0.00,0.87,0.87
+2025-10,fx,consol,Senior accountant,1.13,0.75,1.88
+2025-10,ic,consol,Senior accountant,1.88,1.08,2.96
+2025-10,consol,consol,Controller,2.96,1.05,4.01
+2025-10,flux,report,Controller,5.00,1.11,6.11
+2025-10,reporting,report,Head of Finance,6.11,0.84,6.95
+2025-11,subledger,cash,AP accountant,0.00,1.36,1.36
+2025-11,bank_rec,cash,Staff accountant,1.36,0.78,2.14
+2025-11,payroll,accrual,Payroll lead,0.00,0.91,0.91
+2025-11,accruals,accrual,Senior accountant,1.36,1.64,3.00
+2025-11,rev_data,revenue,RevOps,0.00,1.00,1.00
+2025-11,rev_rec,revenue,Revenue accountant,1.00,1.40,2.39
+2025-11,rev_cutoff,revenue,Controller,2.39,2.31,4.70
+2025-11,sbc,accrual,Senior accountant,0.00,0.74,0.74
+2025-11,fx,consol,Senior accountant,1.36,0.70,2.06
+2025-11,ic,consol,Senior accountant,2.06,1.21,3.27
+2025-11,consol,consol,Controller,3.27,1.02,4.29
+2025-11,flux,report,Controller,4.70,1.18,5.88
+2025-11,reporting,report,Head of Finance,5.88,0.81,6.69
+2025-12,subledger,cash,AP accountant,0.00,1.36,1.36
+2025-12,bank_rec,cash,Staff accountant,1.36,0.74,2.10
+2025-12,payroll,accrual,Payroll lead,0.00,1.01,1.01
+2025-12,accruals,accrual,Senior accountant,1.36,1.45,2.81
+2025-12,rev_data,revenue,RevOps,0.00,0.93,0.93
+2025-12,rev_rec,revenue,Revenue accountant,0.93,1.32,2.26
+2025-12,rev_cutoff,revenue,Controller,2.26,2.49,4.75
+2025-12,sbc,accrual,Senior accountant,0.00,0.83,0.83
+2025-12,fx,consol,Senior accountant,1.36,0.76,2.12
+2025-12,ic,consol,Senior accountant,2.12,1.25,3.37
+2025-12,consol,consol,Controller,3.37,1.03,4.40
+2025-12,flux,report,Controller,4.75,1.29,6.04
+2025-12,reporting,report,Head of Finance,6.04,0.85,6.89
