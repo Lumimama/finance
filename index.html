@@ -59,7 +59,7 @@
     <a href="#board">Executive &amp; board</a> ·
     <a href="#operating">Founder operating tools</a> ·
     <a href="#models">Business-model-specific</a> ·
-    <a href="#controls">Infrastructure &amp; controls</a></p>
+    <a href="#controls">Accounting, controls &amp; close</a></p>
 
   <div class="shead">
     <h2 id="board">Executive &amp; board</h2>
@@ -350,11 +350,33 @@
   </div>
 
   <div class="shead">
-    <h2 id="controls">Finance infrastructure &amp; controls</h2>
+    <h2 id="controls">Accounting, controls &amp; close</h2>
     <p class="sdesc">The reliability layer — revenue recognized correctly,
-      spend monitored continuously, commentary generated from computed figures.
-      The part of finance that makes the charts trustworthy.</p>
+      spend monitored continuously, consolidations that tie, commentary
+      generated from computed figures. The part of finance that makes the
+      charts trustworthy.</p>
   </div>
+
+  <h3 class="subhead">Technical accounting</h3>
+  <div class="grid">
+    <a class="card" href="consolidation-fx/examples/consolidation_dashboard.html">
+      <h3>Multi-Entity Consolidation — ASC 830 →</h3>
+      <p>US parent + three foreign subs: translation vs remeasurement, with
+        CTA computed two independent ways every month — a plug always
+        balances, which is exactly why it can't be the only computation. The
+        intercompany matrix catches a seeded ¥27,000 break and flags it as a
+        transposition: the difference divides by 9.</p>
+      <ul class="fit">
+        <li><b>Best for</b> Any company with foreign subsidiaries, Series B+</li>
+        <li><b>Primary user</b> Controller and auditors</li>
+        <li><b>Decision</b> Do the eliminations net, does CTA prove itself,
+          and is the equity move translation or performance?</li>
+      </ul>
+      <span class="meta"><span class="live">● Live dashboard</span></span>
+    </a>
+  </div>
+
+  <h3 class="subhead">Controls &amp; reporting</h3>
   <div class="grid">
     <a class="card" href="revenue-recognition/examples/revrec_dashboard.html">
       <h3>Revenue Recognition →</h3>

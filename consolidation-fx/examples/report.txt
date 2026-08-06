@@ -1,0 +1,18 @@
+CONSOLIDATION — FY2025 (USD)
+  Consolidated revenue        $93.8M
+  Consolidated net income     $11.19M
+  CTA at Dec-25 (OCI)         $-2.10M
+  FX in P&L, FY               $13K  (SG remeasurement + parent IC AR)
+  CTA movement in FY2025      $-0.21M — equity moved, P&L did not
+  IC BREAK  US–JP 2025-11  JPY 27,000  divisible by 9 -> transposition suspect; top-side posted, reversed next month
+
+  [PASS] local TBs balance (42 entity-months) — max |A-L-E| $0.000000
+  [PASS] consolidated A = L + E, 12/12 months — max gap $0.000000
+  [PASS] CTA: balance-sheet plug == analytical roll — max divergence $0.000000
+  [PASS] remeasurement (SG): plug == analytical roll — max divergence $0.000000
+  [PASS] IC matrix finds the seeded transposition (and only it) — 1 break(s): US–JP 2025-11 JPY 27,000
+  [PASS] post-top-side, fee and balance eliminations net to zero — max residual $0.000000
+  [PASS] consolidated revenue = external revenue only — max gap $0.000000
+  [PASS] FX paths within +/-15% of opening (sanity) — seeded walk bounded
+
+  ALL CHECKS PASS

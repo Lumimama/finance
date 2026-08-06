@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASC 830 consolidation — FY2025</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .v { font-size:21px; font-weight:700; letter-spacing:-.01em; }
+  .kpi .l { font-size:11.5px; color:var(--mut); margin-top:2px; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+           padding:16px 18px; margin-top:10px; overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+  th, td { text-align:right; padding:6px 10px; border-bottom:1px solid var(--bd); }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--mut); font-weight:600; font-size:11.5px;
+        text-transform:uppercase; letter-spacing:.04em; }
+  .mut { color:var(--mut); } .ok { color:var(--pos); } .bad { color:var(--neg); }
+  .flag { background:color-mix(in srgb, var(--neg) 9%, transparent); }
+  .note { font-size:12.5px; color:var(--mut); margin-top:8px; max-width:88ch; }
+  ul.checks { list-style:none; padding:0; margin:0; font-size:13px; }
+  ul.checks li { padding:5px 0; border-bottom:1px solid var(--bd); }
+  svg { width:100%; height:auto; display:block; }
+</style>
+<div class="wrap">
+  <h1>Multi-Entity Consolidation — ASC 830</h1>
+  <p class="sub">US parent + UK Ltd (GBP functional, translated) + Japan KK
+    (JPY functional, translated) + Singapore Pte (USD functional, remeasured).
+    Intercompany management fees invoiced in local currency, settled two months
+    in arrears. All figures synthetic and seeded; every check below re-runs
+    before this page publishes.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">$93.83</div>
+      <div class="l">Consolidated revenue, FY2025 — external only, fees eliminated</div></div>
+    <div class="kpi"><div class="v">$11.19M</div>
+      <div class="l">Consolidated net income, FY2025</div></div>
+    <div class="kpi"><div class="v">$-2.10M</div>
+      <div class="l">CTA at Dec-25 — in OCI, proven two ways monthly</div></div>
+    <div class="kpi"><div class="v">$13K</div>
+      <div class="l">FX in P&amp;L, FY2025 — SG remeasurement + parent IC receivables</div></div>
+    <div class="kpi"><div class="v">1</div>
+      <div class="l">Intercompany break caught — ¥27,000, divisible by 9</div></div>
+    <div class="kpi"><div class="v">12/12</div>
+      <div class="l">Months where consolidated A = L + E to the cent</div></div>
+  </div>
+
+  <h2>The year in rates — USD per unit, indexed to Jan</h2>
+  <div class="card"><svg viewBox="0 0 940 210" role="img"><line x1="34" y1="34" x2="906" y2="34" stroke="var(--grid)" stroke-width="1"/><text x="28" y="38" text-anchor="end" font-size="10" fill="var(--mut)">1.02</text><line x1="34" y1="70" x2="906" y2="70" stroke="var(--grid)" stroke-width="1"/><text x="28" y="74" text-anchor="end" font-size="10" fill="var(--mut)">0.99</text><line x1="34" y1="105" x2="906" y2="105" stroke="var(--grid)" stroke-width="1"/><text x="28" y="109" text-anchor="end" font-size="10" fill="var(--mut)">0.97</text><line x1="34" y1="140" x2="906" y2="140" stroke="var(--grid)" stroke-width="1"/><text x="28" y="144" text-anchor="end" font-size="10" fill="var(--mut)">0.95</text><line x1="34" y1="176" x2="906" y2="176" stroke="var(--grid)" stroke-width="1"/><text x="28" y="180" text-anchor="end" font-size="10" fill="var(--mut)">0.93</text><polyline points="34.0,79.7 113.3,76.9 192.5,85.8 271.8,82.5 351.1,81.7 430.4,82.7 509.6,76.6 588.9,73.2 668.2,85.6 747.5,80.9 826.7,81.3 906.0,87.2" fill="none" stroke="var(--line)" stroke-width="2"/><text x="910" y="91.2" font-size="11" fill="var(--line)">GBP</text><polyline points="34.0,76.5 113.3,93.4 192.5,110.4 271.8,110.0 351.1,121.8 430.4,122.9 509.6,127.4 588.9,146.8 668.2,153.5 747.5,164.2 826.7,168.7 906.0,176.0" fill="none" stroke="var(--neg)" stroke-width="2"/><text x="910" y="180.0" font-size="11" fill="var(--neg)">JPY</text><polyline points="34.0,59.9 113.3,61.2 192.5,67.4 271.8,62.0 351.1,67.7 430.4,62.5 509.6,59.6 588.9,53.8 668.2,51.5 747.5,45.0 826.7,34.0 906.0,37.7" fill="none" stroke="var(--pos)" stroke-width="2"/><text x="910" y="41.7" font-size="11" fill="var(--pos)">SGD</text></svg>
+    <p class="note">The yen weakened ~7%
+      over the year. That is why consolidated equity moved
+      $-0.21M with zero P&amp;L impact — the answer to "why did equity
+      fall when we made money" is translation, not performance.</p></div>
+
+  <h2>CTA movement by month (UK + JP, USD)</h2>
+  <div class="card"><svg viewBox="0 0 940 210" role="img"><line x1="34" y1="54" x2="906" y2="54" stroke="var(--grid)"/><rect x="48" y="54" width="45" height="44" fill="var(--neg)" rx="2"/><text x="70" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">01</text><rect x="120" y="54" width="45" height="54" fill="var(--neg)" rx="2"/><text x="143" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">02</text><rect x="193" y="54" width="45" height="118" fill="var(--neg)" rx="2"/><text x="216" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">03</text><rect x="266" y="34" width="45" height="20" fill="var(--pos)" rx="2"/><text x="288" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">04</text><rect x="338" y="54" width="45" height="48" fill="var(--neg)" rx="2"/><text x="361" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">05</text><rect x="411" y="54" width="45" height="12" fill="var(--neg)" rx="2"/><text x="434" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">06</text><rect x="484" y="37" width="45" height="17" fill="var(--pos)" rx="2"/><text x="506" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">07</text><rect x="556" y="54" width="45" height="75" fill="var(--neg)" rx="2"/><text x="579" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">08</text><rect x="629" y="54" width="45" height="122" fill="var(--neg)" rx="2"/><text x="652" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">09</text><rect x="702" y="54" width="45" height="23" fill="var(--neg)" rx="2"/><text x="724" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">10</text><rect x="774" y="54" width="45" height="28" fill="var(--neg)" rx="2"/><text x="797" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">11</text><rect x="847" y="54" width="45" height="89" fill="var(--neg)" rx="2"/><text x="870" y="202" text-anchor="middle" font-size="9" fill="var(--mut)">12</text></svg>
+    <p class="note">Every bar is computed twice: as the balance-sheet plug and
+      as the analytical roll-forward (opening net assets × spot move + NI ×
+      (spot − avg)). Validation fails if they diverge by a cent. A plug always
+      balances — that is exactly why it cannot be the only computation.</p></div>
+
+  <h2>December consolidation worksheet (USD)</h2>
+  <div class="card"><table>
+    <tr><th></th><th>US parent</th><th>UK</th><th>Japan</th><th>Singapore</th>
+        <th>Eliminations</th><th>Consolidated</th></tr>
+    <tr><td>Revenue</td><td>$4.87M</td><td>$1.39M</td><td>$1.16M</td><td>$0.90M</td><td class='mut'>$-0.10M</td><td><b>$8.32M</b></td></tr><tr><td>Net income</td><td>$0.64M</td><td>$0.21M</td><td>$0.11M</td><td>$0.04M</td><td class='mut'>$0.00M</td><td><b>$1.00M</b></td></tr><tr><td>Assets</td><td>$32.54M</td><td>$6.30M</td><td>$4.53M</td><td>$2.08M</td><td class='mut'>$-1.19M</td><td><b>$44.26M</b></td></tr><tr><td>Liabilities</td><td>$2.97M</td><td>$0.91M</td><td>$0.87M</td><td>$0.77M</td><td class='mut'>$-0.21M</td><td><b>$5.30M</b></td></tr>
+  </table>
+  <p class="note">Eliminations: management fees (income vs expense at the same
+    average rate), intercompany receivable vs payable (both at spot), parent
+    investment vs subsidiary capital (both at historical). The parent's FX
+    gain on local-currency IC receivables does <b>not</b> eliminate — it is a
+    real ASC 830-20 P&amp;L item, reported in "FX in P&amp;L" above.</p></div>
+
+  <h2>Intercompany matrix — the November break</h2>
+  <div class="card"><table>
+    <tr><th>Pair</th><th>Month</th><th>Parent AR (LC)</th><th>Sub AP (LC)</th>
+        <th>Difference</th><th>Signature</th></tr>
+    <tr class="flag"><td>US–JP</td><td>2025-11</td>
+      <td>booked correctly</td><td>under-accrued</td>
+      <td><b>¥27,000</b></td>
+      <td>÷ 9 = 3,000 — transposition suspect</td></tr>
+  </table>
+  <p class="note">Japan accrued the November management fee with two digits
+    transposed. A transposition error is always divisible by 9 — the oldest
+    trick in the reconciler's book, and the matrix applies it automatically.
+    The engine posted a top-side accrual in November and reversed it in
+    December when Japan's own catch-up entry landed. Every other pair nets to
+    zero in all twelve months.</p></div>
+
+  <h2>Same arithmetic, different geography</h2>
+  <div class="card"><table>
+    <tr><th></th><th>UK / Japan</th><th>Singapore</th></tr>
+    <tr><td>Books kept in</td><td>GBP / JPY</td><td>SGD</td></tr>
+    <tr><td>Functional currency</td><td>local</td><td><b>USD</b></td></tr>
+    <tr><td>Method</td><td>Translation (current-rate)</td><td>Remeasurement</td></tr>
+    <tr><td>Rate effect lands in</td><td><b>OCI (CTA)</b></td><td><b>P&amp;L</b></td></tr>
+    <tr><td>FY2025 effect</td><td>$-0.21M</td><td>$18K</td></tr>
+  </table>
+  <p class="note">Singapore deliberately holds no nonmonetary assets, so its
+    remeasurement formula is arithmetically identical to CTA. The only
+    difference is where it lands — and that is decided by functional currency,
+    not by geography. This is the judgment ASC 830 actually asks for.</p></div>
+
+  <h2>Validation — re-run before every publish</h2>
+  <div class="card"><ul class="checks"><li><b class='ok'>PASS</b> local TBs balance (42 entity-months) <span class='mut'>— max |A-L-E| $0.000000</span></li><li><b class='ok'>PASS</b> consolidated A = L + E, 12/12 months <span class='mut'>— max gap $0.000000</span></li><li><b class='ok'>PASS</b> CTA: balance-sheet plug == analytical roll <span class='mut'>— max divergence $0.000000</span></li><li><b class='ok'>PASS</b> remeasurement (SG): plug == analytical roll <span class='mut'>— max divergence $0.000000</span></li><li><b class='ok'>PASS</b> IC matrix finds the seeded transposition (and only it) <span class='mut'>— 1 break(s): US–JP 2025-11 JPY 27,000</span></li><li><b class='ok'>PASS</b> post-top-side, fee and balance eliminations net to zero <span class='mut'>— max residual $0.000000</span></li><li><b class='ok'>PASS</b> consolidated revenue = external revenue only <span class='mut'>— max gap $0.000000</span></li><li><b class='ok'>PASS</b> FX paths within +/-15% of opening (sanity) <span class='mut'>— seeded walk bounded</span></li></ul></div>
+
+  <p class="note" style="margin-top:26px">Synthetic, seeded data
+    (<code>random.seed(830)</code>). Generator, engine, and checks:
+    <a href="https://github.com/Lumimama/finance/tree/main/consolidation-fx"
+       style="color:var(--line)">github.com/Lumimama/finance/consolidation-fx</a>.</p>
+</div>
