@@ -1,0 +1,16 @@
+STOCK-BASED COMPENSATION — ASC 718
+  Grants                      42 (RSU 27 / option 15), total grant-date FV $3.4M
+  FY2025 expense              $0.62M straight-line (policy) / $0.39M graded
+  Repricing                   incremental FV $41K — $8.40 strike underwater since the 2023 down round, repriced 2025-03
+  RIF true-up                 Aug-25 expense $-20K vs Jul $66K — forfeitures at actuals, reversed in the month they happen
+
+  [PASS] engine == closed-form recomputation, 48 month-ends x 2 methods — max gap $0.000000 (sl (2025, 8))
+  [PASS] at full vesting, SL and graded both land on grant-date FV — 30 stayer awards, max gap $0.000000
+  [PASS] cumulative expense <= grant-date FV + incremental FV, always — hard ceiling on every award
+  [PASS] unrecognized + recognized = total FV for active awards — max gap $0.000000
+  [PASS] Aug-2025 RIF: unvested expense of 7 in-cliff grants reverses; the line dips — $73K reversed, monthly expense drops $86K vs July
+  [PASS] repricing: incremental FV > 0; modified award never exceeds original + incremental — incremental $41K on strike $8.40 -> $5.45
+  [PASS] option fair values bounded by intrinsic value and share price — Black-Scholes outputs sane for every option grant
+  [PASS] FY2025 expense positive under both methods — SL $0.62M / graded $0.39M
+
+  ALL CHECKS PASS

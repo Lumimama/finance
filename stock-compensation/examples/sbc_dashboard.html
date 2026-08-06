@@ -1,0 +1,110 @@
+<!doctype html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASC 718 stock comp — FY2025</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .v { font-size:21px; font-weight:700; letter-spacing:-.01em; }
+  .kpi .l { font-size:11.5px; color:var(--mut); margin-top:2px; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+           padding:16px 18px; margin-top:10px; overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+  th, td { text-align:right; padding:6px 10px; border-bottom:1px solid var(--bd); }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--mut); font-weight:600; font-size:11.5px;
+        text-transform:uppercase; letter-spacing:.04em; }
+  .mut { color:var(--mut); } .ok { color:var(--pos); } .bad { color:var(--neg); }
+  .flag { background:color-mix(in srgb, var(--line) 8%, transparent); }
+  .note { font-size:12.5px; color:var(--mut); margin-top:8px; max-width:88ch; }
+  ul.checks { list-style:none; padding:0; margin:0; font-size:13px; }
+  ul.checks li { padding:5px 0; border-bottom:1px solid var(--bd); }
+  svg { width:100%; height:auto; display:block; }
+</style>
+<div class="wrap">
+  <h1>Stock-Based Compensation — ASC 718</h1>
+  <p class="sub">42 grants (RSUs and options, 4-year vest,
+    1-year cliff), 2022–2025. Every month-end, cumulative expense is
+    recomputed from scratch out of tranche states — vested, active, forfeited
+    — and the incremental engine must match it to the cent under both
+    attribution methods. Synthetic, seeded data.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">$0.62M</div>
+      <div class="l">FY2025 expense — straight-line (policy)</div></div>
+    <div class="kpi"><div class="v">$0.39M</div>
+      <div class="l">FY2025 under graded (FIN 28) — same awards, same total,
+        different timing</div></div>
+    <div class="kpi"><div class="v">$0.6M</div>
+      <div class="l">Unrecognized compensation remaining on active awards</div></div>
+    <div class="kpi"><div class="v">$41K</div>
+      <div class="l">Incremental FV from the March-25 repricing</div></div>
+    <div class="kpi"><div class="v">$86K</div>
+      <div class="l">Aug-25 expense dip — RIF forfeitures reversed at actuals</div></div>
+    <div class="kpi"><div class="v">96/96</div>
+      <div class="l">Month-ends where engine == closed-form recomputation</div></div>
+  </div>
+
+  <h2>Monthly expense — straight-line (solid) vs graded (dashed)</h2>
+  <div class="card"><svg viewBox="0 0 940 220" role="img"><line x1="36" y1="36" x2="904" y2="36" stroke="var(--grid)"/><text x="30" y="40" text-anchor="end" font-size="10" fill="var(--mut)">$88K</text><line x1="36" y1="85" x2="904" y2="85" stroke="var(--grid)"/><text x="30" y="89" text-anchor="end" font-size="10" fill="var(--mut)">$59K</text><line x1="36" y1="135" x2="904" y2="135" stroke="var(--grid)"/><text x="30" y="139" text-anchor="end" font-size="10" fill="var(--mut)">$29K</text><line x1="36" y1="184" x2="904" y2="184" stroke="var(--grid)"/><text x="30" y="188" text-anchor="end" font-size="10" fill="var(--mut)">$0K</text><polyline points="36.0,179.6 54.5,159.5 72.9,125.2 91.4,114.9 109.9,114.3 128.3,106.8 146.8,98.3 165.3,91.8 183.7,91.2 202.2,80.1 220.7,80.1 239.1,50.8 257.6,50.3 276.1,36.0 294.6,50.2 313.0,42.4 331.5,44.7 350.0,67.9 368.4,55.4 386.9,60.4 405.4,71.1 423.8,67.3 442.3,63.2 460.8,77.9 479.2,80.6 497.7,92.6 516.2,95.3 534.6,86.2 553.1,88.2 571.6,88.9 590.0,77.3 608.5,110.1 627.0,255.3 645.4,95.4 663.9,83.9 682.4,86.4 700.9,78.8 719.3,81.5 737.8,78.7 756.3,88.9 774.7,71.4 793.2,74.5 811.7,83.7 830.1,426.2 848.6,139.5 867.1,142.4 885.5,145.1 904.0,147.8" fill="none" stroke="var(--mut)" stroke-width="1.8" stroke-dasharray="5 4"/><polyline points="36.0,182.2 54.5,173.6 72.9,159.0 91.4,154.7 109.9,154.4 128.3,151.2 146.8,147.6 165.3,144.9 183.7,144.6 202.2,139.9 220.7,139.9 239.1,127.4 257.6,126.5 276.1,116.7 294.6,116.2 313.0,110.3 331.5,110.3 350.0,111.1 368.4,110.8 386.9,110.8 405.4,111.2 423.8,110.0 442.3,107.3 460.8,107.3 479.2,106.7 497.7,106.4 516.2,105.8 534.6,97.9 553.1,97.2 571.6,95.9 590.0,89.5 608.5,91.0 627.0,100.5 645.4,100.5 663.9,93.5 682.4,93.5 700.9,88.9 719.3,88.9 737.8,83.2 756.3,83.2 774.7,74.3 793.2,73.9 811.7,73.9 830.1,217.9 848.6,94.8 867.1,94.8 885.5,94.8 904.0,94.8" fill="none" stroke="var(--line)" stroke-width="2.2"/><text x="36" y="212" text-anchor="middle" font-size="10" fill="var(--mut)">2022</text><text x="258" y="212" text-anchor="middle" font-size="10" fill="var(--mut)">2023</text><text x="479" y="212" text-anchor="middle" font-size="10" fill="var(--mut)">2024</text><text x="701" y="212" text-anchor="middle" font-size="10" fill="var(--mut)">2025</text><line x1="830" y1="36" x2="830" y2="184" stroke="var(--neg)" stroke-width="1" stroke-dasharray="3 3"/><text x="834" y="48" font-size="10" fill="var(--neg)">RIF true-up</text></svg>
+    <p class="note">Same ledger, two attribution methods. Graded treats every
+      vesting tranche as its own award and front-loads: in 2024 it books
+      $0.58M against straight-line's $0.61M.
+      Both must converge to grant-date fair value at full vesting — check 2
+      proves they do, award by award. The August 2025 dip is the RIF:
+      forfeitures at actuals (ASU 2016-09 election), reversed in the month
+      they happen, not smoothed by an estimate.</p></div>
+
+  <h2>The repricing</h2>
+  <div class="card">
+    <p style="font-size:13.5px;margin:0">Grant #0 — 60,000 options struck at
+      $8.40 in March 2022 — went underwater in the June 2023 down round and
+      stayed there. Repriced March 2025 to $5.45.
+      ASC 718's rule is unforgiving in a specific way: the original
+      $298K grant-date fair value is <b>never</b>
+      reversed — an underwater option still cost what it cost — and the
+      modification adds incremental fair value of
+      $41K (new award minus old award, both valued at
+      the modification date), recognized over the remaining vesting
+      period.</p>
+    <p class="note">The check: the modified award's lifetime expense can
+      never exceed original FV + incremental FV. The board asks "what did
+      the repricing cost?" — the answer is $41K, not
+      the headline value of the new options.</p></div>
+
+  <h2>Largest awards</h2>
+  <div class="card"><table>
+    <tr><th>Grant</th><th>Granted</th><th>Shares</th><th>Strike</th>
+        <th>FV/share</th><th>Total FV</th><th>Status</th></tr>
+    <tr class="flag"><td>#0 OPTION</td><td>2022-03</td><td>60,000</td><td>$8.40</td><td>$4.97</td><td>$339K</td><td>active</td></tr><tr><td>#18 RSU</td><td>2023-02</td><td>40,000</td><td>—</td><td>$6.99</td><td>$280K</td><td>active</td></tr><tr><td>#16 RSU</td><td>2022-12</td><td>40,000</td><td>—</td><td>$6.85</td><td>$274K</td><td>departed</td></tr><tr><td>#3 RSU</td><td>2022-02</td><td>40,000</td><td>—</td><td>$6.11</td><td>$244K</td><td>active</td></tr><tr><td>#33 RSU</td><td>2024-07</td><td>40,000</td><td>—</td><td>$4.63</td><td>$185K</td><td>active</td></tr><tr><td>#30 RSU</td><td>2024-04</td><td>40,000</td><td>—</td><td>$4.36</td><td>$174K</td><td>active</td></tr><tr><td>#20 OPTION</td><td>2023-04</td><td>40,000</td><td>$7.17</td><td>$4.26</td><td>$170K</td><td>active</td></tr><tr><td>#14 RSU</td><td>2022-10</td><td>20,000</td><td>—</td><td>$6.71</td><td>$134K</td><td>active</td></tr>
+  </table>
+  <p class="note">Option fair values are Black-Scholes at grant
+    (vol 55%–62% by year, expected term
+    6 years, strike = 409A FMV at grant). Validation bounds every
+    option FV between intrinsic value and the share price — the classic
+    smell test for a mis-wired pricing input.</p></div>
+
+  <h2>Validation — re-run before every publish</h2>
+  <div class="card"><ul class="checks"><li><b class='ok'>PASS</b> engine == closed-form recomputation, 48 month-ends x 2 methods <span class='mut'>— max gap $0.000000 (sl (2025, 8))</span></li><li><b class='ok'>PASS</b> at full vesting, SL and graded both land on grant-date FV <span class='mut'>— 30 stayer awards, max gap $0.000000</span></li><li><b class='ok'>PASS</b> cumulative expense <= grant-date FV + incremental FV, always <span class='mut'>— hard ceiling on every award</span></li><li><b class='ok'>PASS</b> unrecognized + recognized = total FV for active awards <span class='mut'>— max gap $0.000000</span></li><li><b class='ok'>PASS</b> Aug-2025 RIF: unvested expense of 7 in-cliff grants reverses; the line dips <span class='mut'>— $73K reversed, monthly expense drops $86K vs July</span></li><li><b class='ok'>PASS</b> repricing: incremental FV > 0; modified award never exceeds original + incremental <span class='mut'>— incremental $41K on strike $8.40 -> $5.45</span></li><li><b class='ok'>PASS</b> option fair values bounded by intrinsic value and share price <span class='mut'>— Black-Scholes outputs sane for every option grant</span></li><li><b class='ok'>PASS</b> FY2025 expense positive under both methods <span class='mut'>— SL $0.62M / graded $0.39M</span></li></ul></div>
+
+  <p class="note" style="margin-top:26px">Synthetic, seeded data
+    (<code>random.seed(718)</code>). Generator, engines, and checks:
+    <a href="https://github.com/Lumimama/finance/tree/main/stock-compensation"
+       style="color:var(--line)">github.com/Lumimama/finance/stock-compensation</a>.</p>
+</div>
