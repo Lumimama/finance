@@ -1,0 +1,128 @@
+<!doctype html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASC 842 leases — Dec 2025</title>
+<style>
+  :root { color-scheme: light dark; --fg:#12151a; --mut:#5d6673; --bg:#fff;
+           --line:#1f6feb; --grid:#e6e9ee; --neg:#b3261e; --pos:#0f7b3f;
+           --card:#fbfcfd; --bd:#e6e9ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8ebf0; --mut:#98a2b3; --bg:#0d1117; --line:#58a6ff;
+             --grid:#232a33; --neg:#ff7b72; --pos:#3fb950; --card:#141a22;
+             --bd:#232a33; } }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--fg);
+          font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.01em; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--mut); margin:28px 0 10px; font-weight:600; }
+  .sub { color:var(--mut); font-size:13px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+           gap:12px; margin-top:22px; }
+  .kpi { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+          padding:13px 15px; }
+  .kpi .v { font-size:21px; font-weight:700; letter-spacing:-.01em; }
+  .kpi .l { font-size:11.5px; color:var(--mut); margin-top:2px; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:10px;
+           padding:16px 18px; margin-top:10px; overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+  th, td { text-align:right; padding:6px 10px; border-bottom:1px solid var(--bd); }
+  th:first-child, td:first-child { text-align:left; }
+  td:nth-child(2) { text-align:left; }
+  th { color:var(--mut); font-weight:600; font-size:11.5px;
+        text-transform:uppercase; letter-spacing:.04em; }
+  .mut { color:var(--mut); } .ok { color:var(--pos); } .bad { color:var(--neg); }
+  .flag { background:color-mix(in srgb, var(--line) 8%, transparent); }
+  .note { font-size:12.5px; color:var(--mut); margin-top:8px; max-width:88ch; }
+  ul.checks { list-style:none; padding:0; margin:0; font-size:13px; }
+  ul.checks li { padding:5px 0; border-bottom:1px solid var(--bd); }
+  svg { width:100%; height:auto; display:block; }
+</style>
+<div class="wrap">
+  <h1>Lease Accounting — ASC 842</h1>
+  <p class="sub">A 26-lease register as
+    of Dec 31, 2025 — offices, vehicles, lab equipment, and one GPU capacity
+    agreement that never uses the word "lease." Every schedule must amortize
+    to exactly zero and the disclosure table must tie to the liability, or
+    this page does not publish. Synthetic, seeded data.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">$19.1M</div>
+      <div class="l">Right-of-use assets</div></div>
+    <div class="kpi"><div class="v">$19.7M</div>
+      <div class="l">Lease liabilities — operating $10.5M ·
+        finance $9.2M</div></div>
+    <div class="kpi"><div class="v">6.18%</div>
+      <div class="l">Weighted-average discount rate (IBR)</div></div>
+    <div class="kpi"><div class="v">$10.1M</div>
+      <div class="l">Embedded lease capitalized — found in a "services" contract</div></div>
+    <div class="kpi"><div class="v">89%</div>
+      <div class="l">The judgment case — PV/FV vs the 90% line, documented</div></div>
+    <div class="kpi"><div class="v">0.00</div>
+      <div class="l">Terminal residue on every schedule — liability and ROU</div></div>
+  </div>
+
+  <h2>The embedded lease — the one that matters</h2>
+  <div class="card">
+    <p style="font-size:13.5px;margin:0">"GPU capacity services agreement" — 48 months,
+      $240K/month, dedicated racks. The contract calls itself a services
+      agreement. ASC 842's tests disagree: there is an <b>identified asset</b>
+      (specific, physically distinct hardware, no substitution right that
+      benefits the supplier) and the customer <b>controls its use</b> (decides
+      what runs on it, when, and gets substantially all its output). Dedicated
+      capacity in a compute contract is a lease whatever the title page says
+      — and at $10.1M it moves the balance sheet more than
+      every office combined. Specialized-asset criterion → finance
+      classification.</p>
+    <p class="note">This is the live ASC 842 question for AI companies: GPU
+      and data-center agreements signed as "services" that contain
+      identified, dedicated hardware. The register exists to catch them at
+      signing, not at audit.</p></div>
+
+  <h2>Lease liability run-off — carrying amount by month</h2>
+  <div class="card"><svg viewBox="0 0 940 210" role="img"><line x1="36" y1="36" x2="904" y2="36" stroke="var(--grid)"/><text x="30" y="40" text-anchor="end" font-size="10" fill="var(--mut)">$19M</text><line x1="36" y1="82" x2="904" y2="82" stroke="var(--grid)"/><text x="30" y="86" text-anchor="end" font-size="10" fill="var(--mut)">$13M</text><line x1="36" y1="128" x2="904" y2="128" stroke="var(--grid)"/><text x="30" y="132" text-anchor="end" font-size="10" fill="var(--mut)">$6M</text><line x1="36" y1="174" x2="904" y2="174" stroke="var(--grid)"/><text x="30" y="178" text-anchor="end" font-size="10" fill="var(--mut)">$0M</text><polyline points="36.0,36.0 47.0,39.2 58.0,42.4 69.0,45.7 79.9,49.0 90.9,52.1 101.9,55.3 112.9,58.4 123.9,61.6 134.9,64.7 145.9,67.9 156.9,71.1 167.8,74.3 178.8,77.5 189.8,80.8 200.8,84.1 211.8,87.4 222.8,90.7 233.8,94.0 244.8,97.3 255.7,100.6 266.7,103.8 277.7,107.1 288.7,110.3 299.7,113.6 310.7,116.9 321.7,120.2 332.7,123.5 343.6,126.8 354.6,130.1 365.6,133.5 376.6,136.9 387.6,140.1 398.6,143.3 409.6,146.5 420.6,149.8 431.5,153.0 442.5,155.8 453.5,156.9 464.5,158.0 475.5,159.1 486.5,160.2 497.5,161.3 508.5,162.4 519.4,163.5 530.4,164.7 541.4,165.8 552.4,167.0 563.4,168.1 574.4,169.3 585.4,170.5 596.4,170.8 607.3,171.2 618.3,171.6 629.3,172.0 640.3,172.4 651.3,172.8 662.3,173.2 673.3,173.6 684.3,174.0 695.2,174.0 706.2,174.0 717.2,174.0 728.2,174.0 739.2,174.0 750.2,174.0 761.2,174.0 772.2,174.0 783.1,174.0 794.1,174.0 805.1,174.0 816.1,174.0 827.1,174.0 838.1,174.0 849.1,174.0 860.1,174.0 871.0,174.0 882.0,174.0 893.0,174.0 904.0,174.0" fill="none" stroke="var(--line)" stroke-width="2.2"/><text x="36" y="202" text-anchor="middle" font-size="10" fill="var(--mut)">2026</text><text x="300" y="202" text-anchor="middle" font-size="10" fill="var(--mut)">2028</text><text x="563" y="202" text-anchor="middle" font-size="10" fill="var(--mut)">2030</text><text x="827" y="202" text-anchor="middle" font-size="10" fill="var(--mut)">2032</text></svg>
+    <p class="note">Total liability from Jan 2026 forward as schedules
+      amortize. Every lease's roll-forward (beginning + interest − payment)
+      must land at exactly zero in its final month — the terminal-residue
+      check treats a stray cent as a modeling error, because that is what a
+      stray cent is.</p></div>
+
+  <h2>Register — ten largest by liability</h2>
+  <div class="card"><table>
+    <tr><th>Lease</th><th>Class</th><th>Start</th><th>Term</th><th>IBR</th>
+        <th>PV / FV</th><th>Liability</th><th>ROU</th></tr>
+    <tr class="flag"><td>GPU capacity services agreement</td><td>finance</td><td>2025-03</td><td>48 mo</td><td>6.80%</td><td>—</td><td>$8,184K</td><td>$7,965K</td></tr><tr><td>HQ — Mission St, SF</td><td>operating</td><td>2023-04</td><td>84 mo</td><td>5.50%</td><td>71%</td><td>$4,741K</td><td>$4,537K</td></tr><tr class="flag"><td>London office — Shoreditch</td><td>operating</td><td>2025-01</td><td>72 mo</td><td>5.80%</td><td>89%</td><td>$2,748K</td><td>$2,702K</td></tr><tr><td>NYC office — Hudson Yards</td><td>operating</td><td>2024-02</td><td>60 mo</td><td>6.00%</td><td>62%</td><td>$2,241K</td><td>$2,174K</td></tr><tr><td>Austin office</td><td>operating</td><td>2024-09</td><td>48 mo</td><td>6.00%</td><td>46%</td><td>$753K</td><td>$739K</td></tr><tr><td>Lab equipment #212</td><td>finance</td><td>2022-09</td><td>60 mo</td><td>5.00%</td><td>97%</td><td>$156K</td><td>$144K</td></tr><tr><td>Fleet vehicle #104</td><td>finance</td><td>2025-12</td><td>36 mo</td><td>6.60%</td><td>—</td><td>$111K</td><td>$110K</td></tr><tr><td>Lab equipment #205</td><td>finance</td><td>2022-12</td><td>60 mo</td><td>5.00%</td><td>109%</td><td>$107K</td><td>$99K</td></tr><tr><td>Fleet vehicle #109</td><td>finance</td><td>2024-11</td><td>36 mo</td><td>6.80%</td><td>—</td><td>$76K</td><td>$74K</td></tr><tr><td>Lab equipment #207</td><td>finance</td><td>2023-04</td><td>60 mo</td><td>6.00%</td><td>101%</td><td>$70K</td><td>$64K</td></tr>
+  </table>
+  <p class="note">Highlighted rows: the embedded lease, and
+    "London office — Shoreditch" at PV/FV = 88.9% — just under the 90%
+    "substantially all" threshold, so operating. ASC 842 removed the bright
+    lines on purpose; the register keeps the judgment <em>visible</em> instead
+    of burying it: decided at the line, documented at the line.</p></div>
+
+  <h2>Maturity of lease liabilities (undiscounted)</h2>
+  <div class="card"><table style="min-width:380px">
+    <tr><th>Year</th><th>Payments</th></tr>
+    <tr><td>2026</td><td>$6.40M</td></tr><tr><td>2027</td><td>$6.19M</td></tr><tr><td>2028</td><td>$5.88M</td></tr><tr><td>2029</td><td>$2.51M</td></tr><tr><td>2030</td><td>$1.00M</td></tr><tr><td>thereafter</td><td>$0.00M</td></tr>
+    <tr><td><b>Total undiscounted</b></td><td><b>$21.98M</b></td></tr>
+    <tr><td class="mut">Less imputed interest</td><td class="mut">($2.31M)</td></tr>
+    <tr><td><b>Carrying amount</b></td><td><b>$19.67M</b></td></tr>
+  </table>
+  <p class="note">The footnote table is not decoration — undiscounted
+    payments less imputed interest must equal the balance-sheet liability to
+    the cent, and validation recomputes it from the raw schedules every
+    run.</p></div>
+
+  <h2>Short-term exemption</h2>
+  <div class="card"><p style="font-size:13.5px;margin:0">Two leases under 12
+    months (swing space, event equipment) take the ASC 842-20-25-2 exemption:
+    straight-line expense, no ROU, no liability. Validation asserts they stay
+    off the balance sheet — an exemption applied is also a control to test.</p></div>
+
+  <h2>Validation — re-run before every publish</h2>
+  <div class="card"><ul class="checks"><li><b class='ok'>PASS</b> opening liability = PV of payments at IBR <span class='mut'>— max gap $0.000000 across 26 leases</span></li><li><b class='ok'>PASS</b> liability roll-forward ends at exactly zero <span class='mut'>— max terminal residue $0.000000</span></li><li><b class='ok'>PASS</b> ROU amortizes to exactly zero <span class='mut'>— max terminal residue $0.000000</span></li><li><b class='ok'>PASS</b> operating: lifetime cost = lifetime payments, and level <span class='mut'>— max deviation $0.000000</span></li><li><b class='ok'>PASS</b> maturity disclosure ties: undiscounted - imputed = carrying <span class='mut'>— $21,977,078 - $2,311,572 vs $19,665,505, gap $0.000000</span></li><li><b class='ok'>PASS</b> embedded lease capitalized as finance lease <span class='mut'>— GPU capacity services agreement</span></li><li><b class='ok'>PASS</b> the 89% judgment case exists and is operating <span class='mut'>— London office — Shoreditch at 88.9%</span></li><li><b class='ok'>PASS</b> short-term exemption: expensed, no ROU/liability <span class='mut'>— 2 leases, 146K expensed</span></li><li><b class='ok'>PASS</b> weighted-average discount rate within sanity band <span class='mut'>— 6.18%</span></li></ul></div>
+
+  <p class="note" style="margin-top:26px">Synthetic, seeded data
+    (<code>random.seed(842)</code>). Generator, schedules, and checks:
+    <a href="https://github.com/Lumimama/finance/tree/main/lease-accounting"
+       style="color:var(--line)">github.com/Lumimama/finance/lease-accounting</a>.</p>
+</div>

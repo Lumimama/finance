@@ -1,0 +1,18 @@
+LEASE ACCOUNTING — ASC 842, as of 2025-12-31
+  ROU assets                  $19.06M
+  Lease liabilities           $19.67M  (operating $10.48M / finance $9.18M)
+  Weighted-average IBR        6.18%
+  EMBEDDED LEASE  GPU capacity services agreement — $10.1M capitalized; the contract never says 'lease'
+  JUDGMENT CALL   London office — Shoreditch — PV/FV 88.9%, operating; decided at the line, documented at the line
+
+  [PASS] opening liability = PV of payments at IBR — max gap $0.000000 across 26 leases
+  [PASS] liability roll-forward ends at exactly zero — max terminal residue $0.000000
+  [PASS] ROU amortizes to exactly zero — max terminal residue $0.000000
+  [PASS] operating: lifetime cost = lifetime payments, and level — max deviation $0.000000
+  [PASS] maturity disclosure ties: undiscounted - imputed = carrying — $21,977,078 - $2,311,572 vs $19,665,505, gap $0.000000
+  [PASS] embedded lease capitalized as finance lease — GPU capacity services agreement
+  [PASS] the 89% judgment case exists and is operating — London office — Shoreditch at 88.9%
+  [PASS] short-term exemption: expensed, no ROU/liability — 2 leases, 146K expensed
+  [PASS] weighted-average discount rate within sanity band — 6.18%
+
+  ALL CHECKS PASS

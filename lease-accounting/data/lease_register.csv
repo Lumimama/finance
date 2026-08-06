@@ -1,0 +1,29 @@
+lease,class,classification,start,term_mo,monthly_pay_initial,ibr,pv_fv,embedded,short_term
+"HQ — Mission St, SF",office,operating,2023-04,84,92000.00,0.0550,0.7105,False,False
+NYC office — Hudson Yards,office,operating,2024-02,60,61000.00,0.0600,0.6182,False,False
+Austin office,office,operating,2024-09,48,24000.00,0.0600,0.4637,False,False
+London office — Shoreditch,office,operating,2025-01,72,48500.00,0.0580,0.8890,False,False
+GPU capacity services agreement,datacenter,finance,2025-03,48,240000.00,0.0680,,True,False
+Fleet vehicle #101,vehicle,finance,2023-08,36,3705.00,0.0630,,False,False
+Fleet vehicle #102,vehicle,finance,2023-06,36,3111.00,0.0630,,False,False
+Fleet vehicle #103,vehicle,finance,2023-02,36,1784.00,0.0630,,False,False
+Fleet vehicle #104,vehicle,finance,2025-12,36,3480.00,0.0660,,False,False
+Fleet vehicle #105,vehicle,finance,2024-05,48,2613.00,0.0680,,False,False
+Fleet vehicle #106,vehicle,finance,2023-06,48,2240.00,0.0630,,False,False
+Fleet vehicle #107,vehicle,finance,2023-07,48,3465.00,0.0630,,False,False
+Fleet vehicle #108,vehicle,finance,2023-12,36,2494.00,0.0630,,False,False
+Fleet vehicle #109,vehicle,finance,2024-11,36,3703.00,0.0680,,False,False
+Lab equipment #201,equipment,finance,2023-11,24,4555.00,0.0600,1.1340,False,False
+Lab equipment #202,equipment,finance,2024-06,24,8869.00,0.0650,1.1494,False,False
+Lab equipment #203,equipment,finance,2024-03,24,4191.00,0.0650,1.1079,False,False
+Lab equipment #204,equipment,finance,2024-07,24,8095.00,0.0650,1.1469,False,False
+Lab equipment #205,equipment,finance,2022-12,60,4867.00,0.0500,1.0908,False,False
+Lab equipment #206,equipment,finance,2022-05,36,4596.00,0.0500,1.0783,False,False
+Lab equipment #207,equipment,finance,2023-04,60,2765.00,0.0600,1.0076,False,False
+Lab equipment #208,equipment,finance,2023-09,24,5564.00,0.0600,1.1023,False,False
+Lab equipment #209,equipment,finance,2025-09,24,3665.00,0.0630,1.0242,False,False
+Lab equipment #210,equipment,finance,2023-07,36,2519.00,0.0600,1.0506,False,False
+Lab equipment #211,equipment,finance,2022-10,60,3193.00,0.0500,0.9810,False,False
+Lab equipment #212,equipment,finance,2022-09,60,8127.00,0.0500,0.9734,False,False
+Swing space — 6 mo sublet,office,short-term,2025-07,6,18000.00,0.0580,,False,True
+Event equipment — 9 mo,equipment,short-term,2025-02,9,4200.00,0.0630,,False,True

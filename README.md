@@ -7,6 +7,7 @@ Finance tooling I built for work that's already part of the job — payments rec
 | project | what it does |
 |---|---|
 | [consolidation-fx](consolidation-fx) | ASC 830 consolidation: translation vs remeasurement, CTA proven two ways monthly, IC matrix catches a seeded transposition |
+| [lease-accounting](lease-accounting) | ASC 842: 26-lease register, schedules amortize to exactly zero, disclosure ties to the cent, embedded lease found in a GPU 'services' contract |
 | [payments-reconciliation](payments-reconciliation) | 50K transactions vs bank settlement; every break classified, aged, routed; validated against seeded ground truth |
 | [payments-unit-economics](payments-unit-economics) | Contribution per transaction by rail/region/segment across 120K transactions; waterfall + mix-shift sensitivity |
 | [controls-monitoring](controls-monitoring) | Seven audit detectors over a year of AP + T&E; 100% recall vs seeded issues, precision reported honestly |
