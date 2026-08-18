@@ -293,8 +293,10 @@ def write_html(S, rows, path: Path, meta: dict | None = None,
     commentary = (ctx.get("Management Commentary") or "").strip()
     commentary_html = ""
     if commentary:
-        paras = "".join(f"<p>{esc(p.strip())}</p>"
-                        for p in commentary.split("\n") if p.strip())
+        # Split on BLANK lines, not every newline: the Doc's text export hard-wraps
+        # long sentences, and splitting per line cut paragraphs mid-clause.
+        blocks = [" ".join(b.split()) for b in commentary.split("\n\n")]
+        paras = "".join(f"<p>{esc(b)}</p>" for b in blocks if b)
         commentary_html = f"""
   <div class="commentary">
     <div class="clabel">Management commentary — supplied by the preparer, not a
