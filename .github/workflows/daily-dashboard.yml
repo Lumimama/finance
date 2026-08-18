@@ -21,6 +21,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:        # manual "Run workflow" button
+    inputs:
+      input_mode:
+        description: "Board One-Pager source"
+        required: false
+        default: google
+        type: choice
+        options: [google, demo]   # demo = offline seeded run, no Google needed
 
 permissions:
   contents: write           # required to commit regenerated dashboards
@@ -59,6 +66,51 @@ jobs:
           cd board-metrics     && python make_sample_data.py && cd ..
           cd variance-narrator && python make_sample_data.py && cd ..
 
+      # ------------------------------------------------------------------
+      # Board One-Pager: the one project with a LIVE source. The Sheet and Doc
+      # are shared read-only by link, so this is two HTTPS GETs -- no service
+      # account, no secret, nothing to leak. A failed fetch or a failed
+      # validation exits non-zero and never writes the HTML, so the last good
+      # dashboard stays published rather than being replaced by a wrong one.
+      # ------------------------------------------------------------------
+      - name: Fetch Board One-Pager sources from Google
+        if: inputs.input_mode != 'demo'
+        working-directory: board-one-pager
+        run: python fetch_sources.py
+
+      - name: Rebuild Board One-Pager
+        working-directory: board-one-pager
+        run: |
+          if [ "${{ inputs.input_mode }}" = "demo" ]; then
+            echo "::notice::Running the Board One-Pager from seeded demo data."
+            python board.py --demo --validate \
+              --html examples/board_dashboard.html \
+              --manifest examples/board_manifest.json
+          else
+            python board.py \
+              --input data/monthly_metrics.csv \
+              --context data/board_context.txt \
+              --validate \
+              --html examples/board_dashboard.html \
+              --manifest examples/board_manifest.json
+          fi
+
+      # The monthly input is the point of failure worth catching daily: if the
+      # closed month never got entered, the dashboard is quietly out of date
+      # while still validating perfectly. Warn rather than fail -- a stale but
+      # correct dashboard is not an emergency, it is a reminder.
+      - name: Check the Sheet is current
+        if: inputs.input_mode != 'demo'
+        working-directory: board-one-pager
+        run: |
+          LATEST=$(python -c "import json;print(json.load(open('examples/board_manifest.json'))['reporting_period'])")
+          EXPECTED=$(date -u -d "last month" +%Y-%m)
+          if [ "$LATEST" != "$EXPECTED" ]; then
+            echo "::warning::Sheet's latest month is $LATEST; $EXPECTED is closed and not entered yet."
+          else
+            echo "Sheet is current through $LATEST."
+          fi
+
       - name: Rebuild dashboards
         run: |
           cd cash-forecast-13w
@@ -81,6 +133,35 @@ jobs:
           python board_metrics.py | grep -q "ties" \
             || { echo "::error::ARR walk does not foot -- refusing to publish"; exit 1; }
           echo "ARR walk ties."
+
+      # A failed run already emails the repo owner, but an issue carries the
+      # specific field and month from the validation output, which is the part
+      # that says what to fix in the Sheet.
+      - name: Open an issue if the refresh failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          cat > /tmp/issue.md <<'EOF'
+          The scheduled refresh failed and nothing was republished. The last
+          valid dashboard is still live.
+
+          Usual causes, in order of likelihood:
+
+          1. A typed value overwrote a formula in Monthly_Metrics, so an
+             identity stopped footing.
+          2. A required column was renamed or deleted.
+          3. A month was entered twice, or skipped.
+          4. Sheet link-sharing was turned off.
+
+          The workflow log names the field and the month.
+          EOF
+          echo "" >> /tmp/issue.md
+          echo "Run: $RUN_URL" >> /tmp/issue.md
+          gh issue create \
+            --title "Dashboard refresh failed: $(date -u +%Y-%m-%d)" \
+            --body-file /tmp/issue.md || true
 
       - name: Commit if anything changed
         run: |

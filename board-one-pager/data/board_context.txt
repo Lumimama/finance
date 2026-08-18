@@ -1,0 +1,45 @@
+BANA5010 Board One-Pager — Definitions and Board Context
+
+This document is the controlled narrative source for the Board One-Pager. The
+Google Sheet holds every number; this document holds the reporting-period
+sign-off, the approved definitions, the precedence rule, and the management
+commentary. It never holds the input data.
+
+Reporting Period
+2026-06
+
+Metric Definitions
+The definitions rendered beside each metric on the dashboard are the approved
+definitions and are maintained in board.py, which is version-controlled. Where
+a metric has more than one defensible definition, this company uses:
+NRR and GRR — chain-linked monthly on the installed base only; new logos are
+excluded from both numerator and denominator. GRR is capped at 100%.
+Magic number — net new ARR for the quarter over the prior quarter's S&M. ARR
+is already an annual figure and is not annualized a second time.
+CAC payback — all S&M over (new ARR x gross margin / 12). Deliberately
+conservative: it charges all sales and marketing to new logos.
+Runway — cash over trailing three-month average net burn, not the single
+most recent month.
+Gross margin — AI inference is fully loaded in COGS and is never adjusted out.
+The AI section reports the trend in AI cost as a percentage of revenue.
+LTV:CAC — formulaic (ARPA x GM / churn) and labeled as such on the page. The
+empirical cohort version is the one to cite externally.
+
+Source Precedence
+Where this document and the Google Sheet disagree on a number, the Sheet
+governs and the discrepancy is a data-entry defect to be corrected in the
+Sheet. Where this document and the dashboard disagree on a definition, this
+document governs and board.py is to be corrected. No figure is ever typed
+into this document.
+
+Management Commentary
+ARR growth held above plan for the quarter, carried by expansion rather than
+new logos; net new ARR is concentrated in the installed base.
+AI cost as a percentage of revenue continued to fall, which is the margin
+story the board asked to see tracked each month.
+Runway is reported on trailing three-month burn. A single strong collections
+month would flatter the figure if it were computed on the latest month alone.
+
+Dashboard Disclosure
+All figures are synthetic and generated for coursework. This dashboard does
+not contain real company data. Prepared by Lumimama.

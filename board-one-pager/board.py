@@ -18,89 +18,43 @@ payback are the notorious ones), and a scorecard that doesn't say which
 one it uses will quietly disagree with someone else's deck within two
 quarters. The definition column is the deliverable as much as the values.
 
-Everything computes from one seeded monthly operating series -- the same
-figure is never entered twice -- and --validate recomputes the identities
-(ARR walk, EBITDA build, Rule of 40, LTV:CAC) from raw components.
+Everything computes from one monthly operating series -- the same figure is
+never entered twice -- and --validate recomputes the identities (ARR walk,
+EBITDA build, COGS build, cash roll-forward) from raw components.
 
-Run:  python3 board.py
-      python3 board.py --validate
-      python3 board.py --html examples/board_dashboard.html
+The series comes from one of two places:
 
-No dependencies. Python 3.10+. All data synthetic, seeded.
+    --input data/monthly_metrics.csv    the live source: a Google Sheet the
+                                        preparer updates once a month and the
+                                        workflow exports as CSV
+    --demo                              the seeded generator in demo_data.py,
+                                        so a reviewer can run this with no
+                                        credentials and no network
+
+Validation gates publication. If any check fails the program exits non-zero
+and does NOT write the HTML, so a broken refresh leaves the last good
+dashboard in place rather than replacing it with a confident wrong number.
+
+Run:  python3 board.py --demo --validate
+      python3 board.py --input data/monthly_metrics.csv --context data/board_context.txt \
+              --validate --html examples/board_dashboard.html
+
+No dependencies. Python 3.10+. All data synthetic.
 """
 
 from __future__ import annotations
 
 import argparse
-import random
+import json
+import subprocess
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
-random.seed(20260815)
+import input_loader
+from input_loader import InputError
 
-MONTHS = [f"{y}-{m:02d}" for y in (2025, 2026) for m in range(1, 13)][:18]
 GM_TARGET = 0.77
-
-
-def make_series():
-    rows = []
-    arr = 21_500_000
-    customers = 205
-    cash = 34_000_000
-    pipe_mult = 3.4
-    for mi, month in enumerate(MONTHS):
-        beg_arr, beg_cust = arr, customers
-        new_arr = beg_arr * random.uniform(0.022, 0.034)
-        expansion = beg_arr * random.uniform(0.012, 0.020)
-        contraction = beg_arr * random.uniform(0.002, 0.005)
-        churn_arr = beg_arr * random.uniform(0.005, 0.009)
-        arr = beg_arr + new_arr + expansion - contraction - churn_arr
-
-        new_cust = max(1, round(new_arr / random.uniform(75_000, 110_000)))
-        churn_cust = max(0, round(beg_cust * random.uniform(0.004, 0.008)))
-        customers = beg_cust + new_cust - churn_cust
-
-        revenue = (beg_arr + arr) / 2 / 12
-        # COGS built bottom-up; AI inference is its own line and stays IN COGS.
-        # AI cost as % of revenue declines across the window -- the margin story.
-        prog = mi / (len(MONTHS) - 1)
-        ai_pct = 0.110 - 0.025 * prog                  # 11.0% -> 8.5% of revenue
-        ai_cost = revenue * ai_pct * random.uniform(0.98, 1.02)
-        # cost per 1k tokens declines too; tokens are derived so the unit
-        # metrics stay internally consistent with the AI-cost line.
-        cost_per_1k = 0.016 - 0.005 * prog             # $0.016 -> $0.011 / 1k tok
-        tokens = ai_cost / cost_per_1k * 1000
-        infra_other = revenue * 0.075
-        support = revenue * 0.055
-        cogs = ai_cost + infra_other + support         # GM ~ 76-78%
-        inference_calls = tokens / 3_400
-
-        sm = revenue * random.uniform(0.44, 0.50)
-        rd = revenue * random.uniform(0.30, 0.34)
-        ga = revenue * random.uniform(0.12, 0.15)
-        ebitda = revenue - cogs - sm - rd - ga
-        capex = revenue * 0.03
-        fcf = ebitda - capex
-        cash += fcf
-
-        bookings = (new_arr + expansion) * random.uniform(1.0, 1.25)
-        billings = revenue + (new_arr * 0.62) / 12 * 6   # crude deferred build
-        pipe_mult *= random.uniform(0.985, 1.01)
-        pipeline = (new_arr * 12 / 12 * 3) * pipe_mult   # next-Q new-ARR pipe
-
-        rows.append({
-            "month": month, "beg_arr": beg_arr, "new_arr": new_arr,
-            "expansion": expansion, "contraction": contraction,
-            "churn_arr": churn_arr, "arr": arr,
-            "beg_cust": beg_cust, "new_cust": new_cust,
-            "churn_cust": churn_cust, "customers": customers,
-            "revenue": revenue, "cogs": cogs, "ai_cost": ai_cost,
-            "tokens": tokens, "inference_calls": inference_calls,
-            "sm": sm, "rd": rd, "ga": ga, "ebitda": ebitda,
-            "capex": capex, "fcf": fcf, "cash": cash,
-            "bookings": bookings, "billings": billings, "pipeline": pipeline,
-            "headcount": round(118 + mi * 2.6),
-        })
-    return rows
 
 
 # ---------------------------------------------------------------------------
@@ -203,52 +157,100 @@ def print_report(S, rows) -> None:
     print()
 
 
-def validate(rows) -> None:
+def validate(rows, ctx=None) -> bool:
+    """Recompute every identity from raw components. Returns True on PASS.
+
+    TOL is a dollar tolerance, not a percentage: these are accounting
+    identities and they either foot or they do not. It is $0.01 rather than
+    $0 only because the inputs arrive as CSV text rounded to cents.
+    """
+    # $0.05, not $0: the Sheet holds dollars-and-cents and its CSV export
+    # rounds, so a six-term identity can legitimately miss by a few cents.
+    # Any real error -- a mistyped figure, an overtyped formula, a column in
+    # thousands -- is off by dollars or more and still fails loudly.
+    TOL = 0.05
     print("VALIDATION -- identities recomputed from raw components")
     print("-" * 90)
     ok = True
+    fails: list[str] = []
+
+    def check(passed: bool, label: str, detail: str = "") -> None:
+        nonlocal ok
+        ok &= passed
+        if not passed:
+            fails.append(label)
+        print(f"  [{'ok ' if passed else 'MISS'}] {label}{detail}")
+
     worst = max(abs(r["beg_arr"] + r["new_arr"] + r["expansion"]
                     - r["contraction"] - r["churn_arr"] - r["arr"]) for r in rows)
-    chain = all(abs(rows[i]["arr"] - rows[i+1]["beg_arr"]) < 0.01
+    chain = all(abs(rows[i]["arr"] - rows[i+1]["beg_arr"]) < TOL
                 for i in range(len(rows)-1))
-    ok &= worst < 0.01 and chain
-    print(f"  [{'ok ' if worst < 0.01 and chain else 'MISS'}] ARR walk ties and chains "
-          f"(max diff ${worst:.4f})")
+    bad_chain = [rows[i+1]["month"] for i in range(len(rows)-1)
+                 if abs(rows[i]["arr"] - rows[i+1]["beg_arr"]) >= TOL]
+    check(worst < TOL and chain, "ARR walk ties and chains",
+          f" (max diff ${worst:.4f}"
+          + (f"; beginning ARR breaks at {', '.join(bad_chain)}" if bad_chain else "")
+          + ")")
 
     worst2 = max(abs(r["revenue"] - r["cogs"] - r["sm"] - r["rd"] - r["ga"]
                      - r["ebitda"]) for r in rows)
-    ok &= worst2 < 0.01
-    print(f"  [{'ok ' if worst2 < 0.01 else 'MISS'}] EBITDA = revenue − COGS − opex, "
-          f"every month (max diff ${worst2:.4f})")
+    check(worst2 < TOL, "EBITDA = revenue − COGS − opex, every month",
+          f" (max diff ${worst2:.4f})")
 
-    worst3 = max(abs(r["cogs"] - r["ai_cost"] - r["revenue"]*0.075
-                     - r["revenue"]*0.055) for r in rows)
-    ok &= worst3 < 1.0
-    print(f"  [{'ok ' if worst3 < 1.0 else 'MISS'}] COGS = AI cost + infra + support "
-          f"(max diff ${worst3:.4f})")
+    # COGS is checked against its own reported components, not against assumed
+    # percentages of revenue -- the earlier version hardcoded 7.5%/5.5% and so
+    # could only ever validate the demo generator, never a real input file.
+    worst3 = max(abs(r["cogs"] - r["ai_cost"] - r["infra_cost"] - r["support_cost"])
+                 for r in rows)
+    check(worst3 < TOL, "COGS = AI cost + infra + support",
+          f" (max diff ${worst3:.4f})")
 
-    cash = 34_000_000
-    worst4 = 0.0
-    for r in rows:
-        cash += r["fcf"]
-        worst4 = max(worst4, abs(cash - r["cash"]))
-    ok &= worst4 < 0.01
-    print(f"  [{'ok ' if worst4 < 0.01 else 'MISS'}] cash rolls forward on FCF "
-          f"(max diff ${worst4:.4f})")
+    # Checked month-over-month against the REPORTED prior cash rather than by
+    # accumulating a running balance from month one. Accumulating compounds the
+    # cent-rounding of every prior row into the last one, which made an
+    # 18-month sheet fail on rounding alone while hiding which month broke.
+    worst4, bad_cash = 0.0, []
+    for prev, r in zip(rows, rows[1:]):
+        diff = abs(prev["cash"] + r["fcf"] - r["cash"])
+        if diff >= TOL:
+            bad_cash.append(r["month"])
+        worst4 = max(worst4, diff)
+    check(worst4 < TOL, "cash rolls forward on FCF",
+          f" (max diff ${worst4:.4f}"
+          + (f"; breaks at {', '.join(bad_cash[:3])}" if bad_cash else "") + ")")
+
+    fcf_worst = max(abs(r["ebitda"] - r["capex"] - r["fcf"]) for r in rows)
+    check(fcf_worst < TOL, "FCF = EBITDA − capex", f" (max diff ${fcf_worst:.4f})")
+
+    cust_worst = max(abs(r["beg_cust"] + r["new_cust"] - r["churn_cust"] - r["customers"])
+                     for r in rows)
+    check(cust_worst < TOL, "customer count walks", f" (max diff {cust_worst:.2f})")
 
     S, _ = compute(rows)
     n_missing = sum(1 for sec in S.values() for (_, _, d, _) in sec if len(d) < 20)
-    ok &= n_missing == 0
     total = sum(len(sec) for sec in S.values())
-    print(f"  [{'ok ' if n_missing == 0 else 'MISS'}] all {total} metrics carry a "
-          f"substantive definition ({n_missing} missing)")
+    check(n_missing == 0,
+          f"all {total} metrics carry a substantive definition",
+          f" ({n_missing} missing)")
+
+    if ctx is not None and ctx.get("_present"):
+        missing_h = [h for h in input_loader.DOC_HEADINGS if not ctx.get(h)]
+        check(not missing_h, "board context doc has all five sections",
+              f" ({', '.join(missing_h)} missing)" if missing_h else "")
+
     print("-" * 90)
     print(f"  {'PASS' if ok else 'FAIL'}")
+    if not ok:
+        print(f"  failed: {'; '.join(fails)}")
+    return ok
 
 
 # ---------------------------------------------------------------------------
-def write_html(S, rows, path: Path) -> None:
+def write_html(S, rows, path: Path, meta: dict | None = None,
+               ctx: dict | None = None) -> None:
     last = rows[-1]
+    meta = meta or {}
+    ctx = ctx or {}
     # small ARR sparkline
     W, H, PL, PT, PB = 880, 200, 84, 18, 34
     pw, ph = W - PL - 24, H - PT - PB
@@ -264,6 +266,44 @@ def write_html(S, rows, path: Path) -> None:
     ticks = "".join(
         f'<text x="{x(i):.1f}" y="{H-12}" text-anchor="middle" class="tick">{rows[i]["month"][2:]}</text>'
         for i in range(0, len(rows), 3))
+
+    # Status strip -- every field comes from the run that produced this file.
+    # Nothing here is hardcoded: if the refresh failed, this HTML is not
+    # rewritten at all, so a stale page keeps its own older timestamp rather
+    # than claiming to be current.
+    def esc(s: str) -> str:
+        return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;"))
+
+    chips = [
+        ("Reporting period", meta.get("reporting_period", last["month"])),
+        ("Source", meta.get("source_label", "seeded demo data")),
+        ("Rows", f"{len(rows)} months"),
+        ("Validation", meta.get("validation", "not run")),
+        ("Last refresh (UTC)", meta.get("refreshed_utc", "--")),
+    ]
+    if meta.get("source_hash"):
+        chips.append(("Source hash", meta["source_hash"]))
+    strip = "".join(
+        f'<div class="chip"><span class="k">{esc(k)}</span>'
+        f'<span class="v {"good" if k == "Validation" and v == "PASS" else ""}">'
+        f'{esc(v)}</span></div>' for k, v in chips)
+    status_html = f'<div class="strip">{strip}</div>'
+
+    commentary = (ctx.get("Management Commentary") or "").strip()
+    commentary_html = ""
+    if commentary:
+        paras = "".join(f"<p>{esc(p.strip())}</p>"
+                        for p in commentary.split("\n") if p.strip())
+        commentary_html = f"""
+  <div class="commentary">
+    <div class="clabel">Management commentary — supplied by the preparer, not a
+      calculated figure</div>
+    {paras}
+  </div>"""
+
+    disclosure = (ctx.get("Dashboard Disclosure") or
+                  "All data synthetic. Prepared for coursework.").strip()
 
     sections_html = ""
     for section, metrics in S.items():
@@ -315,12 +355,28 @@ def write_html(S, rows, path: Path) -> None:
   .mdef {{ color:var(--mut); font-size:12.5px; }}
   .bench {{ color:var(--pos); font-weight:600; }}
   .note {{ font-size:12.5px; color:var(--mut); margin:8px 2px 0; }}
+  .strip {{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }}
+  .chip {{ background:var(--card); border:1px solid var(--bd); border-radius:8px;
+           padding:6px 10px; font-size:12px; line-height:1.35; }}
+  .chip .k {{ display:block; color:var(--mut); font-size:10.5px;
+              text-transform:uppercase; letter-spacing:.05em; }}
+  .chip .v {{ font-weight:600; font-variant-numeric:tabular-nums; }}
+  .chip .v.good {{ color:var(--pos); }}
+  .commentary {{ background:var(--card); border:1px solid var(--bd);
+                 border-left:3px solid var(--line); border-radius:8px;
+                 padding:12px 14px; margin-top:20px; font-size:13px; }}
+  .commentary p {{ margin:6px 0 0; }}
+  .clabel {{ color:var(--mut); font-size:10.5px; text-transform:uppercase;
+             letter-spacing:.05em; font-weight:600; }}
   footer {{ color:var(--mut); font-size:12px; margin-top:26px; }}
 </style>
 <div class="wrap">
   <h1>Board One-Pager</h1>
   <div class="sub">{last['month']} · thirty metrics in five sections, every one
     with its definition on the page · synthetic data</div>
+
+  {status_html}
+  {commentary_html}
 
   <div class="chart"><svg viewBox="0 0 {W} {H}" role="img" aria-label="ARR trend">
     {grid}<polyline points="{arr_line}" fill="none" stroke="var(--line)"
@@ -334,27 +390,97 @@ def write_html(S, rows, path: Path) -> None:
     itself — the empirical version lives in the revenue-cohorts project.</div>
 
   <footer>Generated by board.py · every identity recomputed from raw
-    components (run --validate) · all data synthetic</footer>
+    components (run --validate) · {esc(disclosure)}</footer>
 </div>
 """
     path.write_text(html)
     print(f"Wrote {path}")
 
 
-def main() -> None:
+# ---------------------------------------------------------------------------
+def _git_sha() -> str:
+    try:
+        out = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                             cwd=Path(__file__).parent, capture_output=True,
+                             text=True, timeout=5)
+        return out.stdout.strip() if out.returncode == 0 else ""
+    except Exception:
+        return ""
+
+
+def main() -> int:
     ap = argparse.ArgumentParser(description="Board one-pager with definitions")
+    src = ap.add_mutually_exclusive_group()
+    src.add_argument("--input", type=Path, default=None,
+                     help="normalized monthly CSV exported from the Google Sheet")
+    src.add_argument("--demo", action="store_true",
+                     help="seeded demo series; no network, no credentials")
+    ap.add_argument("--context", type=Path, default=None,
+                    help="text export of the board context Google Doc")
     ap.add_argument("--html", type=Path, default=None)
+    ap.add_argument("--manifest", type=Path, default=None,
+                    help="write a JSON provenance manifest on a passing run")
+    ap.add_argument("--export-csv", type=Path, default=None,
+                    help="write the loaded series back out (seeds the Sheet)")
     ap.add_argument("--validate", action="store_true")
     args = ap.parse_args()
-    rows = make_series()
+
+    if not args.input and not args.demo:
+        ap.error("choose a source: --input <csv> (live) or --demo (seeded)")
+
+    # ---- load -------------------------------------------------------------
+    try:
+        if args.demo:
+            import demo_data
+            rows = demo_data.make_series()
+            source_label, source_hash = "seeded demo data (demo_data.py)", ""
+        else:
+            rows = input_loader.load_csv(args.input)
+            source_label = f"Google Sheet export ({args.input.name})"
+            source_hash = input_loader.sha256_of(args.input)
+        ctx = input_loader.load_context(args.context)
+    except InputError as e:
+        print(f"INPUT ERROR: {e}", file=sys.stderr)
+        print("Refusing to publish. The previous dashboard is unchanged.",
+              file=sys.stderr)
+        return 2
+
+    if args.export_csv:
+        input_loader.write_csv(rows, args.export_csv)
+        print(f"Wrote {args.export_csv}")
+
     S, rows = compute(rows)
     print_report(S, rows)
+
+    # ---- validate ---------------------------------------------------------
+    passed = True
     if args.validate:
-        validate(rows)
+        passed = validate(rows, ctx)
+        if not passed:
+            print("\nValidation FAILED -- refusing to write the dashboard. "
+                  "The previous version is left in place.", file=sys.stderr)
+            return 1
+
+    # ---- publish ----------------------------------------------------------
+    meta = {
+        "reporting_period": (ctx.get("Reporting Period") or rows[-1]["month"]).strip()
+                            or rows[-1]["month"],
+        "source_label": source_label,
+        "source_hash": source_hash,
+        "validation": "PASS" if args.validate else "not run",
+        "refreshed_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M"),
+        "rows": len(rows),
+        "script_sha": _git_sha(),
+    }
     if args.html:
         args.html.parent.mkdir(parents=True, exist_ok=True)
-        write_html(S, rows, args.html)
+        write_html(S, rows, args.html, meta, ctx)
+    if args.manifest:
+        args.manifest.parent.mkdir(parents=True, exist_ok=True)
+        args.manifest.write_text(json.dumps(meta, indent=2) + "\n")
+        print(f"Wrote {args.manifest}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

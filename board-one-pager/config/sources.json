@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "Non-secret identifiers for the two controlled Google sources.",
+    "Both files are shared read-only via link, so there is no credential here",
+    "and none is needed in GitHub Actions -- the workflow curls the public",
+    "export endpoints. Nothing in this repo is a secret; if these IDs leak,",
+    "the worst outcome is that someone reads 18 rows of synthetic data.",
+    "If this were ever pointed at real company data, the export URLs would be",
+    "replaced by a service account with read-only scope and the JSON key",
+    "stored in the GOOGLE_SERVICE_ACCOUNT_JSON repository secret."
+  ],
+  "sheet": {
+    "title": "BANA5010 Board One-Pager - Monthly Inputs",
+    "id": "12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s",
+    "gid": "0",
+    "tab": "Monthly_Metrics",
+    "export_url": "https://docs.google.com/spreadsheets/d/12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s/export?format=csv&gid=0",
+    "local_path": "board-one-pager/data/monthly_metrics.csv"
+  },
+  "doc": {
+    "title": "BANA5010 Board One-Pager - Definitions and Board Context",
+    "id": "1IXW0FjvCJq-EfzfYQX97GKYn7s0YXilJxElXb247kDY",
+    "export_url": "https://docs.google.com/document/d/1IXW0FjvCJq-EfzfYQX97GKYn7s0YXilJxElXb247kDY/export?format=txt",
+    "local_path": "board-one-pager/data/board_context.txt",
+    "required_headings": [
+      "Reporting Period",
+      "Metric Definitions",
+      "Source Precedence",
+      "Management Commentary",
+      "Dashboard Disclosure"
+    ]
+  },
+  "outputs": {
+    "html": "board-one-pager/examples/board_dashboard.html",
+    "manifest": "board-one-pager/examples/board_manifest.json"
+  },
+  "snapshot_date": "2026-08-18",
+  "data_disclosure": "All source data is synthetic and generated for coursework."
+}
