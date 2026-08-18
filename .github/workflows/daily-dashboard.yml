@@ -7,12 +7,12 @@ name: Daily dashboard refresh
 # lumimama.github.io/finance is regenerated from source rather than being a
 # snapshot someone remembered to update.
 #
-# NOTE ON THE COMMITTED DATA: the sample generators are seeded, so a scheduled
-# run against unchanged inputs produces byte-identical output and commits
-# nothing. That is correct behaviour, not a broken workflow -- it is also a
-# useful canary, because a run that suddenly *does* produce a diff means the
-# pipeline changed. Point `fetch-data` at a live source and the daily commits
-# start appearing.
+# NOTE ON THE COMMITTED DATA: three projects here are still seeded demos, so a
+# scheduled run against unchanged inputs produces byte-identical output and
+# commits nothing. That is correct behaviour, not a broken workflow -- it is
+# also a useful canary, because a run that suddenly *does* produce a diff means
+# the pipeline changed. The Board One-Pager is the exception: it reads a Google
+# Sheet, so its output changes whenever the monthly row does.
 
 on:
   schedule:
@@ -70,16 +70,31 @@ jobs:
       # ------------------------------------------------------------------
       # Board One-Pager: the one project with a LIVE source. The Sheet and Doc
       # are shared read-only by link, so this is two HTTPS GETs -- no service
-      # account, no secret, nothing to leak. A failed fetch or a failed
-      # validation exits non-zero and never writes the HTML, so the last good
-      # dashboard stays published rather than being replaced by a wrong one.
+      # account, no secret, nothing to leak. A failing validation exits non-zero
+      # and never writes the HTML, so the last good dashboard stays published
+      # rather than being replaced by a wrong one.
       # ------------------------------------------------------------------
+      # An unreachable source and wrong data are different failures and are
+      # treated differently. If Google cannot be read there is simply no new
+      # input: warn, skip the rebuild, and leave the published page alone. If
+      # the data IS readable but does not foot, that is a hard failure below.
+      # Collapsing the two would either paint the repo red for a sharing
+      # setting, or -- worse -- let a stale fetch look like a clean refresh.
       - name: Fetch Board One-Pager sources from Google
+        id: fetch
         if: inputs.input_mode != 'demo'
         working-directory: board-one-pager
+        continue-on-error: true
         run: python fetch_sources.py
 
+      - name: Note an unreachable source
+        if: inputs.input_mode != 'demo' && steps.fetch.outcome == 'failure'
+        run: |
+          echo "::warning::Could not read the Google sources -- no new input this run."
+          echo "The published dashboard is unchanged. Check Share > General access."
+
       - name: Rebuild Board One-Pager
+        if: inputs.input_mode == 'demo' || steps.fetch.outcome == 'success'
         working-directory: board-one-pager
         run: |
           if [ "${{ inputs.input_mode }}" = "demo" ]; then
@@ -101,7 +116,7 @@ jobs:
       # while still validating perfectly. Warn rather than fail -- a stale but
       # correct dashboard is not an emergency, it is a reminder.
       - name: Check the Sheet is current
-        if: inputs.input_mode != 'demo'
+        if: inputs.input_mode != 'demo' && steps.fetch.outcome == 'success'
         working-directory: board-one-pager
         run: |
           LATEST=$(python -c "import json;print(json.load(open('examples/board_manifest.json'))['reporting_period'])")
