@@ -48,6 +48,14 @@ def _get(url: str) -> bytes:
         if e.code in (401, 403):
             hint = ("  The file is not shared by link. In Google Drive open "
                     "Share > General access > 'Anyone with the link' (Viewer).")
+        elif e.code == 400:
+            # The usual cause, and it looks nothing like a permissions problem:
+            # a Sheet created by importing a CSV does NOT number its first tab
+            # gid=0, so the obvious guess returns 400 on a correctly shared file.
+            hint = ("  Usually a wrong gid. A Sheet created by importing a CSV\n"
+                    "  does not use gid=0 for its first tab. Open the tab in the\n"
+                    "  browser and copy the gid= value out of the URL, then update\n"
+                    "  config/sources.json.")
         raise FetchError(f"HTTP {e.code} fetching {url}\n{hint}") from None
     except Exception as e:
         raise FetchError(f"could not reach {url}: {e}") from None

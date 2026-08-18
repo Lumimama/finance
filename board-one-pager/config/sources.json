@@ -12,9 +12,10 @@
   "sheet": {
     "title": "BANA5010 Board One-Pager - Monthly Inputs",
     "id": "12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s",
-    "gid": "0",
+    "gid": "2080816618",
+    "_gid_note": "NOT 0. A Sheet created by importing a CSV gets a non-zero gid for its first tab. Find it in the URL when the tab is selected, or in the sheet's htmlview.",
     "tab": "Monthly_Metrics",
-    "export_url": "https://docs.google.com/spreadsheets/d/12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s/export?format=csv&gid=0",
+    "export_url": "https://docs.google.com/spreadsheets/d/12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s/export?format=csv&gid=2080816618",
     "local_path": "board-one-pager/data/monthly_metrics.csv"
   },
   "doc": {
