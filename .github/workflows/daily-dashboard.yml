@@ -31,6 +31,7 @@ on:
 
 permissions:
   contents: write           # required to commit regenerated dashboards
+  issues: write             # required by the failure step to open an issue
 
 concurrency:
   group: daily-dashboard
@@ -54,14 +55,14 @@ jobs:
           pip install -r variance-narrator/requirements.txt
 
       # ------------------------------------------------------------------
-      # Swap this step for a real source when you have one: a Stripe export,
-      # a Google Sheet, a warehouse query. Everything downstream is unchanged
-      # -- the pipeline only cares that the CSVs in each data/ folder are
-      # current. Put any credentials in repository Secrets, never in this file.
+      # These three projects are still seeded demonstrations: their generators
+      # are deterministic, so an unchanged pipeline commits nothing. The Board
+      # One-Pager is the one with a live source -- see the steps below it.
+      # To make another project live, point it at a real export the same way.
       # ------------------------------------------------------------------
-      - name: Fetch data
+      - name: Regenerate seeded sample data (demo projects only)
         run: |
-          echo "No live source configured -- regenerating seeded sample data."
+          echo "cash-forecast-13w, board-metrics, variance-narrator: seeded demos."
           cd cash-forecast-13w && python make_sample_data.py && cd ..
           cd board-metrics     && python make_sample_data.py && cd ..
           cd variance-narrator && python make_sample_data.py && cd ..
