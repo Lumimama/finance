@@ -10,18 +10,18 @@
     "stored in the GOOGLE_SERVICE_ACCOUNT_JSON repository secret."
   ],
   "sheet": {
-    "title": "BANA5010 Board One-Pager - Monthly Inputs",
-    "id": "12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s",
-    "gid": "2080816618",
-    "_gid_note": "NOT 0. A Sheet created by importing a CSV gets a non-zero gid for its first tab. Find it in the URL when the tab is selected, or in the sheet's htmlview.",
+    "title": "BANA5010 Board One-Pager - Monthly Inputs (v2, through 2026-07)",
+    "id": "1OQdbf-VgnAINcdNEjWcYD-nefsBzgXBuJ01xX8B3gW8",
+    "gid": null,
     "tab": "Monthly_Metrics",
-    "export_url": "https://docs.google.com/spreadsheets/d/12yqUBi0st2O2qh4VsOGr_S_kLqGDwsTFxCQnatFwR0s/export?format=csv&gid=2080816618",
-    "local_path": "board-one-pager/data/monthly_metrics.csv"
+    "export_url": "https://docs.google.com/spreadsheets/d/1OQdbf-VgnAINcdNEjWcYD-nefsBzgXBuJ01xX8B3gW8/export?format=csv",
+    "local_path": "board-one-pager/data/monthly_metrics.csv",
+    "_gid_note": "gid omitted deliberately: with a single-tab sheet the export endpoint returns the first tab, which avoids the gid=0 trap (a CSV-imported sheet does not number its first tab 0)."
   },
   "doc": {
-    "title": "BANA5010 Board One-Pager - Definitions and Board Context",
-    "id": "1IXW0FjvCJq-EfzfYQX97GKYn7s0YXilJxElXb247kDY",
-    "export_url": "https://docs.google.com/document/d/1IXW0FjvCJq-EfzfYQX97GKYn7s0YXilJxElXb247kDY/export?format=txt",
+    "title": "BANA5010 Board One-Pager - Definitions and Board Context (v2, 2026-07)",
+    "id": "1umdqdjjEgNXSs3M7H6r5X3EY57Qj91VmU5KPoqR3GMY",
+    "export_url": "https://docs.google.com/document/d/1umdqdjjEgNXSs3M7H6r5X3EY57Qj91VmU5KPoqR3GMY/export?format=txt",
     "local_path": "board-one-pager/data/board_context.txt",
     "required_headings": [
       "Reporting Period",
@@ -36,5 +36,6 @@
     "manifest": "board-one-pager/examples/board_manifest.json"
   },
   "snapshot_date": "2026-08-18",
-  "data_disclosure": "All source data is synthetic and generated for coursework."
+  "data_disclosure": "All source data is synthetic and generated for coursework.",
+  "_sharing_note": "Both v2 files need Share > General access > 'Anyone with the link' (Viewer) before fetch_sources.py can read them. Until then the build runs from the committed snapshots in data/, which are current."
 }

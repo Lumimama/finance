@@ -10,7 +10,7 @@ The five headings below are fixed. The parser in input_loader.py looks for them 
 Reporting Period
 
 
-2026-06
+2026-07
 
 
 Metric Definitions
@@ -46,11 +46,13 @@ Where this document and the Google Sheet disagree on a number, the Sheet governs
 Management Commentary
 
 
-ARR growth held above plan for the quarter, carried by expansion rather than new logos; net new ARR is concentrated in the installed base.
+ARR growth in July came from new logos rather than the installed base - the reverse of the June pattern. New ARR of 1,012,000 exceeded expansion of 668,000; nine logos closed and three customers left. Ending ARR is 39.8 million dollars.
 
+Gross retention softened. Churn of 232,000 and contraction of 145,000 together exceeded expansion, so the installed base contributed negatively before new logos are counted. The retention line is the weaker half of an otherwise strong month.
 
-AI cost as a percentage of revenue continued to fall, which is the margin story the board asked to see tracked each month.
+A 180,000 inference overage true-up from one customer was billed in July and is excluded from ARR. It is real revenue and appears in the revenue line, but it carries no forward commitment and would misstate both ARR and NRR if treated as expansion. Sales Operations classified it as an upsell in the CRM; the classification has been corrected for board reporting under FIN-POL-021 section 2.1. Their commission and retention reporting still treats the amount as expansion. That difference is known, documented and expected to persist until their next reporting cycle - it is a definitional difference, not an error in either system.
 
+AI cost as a percentage of revenue continued to fall, which is the margin story the board asked to see tracked each month. Cost per thousand tokens benefited from a committed-use rebate received this month.
 
 Runway is reported on trailing three-month burn. A single strong collections month would flatter the figure if it were computed on the latest month alone.
 
