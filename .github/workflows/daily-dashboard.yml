@@ -87,11 +87,31 @@ jobs:
         continue-on-error: true
         run: python fetch_sources.py
 
-      - name: Note an unreachable source
+      # A warning in a log nobody opens is not a notification. The job stays
+      # green because nothing is wrong with what is published -- but an
+      # unreachable source still has to reach a human, so it opens an issue.
+      # Re-using one title keeps a broken week to a single thread instead of
+      # five duplicates.
+      - name: Report an unreachable source
         if: inputs.input_mode != 'demo' && steps.fetch.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           echo "::warning::Could not read the Google sources -- no new input this run."
-          echo "The published dashboard is unchanged. Check Share > General access."
+          TITLE="Board One-Pager: Google sources unreachable"
+          EXISTING=$(gh issue list --state open --search "$TITLE in:title" \
+                       --json number --jq '.[0].number' 2>/dev/null || true)
+          BODY="The scheduled run could not read the Google Sheet or Doc, so there was no new input. **The published dashboard is unchanged and still valid** - it simply was not refreshed.
+
+          Most likely cause: Share > General access is no longer 'Anyone with the link' on one of the two files.
+
+          Run: $RUN_URL"
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY" || true
+          else
+            gh issue create --title "$TITLE" --body "$BODY" || true
+          fi
 
       - name: Rebuild Board One-Pager
         if: inputs.input_mode == 'demo' || steps.fetch.outcome == 'success'
