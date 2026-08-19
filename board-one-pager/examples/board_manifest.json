@@ -1,9 +1,9 @@
 {
   "reporting_period": "2026-07",
   "source_label": "Google Sheet export (monthly_metrics.csv)",
-  "source_hash": "f07d96971381",
+  "source_hash": "fb8bff7fc829",
   "validation": "PASS",
-  "refreshed_utc": "2026-08-18 18:12",
+  "refreshed_utc": "2026-08-19 02:32",
   "rows": 19,
-  "script_sha": "2bfb478"
+  "script_sha": "eb771c6"
 }

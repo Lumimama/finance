@@ -4,7 +4,7 @@
 This document is the controlled narrative source for the Board One-Pager dashboard. The Google Sheet holds every number; this document holds the reporting-period sign-off, the approved definitions, the precedence rule, and the management commentary. It never holds the input data.
 
 
-The five headings below are fixed. The parser in input_loader.py looks for them by exact text, and a run fails if any section is missing or empty. Add text under a heading; do not rename or reorder the headings.
+The five headings below are fixed. The parser looks for them by exact text, and a run fails if any section is missing or empty. Add text under a heading; do not rename or reorder the headings.
 
 
 Reporting Period
@@ -17,6 +17,9 @@ Metric Definitions
 
 
 The definitions rendered beside each metric on the dashboard are the approved definitions and are maintained in board.py, which is version-controlled. Where a metric has more than one defensible definition, this company uses:
+
+
+ARR - contracted recurring revenue only. Usage-based inference billed above the committed volume is revenue in the period earned and is never an ARR movement, because it carries no forward commitment. See Source Precedence for how the two are told apart.
 
 
 NRR and GRR - chain-linked monthly on the installed base only; new logos are excluded from both numerator and denominator. GRR is capped at 100%.
@@ -37,22 +40,32 @@ Gross margin - AI inference is fully loaded in COGS and is never adjusted out. T
 LTV:CAC - formulaic (ARPA x GM / churn) and labeled as such on the page. The empirical cohort version is the one to cite externally.
 
 
+Headcount - employees only. Contractors, agency workers and interns are excluded, so ARR per FTE is measured against payroll rather than against total workers.
+
+
 Source Precedence
 
 
 Where this document and the Google Sheet disagree on a number, the Sheet governs and the discrepancy is a data-entry defect to be corrected in the Sheet. Where this document and the dashboard disagree on a definition, this document governs and board.py is to be corrected. No figure is ever typed into this document.
 
 
+Within the close package, the governing document is the Board Metrics Close Policy (FIN-POL-021). Where the CRM's movement_type conflicts with the billing system's revenue_basis, revenue_basis governs: it states what an amount is, while movement_type states how it arrived.
+
+
 Management Commentary
 
 
-ARR growth in July came from new logos rather than the installed base - the reverse of the June pattern. New ARR of 1,012,000 exceeded expansion of 668,000; nine logos closed and three customers left. Ending ARR is 39.8 million dollars.
+July added 1.01 million dollars of new ARR against 668 thousand of expansion, so growth this month came from new logos rather than the installed base - the reverse of the June pattern. Nine new logos closed and three customers left. Ending ARR is 39.8 million dollars.
 
-Gross retention softened. Churn of 232,000 and contraction of 145,000 together exceeded expansion, so the installed base contributed negatively before new logos are counted. The retention line is the weaker half of an otherwise strong month.
 
-A 180,000 inference overage true-up from one customer was billed in July and is excluded from ARR. It is real revenue and appears in the revenue line, but it carries no forward commitment and would misstate both ARR and NRR if treated as expansion. Sales Operations classified it as an upsell in the CRM; the classification has been corrected for board reporting under FIN-POL-021 section 2.1. Their commission and retention reporting still treats the amount as expansion. That difference is known, documented and expected to persist until their next reporting cycle - it is a definitional difference, not an error in either system.
+Gross retention softened. Churn of 232 thousand and contraction of 145 thousand together exceeded expansion, so the installed base contributed negatively before new logos are counted. The board should read the retention line as the weaker half of an otherwise strong month.
+
+
+A 180 thousand dollar inference overage true-up from one customer was billed in July and is excluded from ARR. It is real revenue and appears in the revenue line; it is not a subscription commitment and would misstate both ARR and NRR if treated as expansion. Sales Operations classified it as an upsell in the CRM and the classification has been corrected for board reporting under FIN-POL-021 section 2.1. Commission and retention reporting owned by Sales Operations still treats the amount as expansion, and that difference is known, documented, and expected to persist until their next reporting cycle - it is a definitional difference, not an error in either system.
+
 
 AI cost as a percentage of revenue continued to fall, which is the margin story the board asked to see tracked each month. Cost per thousand tokens benefited from a committed-use rebate received this month.
+
 
 Runway is reported on trailing three-month burn. A single strong collections month would flatter the figure if it were computed on the latest month alone.
 
