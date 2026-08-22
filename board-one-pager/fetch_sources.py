@@ -70,6 +70,17 @@ def _get(url: str) -> bytes:
 
 
 def fetch(check_only: bool = False) -> int:
+    """Fetch both sources, then install both or neither.
+
+    Atomic by construction: each export is downloaded to a temporary file,
+    BOTH temporaries must exist and be non-trivial before either destination
+    is touched, and the swap into place happens last. An earlier version
+    wrote the Sheet to disk the moment it arrived and only then fetched the
+    Doc -- so a Sheet-success / Doc-failure left the two sources from
+    different moments on disk, and with continue-on-error in the workflow
+    that half-refreshed pair could be validated and committed. The docs
+    claimed that was impossible. It was not, until this.
+    """
     cfg = json.loads(CONFIG.read_text())
     targets = [
         ("Sheet", cfg["sheet"]["export_url"], ROOT / cfg["sheet"]["local_path"]),
@@ -77,23 +88,39 @@ def fetch(check_only: bool = False) -> int:
     ]
     print("FETCHING CONTROLLED SOURCES")
     print("-" * 70)
-    for label, url, dest in targets:
-        try:
+    staged: list[tuple[str, Path, Path]] = []       # (label, tmp, dest)
+    try:
+        # Phase 1: download everything to temporaries. Nothing on disk changes.
+        for label, url, dest in targets:
             body = _get(url)
-        except FetchError as e:
-            print(f"  FAIL  {label}: {e}", file=sys.stderr)
-            print("\nRefusing to continue. Local copies are unchanged and the "
-                  "published dashboard stays as it is.", file=sys.stderr)
-            return 1
-        size = len(body)
+            tmp = dest.with_suffix(dest.suffix + ".fetching")
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            tmp.write_bytes(body)
+            staged.append((label, tmp, dest))
+            print(f"  ok    {label}: {len(body):,} bytes staged")
         if check_only:
-            print(f"  ok    {label}: reachable, {size:,} bytes (not written)")
-            continue
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(body)
-        print(f"  ok    {label}: {size:,} bytes -> {dest.relative_to(ROOT)}")
-    print("-" * 70)
-    return 0
+            print("  (check only -- nothing installed)")
+            return 0
+        # Phase 2: both arrived. Install both. A failure here is a disk error,
+        # not a network one, and is still reported before anything partial
+        # can be committed.
+        for label, tmp, dest in staged:
+            tmp.replace(dest)
+            print(f"  ok    {label}: installed -> {dest.relative_to(ROOT)}")
+        staged = []
+        print("-" * 70)
+        return 0
+    except FetchError as e:
+        print(f"  FAIL  {e}", file=sys.stderr)
+        print("\nRefusing to continue. Neither local copy was changed and the "
+              "published dashboard stays as it is.", file=sys.stderr)
+        return 1
+    finally:
+        # Any temporaries still staged mean we did not reach the install
+        # phase. Remove them so a later run cannot mistake them for input.
+        for _label, tmp, _dest in staged:
+            try: tmp.unlink()
+            except FileNotFoundError: pass
 
 
 def main() -> int:
