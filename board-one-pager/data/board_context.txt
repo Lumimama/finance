@@ -1,4 +1,4 @@
-﻿BANA5010 Board One-Pager - Definitions and Board Context
+﻿Board One-Pager - Definitions and Board Context
 
 
 This document is the controlled narrative source for the Board One-Pager dashboard. The Google Sheet holds every number; this document holds the reporting-period sign-off, the approved definitions, the precedence rule, and the management commentary. It never holds the input data.
@@ -73,4 +73,4 @@ Runway is reported on trailing three-month burn. A single strong collections mon
 Dashboard Disclosure
 
 
-All figures are synthetic and generated for coursework. This dashboard does not contain real company data. Prepared by Lumimama.
+All figures are synthetic demonstration data. This dashboard does not contain real company data. Prepared by Lumimama.
