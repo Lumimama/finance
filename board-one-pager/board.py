@@ -305,7 +305,7 @@ def write_html(S, rows, path: Path, meta: dict | None = None,
   </div>"""
 
     disclosure = (ctx.get("Dashboard Disclosure") or
-                  "All data synthetic. Prepared for coursework.").strip()
+                  "All data synthetic; a demonstration dashboard.").strip()
 
     sections_html = ""
     for section, metrics in S.items():

@@ -34,7 +34,7 @@ no service account, no OAuth, no secret in the repository or in Actions. IDs are
 in [`config/sources.json`](config/sources.json). If this were ever pointed at real
 company data the export URLs would be replaced by a read-only service account with
 its key in a repository secret — worth stating, because "shared by link" is the
-right call for synthetic coursework data and the wrong one for anything else.
+right call for synthetic demonstration data and the wrong one for anything else.
 
 **Validation gates publication.** Any failure — a missing column, a duplicate
 month, `not available` in a numeric field, an identity that stops footing, or an
