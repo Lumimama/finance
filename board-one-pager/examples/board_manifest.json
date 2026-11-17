@@ -3,7 +3,7 @@
   "source_label": "Google Sheet export (monthly_metrics.csv)",
   "source_hash": "fb8bff7fc829",
   "validation": "PASS",
-  "refreshed_utc": "2026-11-16 21:43",
+  "refreshed_utc": "2026-11-17 20:33",
   "rows": 19,
-  "script_sha": "d80640a"
+  "script_sha": "4a44030"
 }
